@@ -1,4 +1,4 @@
-# antimicrobial-recommendation-frontend
+# antimicrobial-recommendation-frontend :)
 
 ## Project setup
 ```
