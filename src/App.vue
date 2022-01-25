@@ -31,8 +31,14 @@ export default {
 .bg-blue-3 {
   background-color: #A8D0E6;
 }
+.bg-blue-4 {
+  background-color: #2F80ED;
+}
 .bg-yellow-1 {
   background-color: #FCE181;
+}
+.bg-gray-3 {
+  background-color: #D1D7E0;
 }
 .text-white-1 {
   color: #EEEEEE;
@@ -42,6 +48,12 @@ export default {
 }
 .text-gray-2 {
   color: #9B9999
+}
+.text-red-1 {
+  color: #EB5757;
+}
+.text-green-1 {
+  color: #27AE60;
 }
 .hover-yellow:hover {
   color: #FCE181;
