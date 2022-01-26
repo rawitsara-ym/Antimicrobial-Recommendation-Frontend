@@ -1,39 +1,43 @@
 <template>
-  <div class="grid grid-cols-2 col-gap">
-    <div class="grid grid-col-2">
-      <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
-      <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
+  <div class="grid">
+    <div class="grid grid-cols-2 col-gap">
+      <div class="grid grid-col-2">
+        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
+        <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
+      </div>
+      <div class="grid grid-col-2">
+        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
+        <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
+      </div>
     </div>
-    <div class="grid grid-col-2">
-      <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
-      <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
-    </div>
-    <div
-      v-for="(item, key, index) in sir_name"
-      :key="index"
-      class="grid grid-col-2 mt-4"
-    >
-      <label for="sir" class="mr-8">{{ key }}</label>
-      <select
-        v-if="item == 'pn'"
-        @change="emitForm"
-        v-model="sir_result[key]"
-        class="w-full border border-solid border-gray-300 rounded text-center"
+    <div class="grid grid-cols-2 grid-flow-col col-gap" :style="{'grid-template-rows': `repeat(${Math.ceil(Object.keys(sir_name).length/2)}, 1fr)`}">
+      <div
+        v-for="(item, key, index) in sir_name"
+        :key="index"
+        class="grid grid-col-2 mt-4"
       >
-        <option v-for="(item, i) in pn" :key="i" :value="item">
-          {{ item }}
-        </option>
-      </select>
-      <select
-        v-else
-        v-model="sir_result[key]"
-        @change="emitForm();"
-        class="w-full border border-solid border-gray-300 rounded text-center"
-      >
-        <option v-for="(item, i) in sir" :key="i" :value="item">
-          {{ item }}
-        </option>
-      </select>
+        <label for="sir" class="mr-8">{{ key }}</label>
+        <select
+          v-if="item == 'pn'"
+          @change="emitForm"
+          v-model="sir_result[key]"
+          class="w-full border border-solid border-gray-300 rounded text-center"
+        >
+          <option v-for="(item, i) in pn" :key="i" :value="item">
+            {{ item }}
+          </option>
+        </select>
+        <select
+          v-else
+          v-model="sir_result[key]"
+          @change="emitForm();"
+          class="w-full border border-solid border-gray-300 rounded text-center"
+        >
+          <option v-for="(item, i) in sir" :key="i" :value="item">
+            {{ item }}
+          </option>
+        </select>
+      </div>
     </div>
   </div>
 </template>
@@ -91,7 +95,6 @@ export default {
 <style scoped>
 .grid-col-2 {
   grid-template-columns: 2.5fr 1fr;
-  grid-auto-flow: row;
 }
 .col-gap {
   column-gap: 60px;

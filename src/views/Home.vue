@@ -8,7 +8,7 @@
       <li class="text-2xl font-semibold text-gray-2">Upload files to retrain models automatically</li>
     </ul>
     <div>
-      <button @click="getStarted()" class="bg-yellow-1 text-gray-1 font-bold py-2 px-6 rounded">GET STARTED</button>
+      <button @click="getStarted" class="bg-yellow-1 text-gray-1 font-bold py-2 px-6 rounded">GET STARTED</button>
     </div>
   </div>
 </template>
