@@ -1,6 +1,6 @@
 <template>
   <div class="bg-style" :style="`background-image: url(${background});`"></div>
-  <div class="flex flex-col justify-center h-full-screen pb-32 px-24">
+  <div class="flex flex-col justify-center h-full-screen pb-32">
     <p class="text-6xl font-semibold text-gray-1">Antimicrobial</p>
     <p class="text-6xl font-semibold text-gray-1">Recommendation in Pet</p>
     <ul class="list-disc ml-6 my-8">
@@ -35,9 +35,6 @@ export default {
 </script>
 
 <style scoped>
-.h-full-screen {
-  height: calc(100vh - 72px);
-}
 .bg-style {
   height: 100vh;
   background-size: contain;

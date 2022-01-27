@@ -1,6 +1,8 @@
 <template>
   <nav-bar/>
-  <router-view/>
+  <div class="px-24">
+    <router-view/>
+  </div>
 </template>
 
 <script>
@@ -22,6 +24,9 @@ export default {
   text-align: center;
   color: #2c3e50;
 } */
+.h-full-screen {
+  height: calc(100vh - 72px);
+}
 .bg-blue-1 {
   background-color: #24305E;
 }

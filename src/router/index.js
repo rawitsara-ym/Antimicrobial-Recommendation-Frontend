@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import RecommendDrug from '../views/RecommendDrug.vue'
+import UploadFile from '../views/UploadFile.vue'
 
 const routes = [
   {
@@ -13,7 +14,11 @@ const routes = [
     name: 'Recommend Drug',
     component: RecommendDrug
   },
-  
+  {
+    path: '/upload-file',
+    name: 'Upload File',
+    component: UploadFile
+  }
 ]
 
 const router = createRouter({
