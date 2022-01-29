@@ -1,17 +1,17 @@
 <template>
-  <div class="flex justify-between py-2 my-4">
-    <p class="test-grey-1 text-sm ">Showing {{ startShowing }} to {{ rowOnPage }} of {{ total }} entries</p>
+  <div class="flex justify-between py-2 my-2">
+    <p class="text-gray-1 text-sm ">Showing {{ startShowing }} to {{ rowOnPage }} of {{ total }} entries</p>
     <ul class="flex pagination bg-white">
       <li>
         <button
           @click="onClickFirstPage"
-          class="mx-1 border border-gray-100 px-3 h-10 text-gray-600 no-underline rounded"
+          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
           :class="{
             'opacity-50': isInFirstPage,
             'hover:bg-gray-100': !isInFirstPage,
           }"
         >
-          &laquo;
+          <font-awesome-icon icon="angle-double-left" class="text-sm"/>
         </button>
       </li>
 
@@ -21,19 +21,19 @@
           @click="onClickPreviousPage"
           :disabled="isInFirstPage"
           aria-label="Go to previous page"
-          class="mx-1 border border-gray-100 px-3 h-10 text-gray-600 no-underline text-sm rounded"
+          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline text-sm rounded"
           :class="{
             'opacity-50': isInFirstPage,
             'hover:bg-gray-100': !isInFirstPage,
           }"
         >
-          Previous
+          <font-awesome-icon icon="angle-left" class="text-sm"/>
         </button>
       </li>
 
       <li v-for="page in pages" :key="page.name">
         <button
-          class="mx-1 text-sm border border-gray-100 px-3 h-10 text-gray-600 no-underline rounded"
+          class="mx-1 text-sm border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
           @click="onClickPage(page.name)"
           :class="{
             'bg-blue-100': isPageActive(page.name),
@@ -50,19 +50,19 @@
           @click="onClickNextPage"
           :disabled="isInLastPage"
           aria-label="Go to next page"
-          class="mx-1 border border-gray-100 px-3 h-10 text-gray-600 no-underline text-sm rounded"
+          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline text-sm rounded"
           :class="{
             'opacity-50': isInLastPage,
             'hover:bg-gray-100': !isInLastPage,
           }"
         >
-          Next
+          <font-awesome-icon icon="angle-right" class="text-sm"/>
         </button>
       </li>
 
       <li>
         <button
-          class="mx-1 border border-gray-100 px-3 h-10 text-gray-600 no-underline rounded"
+          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
           @click="onClickLastPage"
           :disabled="isInLastPage"
           :class="{
@@ -70,7 +70,7 @@
             'hover:bg-gray-100': !isInLastPage,
           }"
         >
-          &raquo;
+          <font-awesome-icon icon="angle-double-right" class="text-sm"/>
         </button>
       </li>
     </ul>

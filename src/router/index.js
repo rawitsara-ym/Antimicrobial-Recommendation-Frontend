@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import RecommendDrug from '../views/RecommendDrug.vue'
-import UploadFile from '../views/UploadFile.vue'
+import UploadFilePage from '../views/UploadFilePage.vue'
+import FilesRetrainingPage from '../views/FilesRetrainingPage.vue'
 
 const routes = [
   {
@@ -17,8 +18,14 @@ const routes = [
   {
     path: '/upload-file',
     name: 'Upload File',
-    component: UploadFile
+    component: UploadFilePage
+  },
+  {
+    path: '/files-retraining',
+    name: 'File & Retraining',
+    component: FilesRetrainingPage
   }
+
 ]
 
 const router = createRouter({

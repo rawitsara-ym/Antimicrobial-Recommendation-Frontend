@@ -8,9 +8,9 @@
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
         <div class="flex justify-between items-center p-5 rounded-t border-b">
-          <h3 class="text-xl font-medium text-gray-900">
-            {{ title }}
-          </h3>
+          <div class="text-xl font-medium text-gray-900">
+            <slot name="modal-header"></slot>
+          </div>
           <button
             class="text-gray-400 bg-transparent hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
             @click="onClose"
@@ -19,8 +19,8 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class="p-6 space-y-6 text-base leading-relaxed">
-          <slot></slot>
+        <div class="p-6 space-y-2 text-base leading-relaxed">
+          <slot name="modal-body"></slot>
         </div>
         <!-- Modal footer -->
         <div
@@ -43,10 +43,6 @@
 export default {
   name: "Modal",
   props: {
-    title: {
-      type: String,
-      required: true,
-    },
     showModal: {
       type: Boolean,
       required: true,

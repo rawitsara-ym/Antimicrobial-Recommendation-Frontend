@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center">
-    <p class="text-2xl font-semibold my-8">Antimicrobial Recommedation</p>
+    <p class="text-2xl font-semibold my-6">Antimicrobial Recommedation</p>
     <feature-form @EmitForm="getFeatureForm" class="mb-8" />
     <antimicrobial-form v-if="body.vitek_id" @EmitForm="getAntimicrobialForm" :vitekId=body.vitek_id />
     <div class="mt-8">

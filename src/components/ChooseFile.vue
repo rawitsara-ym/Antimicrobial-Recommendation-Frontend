@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col items-center w-full">
-    <p class="text-2xl font-semibold my-8">Uplaod File</p>
     <div
       @dragover.prevent
       @drop.prevent
@@ -11,7 +10,7 @@
       <div class="flex items-center mt-4">
         <p class="text-gray-1 text-center">Drag and Drop a File here</p>
         <font-awesome-icon
-          @click="openFileFormatModal"
+          @click="openModal"
           icon="info-circle"
           class="text-gray-2 ml-2 cursor-pointer"
         />
@@ -34,7 +33,7 @@
           type="radio"
           id="gn"
           value="GN"
-          v-model="vitek_id"
+          v-model="vitekId"
           class="mx-2 cursor-pointer"
         />
         <label for="gn">GN</label>
@@ -45,7 +44,7 @@
           type="radio"
           id="gp"
           value="GP"
-          v-model="vitek_id"
+          v-model="vitekId"
           class="mx-2 cursor-pointer"
         />
         <label for="gp">GP</label>
@@ -53,31 +52,45 @@
     </div>
 
     <!-- File Format Modal -->
-    <modal
-      :title="'File Format'"
-      :showModal="show_file_format"
-      @OnClose="closeFileFormatModal"
-    >
-      <p>
-        The uploaded file must be valid according to the specified conditions.
-      </p>
-      <ul class="list-disc ml-8">
-        <li>File format: <span class="text-gray-2">CSV File</span></li>
-        <li>
-          The columns must be named as follows:
-          <span class="text-gray-2"
-            >hn, date_of_submission, report_issued_date, species,
-            bacteria_species, submitted_sample, S/I/R_{antimicrobial},
-            ans_{antimicrobial}</span
-          >
-        </li>
-        <li>date format: <span class="text-gray-2">yyyy-mm-dd</span></li>
-        <li>
-          The Column "ans_{antimicrobial}" must contain:
-          <span class="text-gray-2">True, False</span>
-        </li>
-        <li>The file must not contain duplicate rows.</li>
-      </ul>
+    <modal :showModal="showModal" @OnClose="closeModal">
+      <template v-slot:modal-header>
+        <h3>File Format</h3>
+      </template>
+      <template v-slot:modal-body>
+        <div class="flex items-center">
+          <font-awesome-icon
+            icon="info-circle"
+            size="lg"
+            class="text-gray-2 mr-2"
+          />
+          <p>
+            The uploaded file must be valid according to the specified
+            conditions.
+          </p>
+        </div>
+        <ul class="list-disc ml-14">
+          <li>File format: <span class="text-gray-2">CSV File</span></li>
+          <li>
+            The number of rows in the file:<span class="text-gray-2">
+              Minimum 500 rows.</span
+            >
+          </li>
+          <li>
+            The columns must be named as follows:
+            <span class="text-gray-2"
+              >hn, date_of_submission, report_issued_date, species,
+              bacteria_species, submitted_sample, S/I/R_{antimicrobial},
+              ans_{antimicrobial}</span
+            >
+          </li>
+          <li>Date format: <span class="text-gray-2">yyyy-mm-dd</span></li>
+          <li>
+            The Column "ans_{antimicrobial}" must contain:
+            <span class="text-gray-2">True, False</span>
+          </li>
+          <li>The file must not contain duplicate rows.</li>
+        </ul>
+      </template>
     </modal>
   </div>
 </template>
@@ -92,8 +105,8 @@ export default {
   data() {
     return {
       file: null,
-      vitek_id: null,
-      show_file_format: false,
+      vitekId: null,
+      showModal: false,
     };
   },
   methods: {
@@ -106,13 +119,13 @@ export default {
       this.$emit("AddFile", e.target.files[0]);
     },
     emitVitekId() {
-      this.$emit("VitekId", this.vitek_id);
+      this.$emit("VitekId", this.vitekId);
     },
-    closeFileFormatModal() {
-      this.show_file_format = false;
+    closeModal() {
+      this.showModal = false;
     },
-    openFileFormatModal() {
-      this.show_file_format = true;
+    openModal() {
+      this.showModal = true;
     },
   },
 };
