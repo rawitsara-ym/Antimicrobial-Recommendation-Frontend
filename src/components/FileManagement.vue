@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="flex flex-col w-full">
     <table class="border-l border-r border-b">
       <thead class="bg-gray-3">
         <tr>
@@ -19,10 +19,10 @@
           <td class="px-6 py-2">{{ index + 1 }}</td>
           <td class="px-6 py-2">{{ item.filename }}</td>
           <td class="px-6 py-2">{{ item.timestamp }}</td>
-          <td class="px-6 py-2">{{ item.amount_row }}</td>
-          <td class="px-6 py-2 text-center">
+          <td class="px-6 py-2">{{ item.amountRow }}</td>
+          <td class="px-6 py-2">
             <button @click="deleteFile">
-              <font-awesome-icon icon="trash-alt" class="text-red-500" />
+              <font-awesome-icon icon="trash-alt" class="text-red-400" />
             </button>
           </td>
         </tr>
@@ -49,10 +49,10 @@
 </template>
 
 <script>
-import Pagination from "./Pagination.vue";
+import Pagination from './Pagination.vue';
 
 export default {
-  name: "FileManagement",
+  name: 'FileManagement',
   components: {
     Pagination,
   },
@@ -62,12 +62,12 @@ export default {
         {
           filename: "Report_6_2022.csv",
           timestamp: "30-JUN-2022 08:03:00",
-          amount_row: 567,
+          amountRow: 567,
         },
         {
           filename: "Report_12_2021.csv",
           timestamp: "31-DEC-2021 12:12:00",
-          amount_row: 689,
+          amountRow: 689,
         },
       ],
       totalPages: 4,
@@ -84,3 +84,4 @@ export default {
   },
 };
 </script>
+

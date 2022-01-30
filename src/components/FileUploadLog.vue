@@ -80,7 +80,7 @@
                   'opacity-50 cursor-not-allowed':
                     !success(item) && !fail(item),
                 }"
-                class="bg-yellow-1 text-gray-1 text-sm font-semibold py-2 px-6 m-2 rounded"
+                class="bg-yellow-1 text-gray-1 text-sm font-semibold py-1 px-4 m-2 rounded"
               >
                 Result
               </button>
@@ -88,7 +88,7 @@
           </tr>
           <tr v-if="logs.length == 0">
             <td
-              colspan="7"
+              colspan="9"
               class="text-center text-sm font-medium text-gray-1 p-4"
             >
               No Data
@@ -279,9 +279,9 @@ export default {
     closeModal() {
       this.showModal = false;
     },
-    openModal(result) {
+    openModal(body) {
       this.showModal = true;
-      this.modalBody = result;
+      this.modalBody = body;
     },
   },
 };

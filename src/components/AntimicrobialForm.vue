@@ -1,5 +1,8 @@
 <template>
-  <div class="grid">
+  <div v-if="show_loading" style="border-top-color:transparent"
+    class="w-8 h-8 border-4 border-blue-200 border-solid rounded-full animate-spin m-8">
+  </div>
+  <div v-else class="grid">
     <div class="grid grid-cols-2 col-gap">
       <div class="grid grid-col-2">
         <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
@@ -50,6 +53,7 @@ export default {
   data() {
     return {
       host: 'http://localhost:8000',
+      show_loading: false,
       sir_result: {},
       sir_name: {
         "ESBL": "pn",
@@ -68,14 +72,19 @@ export default {
   },
   methods: {
     getSIR(vitek_id) {
+      this.show_loading = true
       let params = {'vitek_id': vitek_id};
       axios.get(`${this.host}/api/antimicrobial_sir`, { params })
-        .then(function(response) {
+        .then((response) => {
           if (response.data.status == 'success') {
             this.sir_name = response.data.data.antimicrobial;
             this.sir_type = response.data.data.sir_type;
-            this.pn = response.data.data.sir_type.pn,
-            this.sir = response.data.data.sir_type.sir
+            this.pn = response.data.data.sir_type.pn;
+            this.sir = response.data.data.sir_type.sir;
+            this.pn.unshift(null);
+            this.sir.unshift(null);
+            this.emitSirName();
+            this.show_loading = false
           }
         })
     },
@@ -83,6 +92,9 @@ export default {
       this.$emit('EmitForm', this.sir_result);
       // console.log(this.sir_result);
     },
+    emitSirName() {
+      this.$emit('EmitSirName');
+    }
   },
   watch: {
     vitekId(val) {

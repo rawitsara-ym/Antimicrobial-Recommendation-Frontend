@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import RecommendDrug from '../views/RecommendDrug.vue'
 import UploadFilePage from '../views/UploadFilePage.vue'
 import FilesRetrainingPage from '../views/FilesRetrainingPage.vue'
+import RetrainingLogPage from '../views/RetrainingLogPage.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/files-retraining',
     name: 'File & Retraining',
     component: FilesRetrainingPage
+  },
+  {
+    path: '/retraining-log',
+    name: 'Retraining Log',
+    component: RetrainingLogPage
   }
 
 ]

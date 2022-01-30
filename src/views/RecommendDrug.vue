@@ -2,12 +2,12 @@
   <div class="flex flex-col items-center">
     <p class="text-2xl font-semibold my-6">Antimicrobial Recommedation</p>
     <feature-form @EmitForm="getFeatureForm" class="mb-8" />
-    <antimicrobial-form v-if="body.vitek_id" @EmitForm="getAntimicrobialForm" :vitekId=body.vitek_id />
+    <antimicrobial-form v-show="show_sir_name" @EmitForm="getAntimicrobialForm" @EmitSirName="showSirName" :vitekId=body.vitek_id />
     <div class="mt-8">
       <button
         @click="getRecommend()"
-        :disabled="!body.vitek_id"
-        :class="{ 'opacity-50 cursor-not-allowed': !body.vitek_id }"
+        :disabled="!show_sir_name"
+        :class="{ 'opacity-50 cursor-not-allowed': !show_sir_name }"
         class="bg-blue-2 text-white-1 font-semibold py-2 px-6 rounded"
       >
         Recommend
@@ -50,6 +50,7 @@ export default {
             'Enrofloxacin': 78.88, 
             'Amoxicillin/clavulanic acid': 68.80
           },
+      show_sir_name: false
     };
   },
   methods: {
@@ -77,8 +78,11 @@ export default {
       // console.log(form);
     },
     getAntimicrobialForm(form) {
-      this.body.sir = form
+      this.body.sir = form;
       // console.log(form);
+    },
+    showSirName() {
+      this.show_sir_name = true;
     },
     filterObjectByValue(obj, filter) {
       const array = Object.entries(obj);
