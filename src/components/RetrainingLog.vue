@@ -65,7 +65,7 @@
               size="xs"
               class="text-blue-500"
             />
-            {{ item.status }}
+            {{ upperFirst(item.status) }}
           </td>
           <td>
             <button
@@ -233,6 +233,9 @@ export default {
           }
       });
     },
+    upperFirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
   },
 };
 </script>

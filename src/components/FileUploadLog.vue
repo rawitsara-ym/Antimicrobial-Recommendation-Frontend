@@ -17,7 +17,7 @@
               Finish Date
             </th>
             <th class="px-2 py-3 text-left font-medium text-gray-1">Time</th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">Rows</th>
+            <th class="px-2 py-3 text-left font-medium text-gray-1">Total Rows</th>
             <th class="px-2 py-3 text-left font-medium text-gray-1">Status</th>
             <th class="px-2 py-3 text-left font-medium text-gray-1"></th>
           </tr>
@@ -70,7 +70,7 @@
                 size="xs"
                 class="text-blue-500"
               />
-              {{ item.result.status }}
+              {{ upperFirst(item.result.status) }}
             </td>
             <td>
               <button
@@ -283,6 +283,9 @@ export default {
       this.showModal = true;
       this.modalBody = body;
     },
+    upperFirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
   },
 };
 </script>

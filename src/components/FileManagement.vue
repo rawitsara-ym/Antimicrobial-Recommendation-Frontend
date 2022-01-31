@@ -5,11 +5,12 @@
         <tr>
           <th class="px-6 py-3 text-left font-medium text-gray-1">#</th>
           <th class="px-6 py-3 text-left font-medium text-gray-1">Filename</th>
+          <th class="px-6 py-3 text-left font-medium text-gray-1">Vitek ID</th>
           <th class="px-6 py-3 text-left font-medium text-gray-1">
-            Upload Date
+            Uploaded Date
           </th>
           <th class="px-6 py-3 text-left font-medium text-gray-1">
-            Amount of Rows
+            Total Rows
           </th>
           <th class="px-6 py-3 text-left font-medium text-gray-1">Delete</th>
         </tr>
@@ -18,6 +19,7 @@
         <tr v-for="(item, index) in files" :key="index" class="bg-white">
           <td class="px-6 py-2">{{ index + 1 }}</td>
           <td class="px-6 py-2">{{ item.filename }}</td>
+          <td class="px-6 py-2">{{ item.vitek_id }}</td>
           <td class="px-6 py-2">{{ item.timestamp }}</td>
           <td class="px-6 py-2">{{ item.amountRow }}</td>
           <td class="px-6 py-2">
@@ -28,7 +30,7 @@
         </tr>
         <tr v-if="files.length == 0">
           <td
-            colspan="5"
+            colspan="6"
             class="text-center text-sm font-medium text-gray-1 p-4"
           >
             No File
@@ -61,11 +63,13 @@ export default {
       files: [
         {
           filename: "Report_6_2022.csv",
+          vitek_id: "GP",
           timestamp: "30-JUN-2022 08:03:00",
           amountRow: 567,
         },
         {
           filename: "Report_12_2021.csv",
+          vitek_id: "GN",
           timestamp: "31-DEC-2021 12:12:00",
           amountRow: 689,
         },

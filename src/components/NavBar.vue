@@ -7,7 +7,8 @@
         <li class="px-4 hover-yellow"><router-link active-class="active" to="/upload-file">Upload File</router-link></li>
         <li class="px-4 hover-yellow"><router-link active-class="active" to="/files-retraining">Files & Retraining</router-link></li>
         <li class="px-4 hover-yellow"><router-link active-class="active" to="/retraining-log">Retraining Log</router-link></li>
-        <li class="px-4 hover-yellow"><router-link active-class="active" to="/model-details">Model Details</router-link></li>
+        <li class="px-4 hover-yellow"><router-link active-class="active" to="/dashboard">Dashboard</router-link></li>
+        <li class="px-4 hover-yellow"><router-link active-class="active" to="/configuration">Configuration</router-link></li>
       </ul>
     </div>
   </nav>

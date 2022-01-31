@@ -20,7 +20,7 @@
           class="bg-yellow-1 text-gray-1 font-semibold py-2 px-6 cursor-pointer rounded"
           >Choose a File</span
         >
-        <input type="file" @change="handleFileChange" class="hidden" />
+        <input type="file" accept=".csv" @change="handleFileChange" class="hidden" />
       </label>
       <div class="h-4">
         <p v-if="file" class="text-gray-2 text-sm">{{ file.name }}</p>
@@ -33,7 +33,7 @@
           type="radio"
           id="gn"
           value="GN"
-          v-model="vitekId"
+          v-model="vitek_id"
           class="mx-2 cursor-pointer"
         />
         <label for="gn">GN</label>
@@ -44,7 +44,7 @@
           type="radio"
           id="gp"
           value="GP"
-          v-model="vitekId"
+          v-model="vitek_id"
           class="mx-2 cursor-pointer"
         />
         <label for="gp">GP</label>
@@ -105,8 +105,8 @@ export default {
   data() {
     return {
       file: null,
-      vitekId: null,
-      showModal: false,
+      vitek_id: null,
+      show_modal: false,
     };
   },
   methods: {
@@ -119,7 +119,7 @@ export default {
       this.$emit("AddFile", e.target.files[0]);
     },
     emitVitekId() {
-      this.$emit("VitekId", this.vitekId);
+      this.$emit("VitekId", this.vitek_id);
     },
     closeModal() {
       this.showModal = false;

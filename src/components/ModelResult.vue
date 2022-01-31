@@ -17,9 +17,9 @@
           </thead>
           <tbody>
             <tr v-for="(item, key, index) in results" :key="key" class="bg-white">
-              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ index+1 }}</td>
-              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ key }}</td>
-              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ item+'%' }}</td>
+              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ index + 1 }}</td>
+              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ upperFirst(key) }}</td>
+              <td class="px-6 py-2 text-sm whitespace-nowrap">{{ item.toFixed(2) + '%' }}</td>
             </tr>
             <tr v-if="Object.keys(results).length == 0">
               <td colspan="3" class="text-center text-sm font-medium text-gray-1 p-4">
@@ -34,6 +34,16 @@
 <script>
 export default {
   name: 'ModelResult',
-  props: ['results'],
+  props: {
+    results: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    upperFirst(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+  }
 };
 </script>
