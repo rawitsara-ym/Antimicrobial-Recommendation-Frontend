@@ -99,7 +99,7 @@
       <pagination
         :row-on-page="logs.length"
         :total-pages="totalPages"
-        :total="total"
+        :total-rows="totalRows"
         :per-page="perPage"
         :current-page="currentPage"
         :has-more-pages="hasMorePages"
@@ -205,57 +205,19 @@ export default {
   data() {
     return {
       host: "http://localhost:8000",
-      logs: [
-        {
-          filename: "Dataset_2022.csv",
-          start_date: "20-JUN-2023 08:03:00",
-          finish_date: "-",
-          time: "-",
-          amount_row: "-",
-          result: {
-            status: "pending",
-            type: "",
-            messages: [],
-          },
-        },
-        {
-          filename: "Dataset_2022.csv",
-          start_date: "20-JUN-2023 08:03:00",
-          finish_date: "20-JUN-2023 16:10:00",
-          time: "6m 22s",
-          amount_row: 550,
-          result: {
-            status: "success",
-            type: "",
-            messages: [],
-          },
-        },
-        {
-          filename: "Dataset_2021.csv",
-          start_date: "20-JUN-2022 08:03:00",
-          finish_date: "20-JUN-2022 16:10:00",
-          time: "5m 22s",
-          amount_row: 500,
-          result: {
-            status: "fail",
-            type: "",
-            messages: [
-              'S/I/R_{antimicrobial} must be "S", "I", "R", "+", "-" or " ": 33, 34',
-              'ans_{antimicrobial} must be "True" or "False": 40',
-              "duplicate rows 10 rows: 10, 11, 12, 13, 14, 15, 16, 17, 18, 19",
-            ],
-          },
-        },
-      ],
+      logs: [],
       showModal: false,
       // page: 1,
-      totalPages: 4,
-      total: 40,
+      totalPages: 1,
+      totalRows: 0,
       perPage: 10,
       currentPage: 1,
       hasMorePages: true,
       modalBody: {},
     };
+  },
+  created() {
+    this.getLogs();
   },
   methods: {
     showMore(page) {
@@ -265,9 +227,11 @@ export default {
     getLogs() {
       let params = { page: this.currentPage };
       axios.get(`${this.host}/api/logs_upload`, { params }).then((response) => {
-        this.logs = response.data.data;
-        this.totalPages = 4;
-        this.total = 40;
+        if (response.data.status == 'success') {
+          this.logs = response.data.data.logs;
+          this.totalRows = response.data.data.total_rows;
+          this.totalPages = Math.ceil(this.totalRows / this.perPage);
+        }
       });
     },
     success(log) {

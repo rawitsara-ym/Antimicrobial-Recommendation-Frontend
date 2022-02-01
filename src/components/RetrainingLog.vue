@@ -109,7 +109,7 @@
     <pagination
       :row-on-page="logs.length"
       :total-pages="totalPages"
-      :total="total"
+      :total-rows="totalRows"
       :per-page="perPage"
       :current-page="currentPage"
       :has-more-pages="hasMorePages"
@@ -123,10 +123,13 @@
       </template>
       <template v-slot:modal-body>
         <ul class="list-decimal ml-8">
-            <li v-for="(item, index) in modalBody" :key="index">
-                {{ item.filename }} <span class="text-blue-500"> {{ item.timestamp }}</span>
-                ({{ item.amountRow }} rows)
-            </li>
+          <li v-for="(item, index) in modalBody" :key="index">
+            {{ item.filename }}
+            <span class="text-blue-500"> {{ item.timestamp }}</span> ({{
+              item.amountRow
+            }}
+            rows)
+          </li>
         </ul>
       </template>
     </modal>
@@ -147,51 +150,10 @@ export default {
   data() {
     return {
       host: "http://localhost:8000",
-      logs: [
-        {
-          vitekId: "GN",
-          startDate: "01-DEC-2023 08:03:00",
-          finishDate: "-",
-          time: "-",
-          status: "training",
-          modelGroupId: 6,
-        },
-        {
-          vitekId: "GN",
-          startDate: "30-JUN-2022 08:03:00",
-          finishDate: "30-JUN-2022 18:04:10",
-          time: "10h 1m 10s",
-          status: "success",
-          modelGroupId: 5,
-        },
-        {
-          vitekId: "GN",
-          startDate: "03-JAN-2022 08:03:00",
-          finishDate: "03-JUN-2022 08:04:10",
-          time: "0h 1m 10s",
-          status: "fail",
-          modelGroupId: 4,
-        },
-      ],
-      files: [
-        {
-          filename: "Report_6_2023.csv",
-          timestamp: "10-NOV-2022 09:11:00",
-          amountRow: 511,
-        },
-        {
-          filename: "Report_6_2022.csv",
-          timestamp: "30-JUN-2022 08:03:00",
-          amountRow: 567,
-        },
-        {
-          filename: "Report_12_2021.csv",
-          timestamp: "31-DEC-2021 12:12:00",
-          amountRow: 689,
-        },
-      ],
-      totalPages: 4,
-      total: 40,
+      logs: [],
+      files: [],
+      totalPages: 1,
+      totalRows: 0,
       perPage: 10,
       currentPage: 1,
       hasMorePages: true,
@@ -199,7 +161,34 @@ export default {
       modalBody: {},
     };
   },
+  created() {
+    this.getLogs();
+  },
   methods: {
+    getLogs() {
+      let params = { page: this.currentPage };
+      axios
+        .get(`${this.host}/api/logs_retraining`, { params })
+        .then((response) => {
+          if (response.data.status == "success") {
+            this.logs = response.data.data.logs;
+            this.totalRows = response.data.data.total_rows;
+            this.totalPages = Math.ceil(this.totalRows / this.perPage);
+          }
+        });
+    },
+    viewFiles(modelGroupId) {
+      this.openModal(this.files);
+      let params = { model_group_id: modelGroupId };
+      axios
+        .get(`${this.host}/api/view_filename`, { params })
+        .then((response) => {
+          if (response.data.status == "success") {
+            this.files = response.data.data.files;
+            this.openModal(this.files);
+          }
+        });
+    },
     showMore(page) {
       this.currentPage = page;
     },
@@ -222,20 +211,9 @@ export default {
     cancelRetraining() {
       console.log("Cancel Retraining!");
     },
-    viewFiles(modelGroupId) {
-      this.openModal(this.files);
-      let params = { model_group_id: modelGroupId };
-      axios.get(`${this.host}/api/view_filename`, { params })
-      .then((response) => {
-          if (response.data.status == 'success') {
-              this.files = response.data.data;
-              this.openModal(this.files);
-          }
-      });
-    },
     upperFirst(str) {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
+    },
   },
 };
 </script>

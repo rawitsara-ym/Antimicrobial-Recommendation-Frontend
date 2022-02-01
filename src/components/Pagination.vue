@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between py-2 my-2">
-    <p class="text-gray-1 text-sm ">Showing {{ startShowing }} to {{ rowOnPage }} of {{ total }} entries</p>
+    <p class="text-gray-1 text-sm ">Showing {{ startShowing }} to {{ rowOnPage }} of {{ totalRows }} entries</p>
     <ul class="flex pagination bg-white">
       <li>
         <button
@@ -97,7 +97,7 @@ export default {
       required: true,
     },
 
-    total: {
+    totalRows: {
       type: Number,
       required: true,
     },
@@ -125,7 +125,9 @@ export default {
       }
 
       if (this.currentPage === this.totalPages) {
-        return this.totalPages - this.maxVisibleButtons + 1;
+        if (this.totalPages >= this.maxVisibleButtons) {
+          return this.totalPages - this.maxVisibleButtons + 1;
+        }
       }
 
       return this.currentPage - 1;
@@ -138,7 +140,6 @@ export default {
     },
     pages() {
       const range = [];
-
       for (let i = this.startPage; i <= this.endPage; i += 1) {
         range.push({
           name: i,
@@ -154,7 +155,7 @@ export default {
       return this.currentPage === this.totalPages;
     },
     startShowing() {
-      if (this.total != 0)
+      if (this.totalRows != 0)
         return 1;
       return 0;
     }

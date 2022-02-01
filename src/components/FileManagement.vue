@@ -41,7 +41,7 @@
     <pagination
       :row-on-page="files.length"
       :total-pages="totalPages"
-      :total="total"
+      :total-rows="totalRows"
       :per-page="perPage"
       :current-page="currentPage"
       :has-more-pages="hasMorePages"
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Pagination from './Pagination.vue';
 
 export default {
@@ -60,28 +61,29 @@ export default {
   },
   data() {
     return {
-      files: [
-        {
-          filename: "Report_6_2022.csv",
-          vitek_id: "GP",
-          timestamp: "30-JUN-2022 08:03:00",
-          amountRow: 567,
-        },
-        {
-          filename: "Report_12_2021.csv",
-          vitek_id: "GN",
-          timestamp: "31-DEC-2021 12:12:00",
-          amountRow: 689,
-        },
-      ],
-      totalPages: 4,
-      total: 40,
+      host: "http://localhost:8000",
+      files: [],
+      totalPages: 1,
+      totalRows: 0,
       perPage: 10,
       currentPage: 1,
       hasMorePages: true,
     };
   },
+  created() {
+    this.getFiles();
+  },
   methods: {
+    getFiles() {
+      let params = { page: this.currentPage };
+      axios.get(`${this.host}/api/view_all_files`, { params }).then((response) => {
+        if (response.data.status == 'success') {
+          this.files = response.data.data.files;
+          this.totalRows = response.data.data.total_rows;
+          this.totalPages = Math.ceil(this.totalRows / this.perPage);
+        }
+      });
+    },
     showMore(page) {
       this.currentPage = page;
     },

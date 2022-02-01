@@ -52,7 +52,7 @@
     </div>
 
     <!-- File Format Modal -->
-    <modal :showModal="showModal" @OnClose="closeModal">
+    <modal :showModal="show_modal" @OnClose="closeModal">
       <template v-slot:modal-header>
         <h3>File Format</h3>
       </template>
@@ -122,10 +122,10 @@ export default {
       this.$emit("VitekId", this.vitek_id);
     },
     closeModal() {
-      this.showModal = false;
+      this.show_modal = false;
     },
     openModal() {
-      this.showModal = true;
+      this.show_modal = true;
     },
   },
 };

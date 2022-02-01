@@ -19,15 +19,14 @@
         Clear
       </button>
     </div>
-    <div v-show="show_loading" style="border-top-color:transparent"
-      class="w-8 h-8 border-4 border-blue-200 border-solid rounded-full animate-spin m-8">
-    </div>
+    <loader v-if="show_loading"/>
     <model-result v-if="recommended" :results="model_result"/>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Loader from '../components/Loader.vue'
 import FeatureForm from '../components/FeatureForm.vue';
 import AntimicrobialForm from '../components/AntimicrobialForm.vue';
 import ModelResult from '../components/ModelResult.vue'
@@ -35,6 +34,7 @@ import ModelResult from '../components/ModelResult.vue'
 export default {
   name: 'RecommendDrug',
   components: {
+    Loader,
     FeatureForm,
     AntimicrobialForm,
     ModelResult,
@@ -64,7 +64,6 @@ export default {
         .post(`${this.host}/api/predict`, this.body)
         .then((response) => {
           this.model_result = response.data.answer
-          console.log(response.data.answer);
           this.show_loading = false
           this.recommended = true;
         })
@@ -74,7 +73,7 @@ export default {
     },
     getFeatureForm(form) {
       this.body.species = form.species;
-      this.body.bact_genus = form.bacteria_genus;
+      this.body.bact_genus = form.bact_genus;
       this.body.submitted_sample = form.submitted_sample;
       this.body.vitek_id = form.vitek_id;
       // console.log(form);
