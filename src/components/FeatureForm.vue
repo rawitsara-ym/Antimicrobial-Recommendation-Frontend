@@ -12,9 +12,9 @@
         <option
           v-for="(item, index) in species_options"
           :key="index"
-          :value="item"
+          :value="item.id"
         >
-          {{ upperFirst(item) }}
+          {{ upperFirst(item.name) }}
         </option>
       </select>
     </div>
@@ -22,11 +22,6 @@
       <label for="bact_genus" class="text-right mr-8"
         >Bacteria Genus<span class="text-red-1"> *</span></label
       >
-      <!-- <input
-        @input="emitForm"
-        v-model="bact_genus"
-        class="w-full border border-solid border-gray-300 rounded"
-      /> -->
       <autocomplete
         ref="bactGenusInput"
         :list="bact_genus_list"
@@ -37,11 +32,6 @@
       <label for="submitted_sample" class="text-right mr-8"
         >Submitted Sample<span class="text-red-1"> *</span></label
       >
-      <!-- <input
-        @input="emitForm"
-        v-model="submitted_sample"
-        class="w-full border border-solid border-gray-300 rounded"
-      /> -->
       <autocomplete
         ref="submittedSampleInput"
         :list="submitted_sample_list"
@@ -60,9 +50,9 @@
         <option
           v-for="(item, index) in vitek_id_options"
           :key="index"
-          :value="item"
+          :value="item.id"
         >
-          {{ item.toUpperCase() }}
+          {{ item.name.toUpperCase() }}
         </option>
       </select>
     </div>
@@ -78,9 +68,9 @@ export default {
   components: {
     Autocomplete,
   },
+  props: ['host'],
   data() {
     return {
-      host: "http://localhost:8000",
       species: "",
       bact_genus: "",
       submitted_sample: "",
@@ -89,7 +79,7 @@ export default {
       vitek_id_options: [],
       feature: {},
       bact_genus_list: [],
-      submitted_sample_list: [],
+      submitted_sample_list: [{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'}],
     };
   },
   created() {
@@ -99,12 +89,12 @@ export default {
     this.getSubmittedSample();
   },
   methods: {
-    handleInputBactGenus(e) {
-      this.bact_genus = e;
+    handleInputBactGenus(value) {
+      this.bact_genus = value;
       this.emitForm();
     },
-    handleInputSubmittedSample(e) {
-      this.submitted_sample = e;
+    handleInputSubmittedSample(value) {
+      this.submitted_sample = value;
       this.emitForm();
     },
     getSpecies() {
@@ -124,14 +114,14 @@ export default {
     getBactGenus() {
       axios.get(`${this.host}/api/bact_genus`).then((response) => {
         if (response.data.status == "success") {
-          this.bact_genus_list = response.data.data.bact_genus;
+          this.bact_genus_list = this.sortObjectByName(response.data.data.bact_genus);
         }
       });
     },
     getSubmittedSample() {
       axios.get(`${this.host}/api/submitted_sample`).then((response) => {
         if (response.data.status == "success") {
-          this.submitted_sample_list = response.data.data.submitted_sample;
+          this.submitted_sample_list = this.sortObjectByName(response.data.data.submitted_sample);
         }
       });
     },
@@ -156,6 +146,20 @@ export default {
     upperFirst(str) {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     },
+    sortObjectByName(obj) {
+      obj.sort((a, b) => {
+        let a_name = a.name.toLowerCase();
+        let b_name = b.name.toLowerCase();
+        if (a_name < b_name) {
+          return -1;
+        }
+        if (a_name > b_name) {
+          return 1;
+        }
+        return 0;
+      });
+      return obj;
+    }
   },
 };
 </script>

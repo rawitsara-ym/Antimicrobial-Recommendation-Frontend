@@ -59,9 +59,9 @@ export default {
   components: {
     Pagination,
   },
+  props: ['host'],
   data() {
     return {
-      host: "http://localhost:8000",
       files: [],
       totalPages: 1,
       totalRows: 0,

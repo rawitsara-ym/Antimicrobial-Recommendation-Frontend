@@ -27,27 +27,15 @@
       </div>
     </div>
     <div class="flex m-4">
-      <div class="mx-4">
+      <div v-for='(item, index) in vitek_id_options' :key="index" class="mx-4">
         <input
           @change="emitVitekId"
           type="radio"
-          id="gn"
-          value="GN"
+          :value="item.id"
           v-model="vitek_id"
           class="mx-2 cursor-pointer"
         />
-        <label for="gn">GN</label>
-      </div>
-      <div class="mx-4">
-        <input
-          @change="emitVitekId"
-          type="radio"
-          id="gp"
-          value="GP"
-          v-model="vitek_id"
-          class="mx-2 cursor-pointer"
-        />
-        <label for="gp">GP</label>
+        <label for="gn">{{ item.name }}</label>
       </div>
     </div>
 
@@ -89,6 +77,24 @@
             <span class="text-gray-2">True, False</span>
           </li>
           <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
+          <li>The file must not contain duplicate rows.</li>
         </ul>
       </template>
     </modal>
@@ -96,28 +102,42 @@
 </template>
 
 <script>
-import Modal from "./Modal.vue";
+import axios from 'axios';
+import Modal from './Modal.vue';
 export default {
-  name: "ChooseFile",
+  name: 'ChooseFile',
   components: {
     Modal,
   },
+  props: ['host'],
   data() {
     return {
       file: null,
       vitek_id: null,
+      vitek_id_options: [],
       show_modal: false,
     };
+  },
+  created() {
+    this.getVitekId();
   },
   methods: {
     handleFileChange(e) {
       this.file = e.target.files[0];
       this.$emit("AddFile", e.target.files[0]);
     },
+    getVitekId() {
+      axios.get(`${this.host}/api/vitek_id`).then((response) => {
+        if (response.data.status == "success") {
+          this.vitek_id_options = response.data.data.vitek_id;
+        }
+      });
+    },
     dragFile(e) {
       this.file = e.dataTransfer.files[0];
       this.$emit("AddFile", e.target.files[0]);
     },
+
     emitVitekId() {
       this.$emit("VitekId", this.vitek_id);
     },
@@ -128,5 +148,15 @@ export default {
       this.show_modal = true;
     },
   },
+  watch: {
+    show_modal: function() {
+      if(this.show_modal){
+        document.documentElement.style.overflow = 'hidden'
+        return
+      }
+
+      document.documentElement.style.overflow = 'auto'
+    }
+  }
 };
 </script>

@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="showModal"
-    class="overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 flex justify-center items-center md:inset-0 h-modal sm:h-full"
+    class="fixed right-0 left-0 top-4 z-50 flex justify-center items-center md:inset-0 sm:h-full"
   >
-    <div class="relative px-4 w-full max-w-4xl h-full md:h-auto">
+    <div class="relative px-4 w-full max-w-4xl h-full md:h-auto z-40">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->
@@ -19,7 +19,7 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class="p-6 space-y-2 text-base leading-relaxed">
+        <div class="max-h-80 overflow-y-auto overflow-x-hidden p-6 space-y-2 text-base leading-relaxed">
           <slot name="modal-body"></slot>
         </div>
         <!-- Modal footer -->
@@ -35,8 +35,8 @@
         </div>
       </div>
     </div>
+    <div @click="onClose()" class="opacity-25 fixed inset-0 bg-black"></div>
   </div>
-  <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
 </template>
 
 <script>

@@ -147,9 +147,9 @@ export default {
     Pagination,
     Modal,
   },
+  props: ['host'],
   data() {
     return {
-      host: "http://localhost:8000",
       logs: [],
       files: [],
       totalPages: 1,

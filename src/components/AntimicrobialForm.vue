@@ -1,41 +1,44 @@
 <template>
-  <loader v-if="show_loading"/>
+  <loader v-if="show_loading" />
   <div v-else class="grid">
     <div class="grid grid-cols-2 col-gap">
       <div class="grid grid-col-2">
-        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
+        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">
+          Antimicrobial
+        </p>
         <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
       </div>
       <div class="grid grid-col-2">
-        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">Antimicrobial</p>
+        <p class="text-center bg-blue-3 px-10 py-2 rounded mr-8">
+          Antimicrobial
+        </p>
         <p class="text-center bg-blue-3 px-10 py-2 rounded">S/I/R</p>
       </div>
     </div>
-    <div class="grid grid-cols-2 grid-flow-col col-gap" :style="{'grid-template-rows': `repeat(${Math.ceil(Object.keys(sir_name).length/2)}, 1fr)`}">
+    <div
+      class="grid grid-cols-2 grid-flow-col col-gap"
+      :style="{
+        'grid-template-rows': `repeat(${Math.ceil(sir_name.length / 2)}, 1fr)`,
+      }"
+    >
       <div
-        v-for="(item, key, index) in sir_name"
+        v-for="(sir, index) in sir_name"
         :key="index"
         class="grid grid-col-2 mt-4"
       >
-        <label for="sir" class="mr-8">{{ key }}</label>
+        <label for="sir" class="mr-8">{{ upperFirst(sir.name) }}</label>
         <select
-          v-if="item == 'pn'"
           @change="emitForm"
-          v-model="sir_result[key]"
+          v-model="sir_result[sir.name]"
           class="w-full border border-solid border-gray-300 rounded text-center"
         >
-          <option v-for="(item, i) in pn" :key="i" :value="item">
-            {{ item }}
-          </option>
-        </select>
-        <select
-          v-else
-          v-model="sir_result[key]"
-          @change="emitForm();"
-          class="w-full border border-solid border-gray-300 rounded text-center"
-        >
-          <option v-for="(item, i) in sir" :key="i" :value="item">
-            {{ item }}
+          <option :value="null">{{ null }}</option>
+          <option
+            v-for="(item, i) in find_sir_subtype(sir.sir_type)"
+            :key="i"
+            :value="item.id"
+          >
+            {{ item.name }}
           </option>
         </select>
       </div>
@@ -44,70 +47,93 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Loader from './Loader.vue'
+import axios from "axios";
+import Loader from "./Loader.vue";
 
 export default {
   name: "AntimicrobialForm",
   components: {
-    Loader
+    Loader,
   },
   props: {
     vitekId: {
-      type: String,
+      type: Number,
       required: false,
+    },
+    host: {
+      type: String,
+      required: true,
     }
   },
   data() {
     return {
-      host: 'http://localhost:8000',
       show_loading: false,
       sir_result: {},
       sir_name: {},
       sir_type: [],
-      pn: [],
-      sir: [],
     };
   },
   methods: {
     getSIR(vitekId) {
-      this.show_loading = true
-      let params = {'vitek_id': vitekId};
-      axios.get(`${this.host}/api/antimicrobial_sir`, { params })
+      this.show_loading = true;
+      let params = { v_id: vitekId };
+      axios
+        .get(`${this.host}/api/antimicrobial_sir`, { params })
         .then((response) => {
-          if (response.data.status == 'success') {
-            this.sir_name = response.data.data.antimicrobial;
+          if (response.data.status == "success") {
+            this.sir_name = this.sortObjectByName(response.data.data.antimicrobial);
             this.sir_type = response.data.data.sir_type;
-            this.pn = response.data.data.sir_type.pn;
-            this.sir = response.data.data.sir_type.sir;
-            this.pn.unshift(null);
-            this.sir.unshift(null);
             this.emitSirName();
-            this.show_loading = false
+            this.show_loading = false;
           }
-        })
+        });
     },
     emitForm() {
-      this.$emit('EmitForm', this.sir_result);
-      // console.log(this.sir_result);
+      this.$emit("EmitForm", this.sir_result);
+      console.log(this.sir_result);
     },
     emitSirName() {
-      this.$emit('EmitSirName');
+      this.$emit("EmitSirName");
     },
     clearInput() {
       this.sir_result = {};
+      this.sort_object();
       this.emitForm();
     },
+    sortObjectByName(obj) {
+      obj.sort((a, b) => {
+        let a_name = a.name.toLowerCase();
+        let b_name = b.name.toLowerCase();
+        if (a_name < b_name) {
+          return -1;
+        }
+        if (a_name > b_name) {
+          return 1;
+        }
+        return 0;
+      });
+      return obj;
+    },
+    find_sir_subtype(sir_id) {
+      for (let i = 0; i < this.sir_type.length; i++) {
+        if (this.sir_type[i].id == sir_id) {
+          return this.sir_type[i].sub_type;
+        }
+      }
+      return [];
+    },
     upperFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
+      return str == "esbl"
+        ? str.toUpperCase()
+        : str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    },
   },
   watch: {
     vitekId(val) {
       if (val) {
         this.getSIR(val);
       }
-    }
+    },
   },
 };
 </script>

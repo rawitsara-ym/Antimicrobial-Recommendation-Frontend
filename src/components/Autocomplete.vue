@@ -7,17 +7,17 @@
       @click="show_list=true"
     />
     <div
-      class="w-full absolute border bg-white rounded-lg shadow-xl"
+      class="w-full absolute border bg-white rounded-lg shadow-2xl"
       v-if="show_list && filteredList.length"
     >
-      <ul class="cursor-pointer overflow-y-auto max-h-32 rounded-lg">
+      <ul class="cursor-pointer overflow-y-auto max-h-48 rounded-lg">
         <li
           v-for="(item, i) in filteredList"
           :key="i"
           @click="setInput(item)"
           class="px-2 hover:bg-blue-500 hover:text-white"
         >
-          {{ item }}
+          {{ item.name }}
         </li>
       </ul>
     </div>
@@ -52,9 +52,9 @@ export default {
       this.$emit('inputValue', this.input);
     },
     setInput(value) {
-      this.input = value;
+      this.input = value.name;
       this.show_list = false;
-      this.$emit('inputValue', value);
+      this.$emit('inputValue', value.name);
     },
     clearInput() {
       this.input = null;
@@ -64,7 +64,7 @@ export default {
     filteredList() {
       if (this.input) {
         return this.list.filter((e) =>
-          e.toLowerCase().startsWith(this.input.toLowerCase())
+          e.name.toLowerCase().startsWith(this.input.toLowerCase())
         );
       } else {
         return this.list;

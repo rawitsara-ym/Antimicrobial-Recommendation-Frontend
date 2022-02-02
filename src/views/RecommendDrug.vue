@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-center mb-8">
     <p class="text-2xl font-semibold my-6">Antimicrobial Recommedation</p>
-    <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
-    <antimicrobial-form ref="antimicrobialForm" v-show="show_sir_name" @EmitForm="getAntimicrobialForm" @EmitSirName="showSirName" :vitekId=body.vitek_id />
+    <feature-form ref="featureForm" :host="host" @EmitForm="getFeatureForm" class="mb-8" />
+    <antimicrobial-form ref="antimicrobialForm" :host="host" v-show="show_sir_name" @EmitForm="getAntimicrobialForm" @EmitSirName="showSirName" :vitekId=body.vitek_id />
     <div class="mt-8 flex gap-x-4">
       <button
         @click="getRecommend()"
@@ -39,9 +39,9 @@ export default {
     AntimicrobialForm,
     ModelResult,
   },
+  props: ['host'],
   data() {
     return {
-      host: 'http://localhost:8000',
       body: {
           species: '',
           bact_genus: '',

@@ -5,6 +5,8 @@ import UploadFilePage from '../views/UploadFilePage.vue'
 import FilesRetrainingPage from '../views/FilesRetrainingPage.vue'
 import RetrainingLogPage from '../views/RetrainingLogPage.vue'
 
+const host = 'http://localhost:8000';
+
 const routes = [
   {
     path: '/',
@@ -14,22 +16,34 @@ const routes = [
   {
     path: '/recommend-drug',
     name: 'Recommend Drug',
-    component: RecommendDrug
+    component: RecommendDrug,
+    props: {
+      host: host
+    }
   },
   {
     path: '/upload-file',
     name: 'Upload File',
-    component: UploadFilePage
+    component: UploadFilePage,
+    props: {
+      host: host
+    }
   },
   {
     path: '/files-retraining',
     name: 'File & Retraining',
-    component: FilesRetrainingPage
+    component: FilesRetrainingPage,
+    props: {
+      host: host
+    }
   },
   {
     path: '/retraining-log',
     name: 'Retraining Log',
-    component: RetrainingLogPage
+    component: RetrainingLogPage,
+    props: {
+      host: host
+    }
   }
 
 ]

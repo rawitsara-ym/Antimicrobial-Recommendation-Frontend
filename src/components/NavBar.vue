@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-blue-1 fixed inset-x-0">
+  <nav class="bg-blue-1 fixed inset-x-0 z-40">
     <div class="px-24 flex flex-row justify-between items-center">
       <router-link to="/"><img src="../assets/drug-logo.png" alt="logo" class="w-12 h-12 bg-blue-3 rounded-full"></router-link>
       <ul class="flex py-6 font-medium text-white-1 gap-x-4">
