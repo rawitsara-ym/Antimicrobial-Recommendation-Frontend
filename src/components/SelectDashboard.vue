@@ -1,0 +1,219 @@
+<template>
+  <div class="flex justify-start">
+    <div class="grid grid-rows-2">
+      <label for="vitek_id">Vitek ID</label>
+      <select
+        @change="emitForm"
+        v-model="vitek_id"
+        class="border border-solid border-gray-300 rounded px-2"
+      >
+        <option
+          v-for="(item, index) in vitek_id_options"
+          :key="index"
+          :value="item.id"
+        >
+          {{ item.name.toUpperCase() }}
+        </option>
+      </select>
+    </div>
+    <div class="flex gap-x-8 ml-8">
+      <div class="flex">
+        <input
+          type="radio"
+          :value="'version'"
+          v-model="dashboard_type"
+          class="mt-1 mx-2 cursor-pointer"
+        />
+        <div class="grid grid-rows-2">
+          <label for="dashboard-version">Version</label>
+          <select
+            @change="emitForm"
+            :disabled="disableVersion"
+            v-model="version"
+            class="border border-solid border-gray-300 rounded px-2"
+            :class="{ 'opacity-50 bg-gray-300 cursor-not-allowed': disableVersion }"
+          >
+            <option
+              v-for="(item, index) in version_options"
+              :key="index"
+              :value="item"
+            >
+              {{ item }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex">
+        <input
+          type="radio"
+          :value="'antimicrobial'"
+          v-model="dashboard_type"
+          class="mt-1 mx-2 cursor-pointer"
+        />
+        <div class="grid grid-rows-2">
+          <label for="dashboard-antimicrobial">Antimicrobial Model</label>
+          <select
+            @change="emitForm"
+            :disabled="disableAntimicrobial"
+            v-model="antimicrobial"
+            class="border border-solid border-gray-300 rounded px-2"
+            :class="{ 'opacity-50 bg-gray-300 cursor-not-allowed': disableAntimicrobial }"
+          >
+            <option
+              v-for="(item, index) in antimicrobial_options"
+              :key="index"
+              :value="item.id"
+            >
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-end ml-8">
+      <button
+        @click="viewFiles"
+        :disabled="disableViewFiles"
+        :class="{ 'opacity-50 cursor-not-allowed': disableViewFiles }"
+        class="bg-blue-3 text-gray-1 text-sm font-semibold py-1 px-6 rounded"
+      >
+        View Files
+      </button>
+    </div>
+
+    <!-- View File Modal -->
+    <modal :showModal="showModal" @OnClose="closeModal">
+      <template v-slot:modal-header>
+        <h3>Files for training the model</h3>
+      </template>
+      <template v-slot:modal-body>
+        <ul class="list-decimal ml-8">
+          <li v-for="(item, index) in modalBody" :key="index">
+            {{ item.filename }}
+            <span class="text-blue-500"> {{ item.timestamp }}</span> ({{
+              item.amountRow
+            }}
+            rows)
+          </li>
+        </ul>
+      </template>
+    </modal>
+  </div>
+  <div class="h-3/6 flex justify-center items-center">
+    <h3 v-if="noDashboard">No Dashboard</h3>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import Modal from "./Modal.vue";
+
+export default {
+  name: 'SelectDashboard',
+  components: {
+    Modal,
+  },
+  props: ['host'],
+  emits: ['EmitForm'],
+  data() {
+    return {
+      dashboard_type: 'version',
+      vitek_id: 1,
+      version: 'Current',
+      antimicrobial: null,
+      vitek_id_options: [],
+      version_options: [],
+      antimicrobial_options: [],
+      files: [],
+      showModal: false,
+      modalBody: '',
+      form: {}
+    };
+  },
+  created() {
+    this.getVitekId();
+    this.getVersion();
+    this.getAntimicrobial();
+    this.emitForm()
+  },
+  methods: {
+    getVitekId() {
+      this.vitek_id_options = [
+        { id: 1, name: 'gn' },
+        { id: 2, name: 'gp' },
+      ];
+      axios.get(`${this.host}/api/vitek_id`).then((response) => {
+        if (response.data.status == 'success') {
+          this.vitek_id_options = response.data.data.vitek_id;
+        }
+      });
+    },
+    getVersion() {
+      this.version_options = ['Current', 1, 2, 3, 4, 5];
+    },
+    getAntimicrobial() {
+      this.antimicrobial_options = [
+        { id: 1, name: "Amikacin" },
+        { id: 2, name: "Amoxicillin/clavulanic acid" },
+        { id: 3, name: "Cefalexin" },
+      ];
+    },
+    viewFiles(modelGroupId) {
+      this.openModal(this.files);
+      let params = { model_group_id: modelGroupId };
+      axios
+        .get(`${this.host}/api/view_filename`, { params })
+        .then((response) => {
+          if (response.data.status == 'success') {
+            this.files = response.data.data.files;
+            this.openModal(this.files);
+          }
+        });
+    },
+    emitForm() {
+        this.form = {
+            vitek_id: this.vitek_id,
+            version: this.version,
+            antimicrobial: this.antimicrobial
+        }
+        this.$emit('EmitForm', this.form);
+    },
+    closeModal() {
+      this.showModal = false;
+    },
+    openModal(body) {
+      this.showModal = true;
+      this.modalBody = body;
+    },
+  },
+  computed: {
+    disableViewFiles() {
+      return (
+        this.dashboard_type === 'antimicrobial' ||
+        this.version === 'Current' ||
+        !this.version
+      );
+    },
+    disableAntimicrobial() {
+      return this.dashboard_type === 'version';
+    },
+    disableVersion() {
+      return this.dashboard_type === 'antimicrobial';
+    },
+    noDashboard() {
+      return !this.version && !this.antimicrobial;
+    },
+  },
+  watch: {
+    vitek_id() {
+      this.antimicrobial = null;
+      this.version = null;
+    },
+    dashboard_type() {
+      this.antimicrobial = null;
+      this.version = null;
+    },
+  },
+};
+</script>

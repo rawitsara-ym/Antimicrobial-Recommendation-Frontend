@@ -19,7 +19,9 @@
           </button>
         </div>
         <!-- Modal body -->
-        <div class="max-h-80 overflow-y-auto overflow-x-hidden p-6 space-y-2 text-base leading-relaxed">
+        <div
+          class="max-h-80 overflow-y-auto overflow-x-hidden p-6 space-y-2 text-base leading-relaxed"
+        >
           <slot name="modal-body"></slot>
         </div>
         <!-- Modal footer -->
@@ -49,10 +51,20 @@ export default {
       default: false,
     },
   },
-  emits: ['OnClose'],
+  emits: ["OnClose"],
   methods: {
     onClose() {
-      this.$emit('OnClose');
+      this.$emit("OnClose");
+    },
+  },
+  watch: {
+    showModal: function () {
+      if (this.showModal) {
+        document.documentElement.style.overflow = "hidden";
+        return;
+      }
+
+      document.documentElement.style.overflow = "auto";
     },
   },
 };

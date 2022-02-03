@@ -4,6 +4,9 @@ import RecommendDrug from '../views/RecommendDrug.vue'
 import UploadFilePage from '../views/UploadFilePage.vue'
 import FilesRetrainingPage from '../views/FilesRetrainingPage.vue'
 import RetrainingLogPage from '../views/RetrainingLogPage.vue'
+import ConfigurationPage from '../views/ConfigurationPage.vue'
+import DashboardPage from '../views/DashboardPage.vue'
+
 
 const host = 'http://localhost:8000';
 
@@ -44,7 +47,20 @@ const routes = [
     props: {
       host: host
     }
-  }
+  },
+  {
+    path: '/configuration',
+    name: 'Configuration',
+    component: ConfigurationPage,
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardPage,
+    props: {
+      host: host
+    }
+  },
 
 ]
 

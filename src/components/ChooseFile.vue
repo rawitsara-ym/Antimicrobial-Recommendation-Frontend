@@ -35,7 +35,7 @@
           v-model="vitek_id"
           class="mx-2 cursor-pointer"
         />
-        <label for="gn">{{ item.name }}</label>
+        <label for="item.name">{{ item.name }}</label>
       </div>
     </div>
 
@@ -76,24 +76,6 @@
             The Column "ans_{antimicrobial}" must contain:
             <span class="text-gray-2">True, False</span>
           </li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
-          <li>The file must not contain duplicate rows.</li>
           <li>The file must not contain duplicate rows.</li>
         </ul>
       </template>
@@ -148,15 +130,5 @@ export default {
       this.show_modal = true;
     },
   },
-  watch: {
-    show_modal: function() {
-      if(this.show_modal){
-        document.documentElement.style.overflow = 'hidden'
-        return
-      }
-
-      document.documentElement.style.overflow = 'auto'
-    }
-  }
 };
 </script>

@@ -251,15 +251,5 @@ export default {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
   },
-  watch: {
-    show_modal: function() {
-      if(this.show_modal){
-        document.documentElement.style.overflow = 'hidden'
-        return
-      }
-
-      document.documentElement.style.overflow = 'auto'
-    }
-  }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <nav-bar/>
-  <div class="px-24 pt-nav">
+  <div class="px-24 pt-nav h-full-screen">
     <router-view/>
   </div>
 </template>
