@@ -12,7 +12,7 @@
         <option
           v-for="(item, index) in species_options"
           :key="index"
-          :value="item.id"
+          :value="item.name"
         >
           {{ upperFirst(item.name) }}
         </option>
@@ -79,7 +79,7 @@ export default {
       vitek_id_options: [],
       feature: {},
       bact_genus_list: [],
-      submitted_sample_list: ['aa', 'bbb'],
+      submitted_sample_list: [],
     };
   },
   created() {
@@ -90,11 +90,11 @@ export default {
   },
   methods: {
     handleInputBactGenus(value) {
-      this.bact_genus = value;
+      this.bact_genus = value.toLowerCase();
       this.emitForm();
     },
     handleInputSubmittedSample(value) {
-      this.submitted_sample = value;
+      this.submitted_sample = value.toLowerCase();
       this.emitForm();
     },
     getSpecies() {
@@ -112,11 +112,11 @@ export default {
       });
     },
     getBactGenus() {
-      axios.get(`${this.host}/api/bact_genus`).then((response) => {
+      axios.get(`${this.host}/api/bacteria_genus`).then((response) => {
         if (response.data.status == "success") {
           this.bact_genus_list = this.sortObjectByName(
-            response.data.data.bact_genus
-          );
+            response.data.data.bacteria_genus
+          ).map(({ name }) => this.upperFirst(name));
         }
       });
     },
@@ -125,7 +125,7 @@ export default {
         if (response.data.status == "success") {
           this.submitted_sample_list = this.sortObjectByName(
             response.data.data.submitted_sample
-          );
+          ).map(({ name }) => this.upperFirst(name));
         }
       });
     },

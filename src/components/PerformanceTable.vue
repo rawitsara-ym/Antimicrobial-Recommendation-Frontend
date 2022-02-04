@@ -42,7 +42,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="(item, index) in performance"
+            v-for="(item, index) in performances"
             :key="index"
             class="bg-white"
           >
@@ -77,7 +77,7 @@
             <td class="px-4 py-2 text-sm">{{ item.f1 }}</td>
             <td v-if="version == 0" class="px-4 py-2 text-sm">
               <button
-                @click="viewFile"
+                @click="viewFile(item.model_group_id)"
                 class="bg-blue-3 text-gray-1 text-xs font-semibold py-1 px-4 rounded"
               >
                 View
@@ -134,50 +134,24 @@ export default {
   components: {
     Modal,
   },
-  props: ["version"],
+  props: {
+    version: {
+      type: Number,
+      required: true,
+    },
+    performances: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      performance: [],
       files: [],
       showModal: false,
       modalBody: "",
     };
   },
-  created() {
-    this.getPerformance();
-  },
   methods: {
-    getPerformance() {
-      this.performance = [
-        {
-          antimicrobial: "amikacin",
-          performance: "better",
-          version: 1,
-          accuracy: 91.12,
-          precision: 81.45,
-          recall: 87.88,
-          f1: 85.55,
-        },
-        {
-          antimicrobial: "amoxicillin/clavulanic acid",
-          performance: "same",
-          version: 1,
-          accuracy: 91.12,
-          precision: 81.45,
-          recall: 87.88,
-          f1: 85.55,
-        },
-        {
-          antimicrobial: "cefalexin",
-          performance: "worse",
-          version: 1,
-          accuracy: 91.12,
-          precision: 81.45,
-          recall: 87.88,
-          f1: 85.55,
-        },
-      ];
-    },
     viewFile(modelGroupId) {
       console.log("test");
       this.openModal(this.files);

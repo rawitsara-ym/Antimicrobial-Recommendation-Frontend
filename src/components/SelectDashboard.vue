@@ -77,7 +77,7 @@
     </div>
     <div class="flex items-end ml-8">
       <button
-        @click="viewFiles"
+        @click="viewFiles(item.model_group_id)"
         :disabled="disableViewFiles"
         :class="{ 'opacity-50 cursor-not-allowed': disableViewFiles }"
         class="bg-blue-3 text-gray-1 text-sm font-semibold py-1 px-6 rounded"
@@ -150,7 +150,7 @@ export default {
       });
     },
     getVersion() {
-      this.version_options = [0, 1, 2, 3, 4, 5];
+      this.version_options = [...Array(this.lastest_version+1).keys()];
     },
     getAntimicrobial() {
       this.antimicrobial_options = [

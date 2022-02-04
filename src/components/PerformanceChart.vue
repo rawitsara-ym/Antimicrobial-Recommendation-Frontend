@@ -1,32 +1,47 @@
 <template>
   <div
-    class="flex flex-col items-center mt-8 p-4 border border-solid border-gray-300 rounded-lg"
+    class="flex flex-col mt-8 p-4 border border-solid border-gray-300 rounded-lg"
   >
     <h4 class="text-lg font-semibold">Model Performance</h4>
-    <div class="flex justify-between my-8 w-full gap-x-4">
-      <div class="w-4/6 border border-solid pt-2">
+    <div v-if="antimicrobial" class="flex justify-center mt-8">
+      <div class="w-1/2 border border-solid pt-2 pr-2">
         <apexchart
-          type="bar"
-          :options="performance_options"
-          :series="performance_series"
-        ></apexchart>
-      </div>
-      <div class="w-7/12 border border-solid pt-2">
-        <apexchart
-          type="bar"
-          :options="testbycase_options"
-          :series="testbycase_series"
+          type="line"
+          :options="antimicrobial_options"
+          :series="antimicrobial_series"
         ></apexchart>
       </div>
     </div>
-    <div v-if="version == 0" class="w-1/2 border border-solid pt-2 mb-6">
-      <apexchart
-        type="line"
-        :options="version_options"
-        :series="version_series"
-      ></apexchart>
+    <div v-else class="flex flex-col items-center">
+      <div class="flex justify-between my-8 w-full gap-x-4">
+        <div class="w-4/6 border border-solid pt-2">
+          <apexchart
+            type="bar"
+            :options="performance_options"
+            :series="performance_series"
+          ></apexchart>
+        </div>
+        <div class="w-7/12 border border-solid pt-2">
+          <apexchart
+            type="bar"
+            :options="testbycase_options"
+            :series="testbycase_series"
+          ></apexchart>
+        </div>
+      </div>
+      <div v-if="version == 0" class="w-1/2 border border-solid pt-2 mb-6">
+        <apexchart
+          type="line"
+          :options="version_options"
+          :series="version_series"
+        ></apexchart>
+      </div>
     </div>
-    <performance-table :version="version" />
+    <performance-table
+      v-if="!antimicrobial"
+      :version="version"
+      :performances="api_perf"
+    />
   </div>
 </template>
 
@@ -38,15 +53,20 @@ export default {
   components: {
     PerformanceTable,
   },
-  props: ["version"],
+  props: ["version", "antimicrobial"],
   data() {
     return {
+      // performance model (bar chart)
       performance_options: {
         chart: {
           id: "performance",
         },
         xaxis: {
           categories: [],
+        },
+        yaxis: {
+          min: 0,
+          max: 1,
         },
         dataLabels: {
           enabled: false,
@@ -68,6 +88,8 @@ export default {
           },
         },
       },
+
+      // test by case (bar chart)
       testbycase_options: {
         chart: {
           id: "test_by_case",
@@ -97,9 +119,11 @@ export default {
         //   enabled: false,
         // }
       },
+
+      // version model (line chart)
       version_options: {
         chart: {
-          id: "performance",
+          id: "model version",
         },
         xaxis: {
           categories: [],
@@ -111,8 +135,11 @@ export default {
             },
           },
         },
+        markers: {
+          size: 5,
+        },
         theme: {
-          palette: "palette2", // upto palette10
+          palette: "palette1", // upto palette10
         },
         title: {
           text: "Version ของแต่ละโมเดล",
@@ -127,76 +154,140 @@ export default {
         grid: {
           padding: {
             left: 40,
+            right: 20,
             bottom: 10,
           },
         },
       },
+
+      // antimicrobial (line chart)
+      antimicrobial_options: {
+        chart: {
+          id: "antimicrobial model performance",
+        },
+        xaxis: {
+          categories: [],
+        },
+        yaxis: {
+          min: 0,
+          max: 1,
+        },
+        markers: {
+          size: 5,
+        },
+        theme: {
+          palette: "palette2", // upto palette10
+        },
+        title: {
+          text: "ประสิทธิภาพของโมเดลในแต่ละ Version",
+          align: "center",
+          // margin: 50,
+          style: {
+            fontSize: "16px",
+            fontWeight: "bold",
+            fontFamily: undefined,
+            color: "#263238",
+          },
+        },
+        grid: {
+          padding: {
+            left: 40,
+            right: 20,
+            bottom: 10,
+          },
+        },
+      },
+
       performance_series: [],
       testbycase_series: [],
       version_series: [],
+      antimicrobial_series: [],
     };
   },
   created() {
     this.getPerformance();
+    this.getPerfAntimicrobial();
   },
   methods: {
     getPerformance() {
+      let test_by_case = this.api_perf.filter(
+        (obj) => obj.antimicrobial == "All Model By Case"
+      )[0];
+      let res = this.api_perf.filter(
+        (obj) => obj.antimicrobial != "All Model By Case"
+      );
+
+      // performance model (bar chart)
       this.performance_series = [
         {
           name: "Accuracy",
-          data: [30, 40, 45, 50, 49, 60, 70, 91, 80, 70, 45],
+          data: res.map(({ accuracy }) => accuracy),
         },
         {
           name: "Precision",
-          data: [30, 40, 45, 50, 49, 60, 70, 91, 80, 70, 45],
+          data: res.map(({ precision }) => precision),
         },
         {
           name: "Recall",
-          data: [30, 40, 45, 50, 49, 60, 70, 91, 80, 70, 45],
+          data: res.map(({ recall }) => recall),
         },
         {
           name: "F1-Score",
-          data: [30, 40, 45, 50, 49, 60, 70, 91, 80, 70, 45],
+          data: res.map(({ f1 }) => f1),
         },
       ];
-      this.performance_options.xaxis.categories = [
-        "amikacin",
-        "amoxicillin/clavulanic acid",
-        "cefalexin",
-        "cefovecin",
-        "doxycycline",
-        "enrofloxacin",
-        "gentamicin",
-        "imipenem",
-        "marbofloxacin",
-        "nitrofurantoin",
-        "trimethoprim/sulfamethoxazole",
-      ];
-      this.version_options.xaxis.categories = [
-        "amikacin",
-        "amoxicillin/clavulanic acid",
-        "cefalexin",
-        "cefovecin",
-        "doxycycline",
-        "enrofloxacin",
-        "gentamicin",
-        "imipenem",
-        "marbofloxacin",
-        "nitrofurantoin",
-        "trimethoprim/sulfamethoxazole",
-      ];
+      this.performance_options.xaxis.categories = res.map(
+        ({ antimicrobial }) => antimicrobial
+      );
+
+      // test by case (bar chart)
       this.testbycase_series = [
         {
           name: "Performance",
-          data: [95.48, 76.11, 89.99, 82.45],
+          data: [
+            test_by_case.accuracy,
+            test_by_case.precision,
+            test_by_case.recall,
+            test_by_case.f1,
+          ],
         },
       ];
+
+      // version model (line chart)
       this.version_series = [
         {
           name: "Version",
-          data: [1, 2, 4, 3, 2, 5, 4, 5, 1, 4, 3],
+          data: res.map(({ version }) => version),
         },
       ];
+      this.version_options.xaxis.categories = res.map(
+        ({ antimicrobial }) => antimicrobial
+      );
+    },
+
+    getPerfAntimicrobial() {
+      let res = this.api_anti;
+      this.antimicrobial_series = [
+        {
+          name: "Accuracy",
+          data: res.map(({ accuracy }) => accuracy),
+        },
+        {
+          name: "Precision",
+          data: res.map(({ precision }) => precision),
+        },
+        {
+          name: "Recall",
+          data: res.map(({ recall }) => recall),
+        },
+        {
+          name: "F1-Score",
+          data: res.map(({ f1 }) => f1),
+        },
+      ];
+      this.antimicrobial_options.xaxis.categories = res.map(
+        ({ version }) => version
+      );
     },
   },
 };

@@ -24,7 +24,7 @@
       <div
         v-for="(sir, index) in sir_name"
         :key="index"
-        class="grid grid-col-2 mt-4"
+        class="grid grid-col-2 mt-2"
       >
         <label for="sir" class="mr-8">{{
           sir.name == "esbl" ? sir.name.toUpperCase() : upperFirst(sir.name)
@@ -38,7 +38,7 @@
           <option
             v-for="(item, i) in find_sir_subtype(sir.sir_type)"
             :key="i"
-            :value="item.id"
+            :value="item.name"
           >
             {{ item.name }}
           </option>

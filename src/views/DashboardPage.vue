@@ -2,7 +2,7 @@
   <div class="flex flex-col mb-8">
     <h1 class="text-center text-2xl font-semibold my-6">Model Dashboard</h1>
     <select-dashboard @EmitForm="getForm" />
-    <performance-chart v-if="showDashboard" :version="version" />
+    <performance-chart v-if="showDashboard" :version="version" :antimicrobial="antimicrobial"/>
     <div v-else class="flex justify-center items-center my-8">
       <h3>No Dashboard</h3>
     </div>
