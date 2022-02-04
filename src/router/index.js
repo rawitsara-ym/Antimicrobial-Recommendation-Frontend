@@ -8,8 +8,6 @@ import ConfigurationPage from '../views/ConfigurationPage.vue'
 import DashboardPage from '../views/DashboardPage.vue'
 
 
-const host = 'http://localhost:8000';
-
 const routes = [
   {
     path: '/',
@@ -20,33 +18,21 @@ const routes = [
     path: '/recommend-drug',
     name: 'Recommend Drug',
     component: RecommendDrug,
-    props: {
-      host: host
-    }
   },
   {
     path: '/upload-file',
     name: 'Upload File',
     component: UploadFilePage,
-    props: {
-      host: host
-    }
   },
   {
     path: '/files-retraining',
     name: 'File & Retraining',
     component: FilesRetrainingPage,
-    props: {
-      host: host
-    }
   },
   {
     path: '/retraining-log',
     name: 'Retraining Log',
     component: RetrainingLogPage,
-    props: {
-      host: host
-    }
   },
   {
     path: '/configuration',
@@ -57,9 +43,6 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: DashboardPage,
-    props: {
-      host: host
-    }
   },
 
 ]

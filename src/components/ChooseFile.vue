@@ -20,14 +20,19 @@
           class="bg-yellow-1 text-gray-1 font-semibold py-2 px-6 cursor-pointer rounded"
           >Choose a File</span
         >
-        <input type="file" accept=".csv" @change="handleFileChange" class="hidden" />
+        <input
+          type="file"
+          accept=".csv"
+          @change="handleFileChange"
+          class="hidden"
+        />
       </label>
       <div class="h-4">
         <p v-if="file" class="text-gray-2 text-sm">{{ file.name }}</p>
       </div>
     </div>
     <div class="flex m-4">
-      <div v-for='(item, index) in vitek_id_options' :key="index" class="mx-4">
+      <div v-for="(item, index) in vitek_id_options" :key="index" class="mx-4">
         <input
           @change="emitVitekId"
           type="radio"
@@ -84,14 +89,13 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Modal from './Modal.vue';
+import axios from "axios";
+import Modal from "./Modal.vue";
 export default {
-  name: 'ChooseFile',
+  name: "ChooseFile",
   components: {
     Modal,
   },
-  props: ['host'],
   data() {
     return {
       file: null,

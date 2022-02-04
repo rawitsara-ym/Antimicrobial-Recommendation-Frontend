@@ -51,15 +51,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Pagination from './Pagination.vue';
+import axios from "axios";
+import Pagination from "./Pagination.vue";
 
 export default {
-  name: 'FileManagement',
+  name: "FileManagement",
   components: {
     Pagination,
   },
-  props: ['host'],
   data() {
     return {
       files: [],
@@ -76,13 +75,15 @@ export default {
   methods: {
     getFiles() {
       let params = { page: this.currentPage };
-      axios.get(`${this.host}/api/view_all_files`, { params }).then((response) => {
-        if (response.data.status == 'success') {
-          this.files = response.data.data.files;
-          this.totalRows = response.data.data.total_rows;
-          this.totalPages = Math.ceil(this.totalRows / this.perPage);
-        }
-      });
+      axios
+        .get(`${this.host}/api/view_all_files`, { params })
+        .then((response) => {
+          if (response.data.status == "success") {
+            this.files = response.data.data.files;
+            this.totalRows = response.data.data.total_rows;
+            this.totalPages = Math.ceil(this.totalRows / this.perPage);
+          }
+        });
     },
     showMore(page) {
       this.currentPage = page;
@@ -90,4 +91,3 @@ export default {
   },
 };
 </script>
-

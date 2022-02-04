@@ -68,18 +68,18 @@ export default {
   components: {
     Autocomplete,
   },
-  props: ['host'],
+  emits: ["EmitForm"],
   data() {
     return {
-      species: "",
-      bact_genus: "",
-      submitted_sample: "",
-      vitek_id: "",
+      species: null,
+      bact_genus: null,
+      submitted_sample: null,
+      vitek_id: null,
       species_options: [],
       vitek_id_options: [],
       feature: {},
       bact_genus_list: [],
-      submitted_sample_list: [{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'},{id: 1, name: 'asd'}, {id: 2, name: 'sss'}],
+      submitted_sample_list: ['aa', 'bbb'],
     };
   },
   created() {
@@ -114,14 +114,18 @@ export default {
     getBactGenus() {
       axios.get(`${this.host}/api/bact_genus`).then((response) => {
         if (response.data.status == "success") {
-          this.bact_genus_list = this.sortObjectByName(response.data.data.bact_genus);
+          this.bact_genus_list = this.sortObjectByName(
+            response.data.data.bact_genus
+          );
         }
       });
     },
     getSubmittedSample() {
       axios.get(`${this.host}/api/submitted_sample`).then((response) => {
         if (response.data.status == "success") {
-          this.submitted_sample_list = this.sortObjectByName(response.data.data.submitted_sample);
+          this.submitted_sample_list = this.sortObjectByName(
+            response.data.data.submitted_sample
+          );
         }
       });
     },
@@ -143,23 +147,6 @@ export default {
       this.$refs.submittedSampleInput.clearInput();
       this.emitForm();
     },
-    upperFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    },
-    sortObjectByName(obj) {
-      obj.sort((a, b) => {
-        let a_name = a.name.toLowerCase();
-        let b_name = b.name.toLowerCase();
-        if (a_name < b_name) {
-          return -1;
-        }
-        if (a_name > b_name) {
-          return 1;
-        }
-        return 0;
-      });
-      return obj;
-    }
   },
 };
 </script>

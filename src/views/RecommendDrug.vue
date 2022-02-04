@@ -1,8 +1,14 @@
 <template>
   <div class="flex flex-col items-center mb-8">
     <h1 class="text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
-    <feature-form ref="featureForm" :host="host" @EmitForm="getFeatureForm" class="mb-8" />
-    <antimicrobial-form ref="antimicrobialForm" :host="host" v-show="show_sir_name" @EmitForm="getAntimicrobialForm" @EmitSirName="showSirName" :vitekId=body.vitek_id />
+    <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
+    <antimicrobial-form
+      ref="antimicrobialForm"
+      v-show="show_sir_name"
+      @EmitForm="getAntimicrobialForm"
+      @EmitSirName="showSirName"
+      :vitekId="body.vitek_id"
+    />
     <div class="mt-8 flex gap-x-4">
       <button
         @click="getRecommend()"
@@ -19,52 +25,51 @@
         Clear
       </button>
     </div>
-    <loader v-if="show_loading"/>
-    <model-result v-if="recommended" :results="model_result"/>
+    <loader v-if="show_loading" />
+    <model-result v-if="recommended" :results="model_result" />
   </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Loader from '../components/Loader.vue'
-import FeatureForm from '../components/FeatureForm.vue';
-import AntimicrobialForm from '../components/AntimicrobialForm.vue';
-import ModelResult from '../components/ModelResult.vue'
+import axios from "axios";
+import Loader from "../components/Loader.vue";
+import FeatureForm from "../components/FeatureForm.vue";
+import AntimicrobialForm from "../components/AntimicrobialForm.vue";
+import ModelResult from "../components/ModelResult.vue";
 
 export default {
-  name: 'RecommendDrug',
+  name: "RecommendDrug",
   components: {
     Loader,
     FeatureForm,
     AntimicrobialForm,
     ModelResult,
   },
-  props: ['host'],
   data() {
     return {
       body: {
-          species: '',
-          bact_genus: '',
-          vitek_id: '',
-          submitted_sample: '',
-          sir: {}
-        },
+        species: "",
+        bact_genus: "",
+        vitek_id: "",
+        submitted_sample: "",
+        sir: {},
+      },
       model_result: {},
       recommended: false,
       show_loading: false,
-      show_sir_name: false
+      show_sir_name: false,
     };
   },
   methods: {
     getRecommend() {
-      this.show_loading = true
-      this.recommended = false
-      this.body.sir = this.filterObjectByValue(this.body.sir, null)
+      this.show_loading = true;
+      this.recommended = false;
+      this.body.sir = this.filterObjectByValue(this.body.sir, null);
       axios
         .post(`${this.host}/api/predict`, this.body)
         .then((response) => {
-          this.model_result = response.data.answer
-          this.show_loading = false
+          this.model_result = response.data.answer;
+          this.show_loading = false;
           this.recommended = true;
         })
         .catch((error) => {
@@ -91,18 +96,23 @@ export default {
       this.show_sir_name = false;
       this.recommended = false;
     },
-    filterObjectByValue(obj, filter) {
+    filterObjectByValue(obj, value) {
       const array = Object.entries(obj);
       const filteredArr = array.filter(function (items) {
-        return items[1] !== filter;
+        return items[1] !== value;
       });
       return Object.fromEntries(filteredArr);
     },
   },
   computed: {
     disableRecommend() {
-      return !this.body.species || !this.body.bact_genus || !this.body.submitted_sample || !this.body.vitek_id;
-    }
-  }
+      return (
+        !this.body.species ||
+        !this.body.bact_genus ||
+        !this.body.submitted_sample ||
+        !this.body.vitek_id
+      );
+    },
+  },
 };
 </script>

@@ -147,7 +147,6 @@ export default {
     Pagination,
     Modal,
   },
-  props: ['host'],
   data() {
     return {
       logs: [],
@@ -210,9 +209,6 @@ export default {
     },
     cancelRetraining() {
       console.log("Cancel Retraining!");
-    },
-    upperFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     },
   },
 };

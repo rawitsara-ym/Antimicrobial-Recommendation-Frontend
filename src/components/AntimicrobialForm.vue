@@ -26,7 +26,9 @@
         :key="index"
         class="grid grid-col-2 mt-4"
       >
-        <label for="sir" class="mr-8">{{ upperFirst(sir.name) }}</label>
+        <label for="sir" class="mr-8">{{
+          sir.name == "esbl" ? sir.name.toUpperCase() : upperFirst(sir.name)
+        }}</label>
         <select
           @change="emitForm"
           v-model="sir_result[sir.name]"
@@ -60,11 +62,8 @@ export default {
       type: Number,
       required: false,
     },
-    host: {
-      type: String,
-      required: true,
-    }
   },
+  emits: ["EmitForm"],
   data() {
     return {
       show_loading: false,
@@ -81,7 +80,9 @@ export default {
         .get(`${this.host}/api/antimicrobial_sir`, { params })
         .then((response) => {
           if (response.data.status == "success") {
-            this.sir_name = this.sortObjectByName(response.data.data.antimicrobial);
+            this.sir_name = this.sortObjectByName(
+              response.data.data.antimicrobial
+            );
             this.sir_type = response.data.data.sir_type;
             this.emitSirName();
             this.show_loading = false;
@@ -100,20 +101,6 @@ export default {
       this.sort_object();
       this.emitForm();
     },
-    sortObjectByName(obj) {
-      obj.sort((a, b) => {
-        let a_name = a.name.toLowerCase();
-        let b_name = b.name.toLowerCase();
-        if (a_name < b_name) {
-          return -1;
-        }
-        if (a_name > b_name) {
-          return 1;
-        }
-        return 0;
-      });
-      return obj;
-    },
     find_sir_subtype(sir_id) {
       for (let i = 0; i < this.sir_type.length; i++) {
         if (this.sir_type[i].id == sir_id) {
@@ -121,11 +108,6 @@ export default {
         }
       }
       return [];
-    },
-    upperFirst(str) {
-      return str == "esbl"
-        ? str.toUpperCase()
-        : str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     },
   },
   watch: {

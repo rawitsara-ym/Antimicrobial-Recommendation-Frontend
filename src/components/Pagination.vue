@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-between py-2 my-2">
-    <p class="text-gray-1 text-sm ">Showing {{ startShowing }} to {{ rowOnPage }} of {{ totalRows }} entries</p>
+    <p class="text-gray-1 text-sm">
+      Showing {{ startShowing }} to {{ rowOnPage }} of {{ totalRows }} entries
+    </p>
     <ul class="flex pagination bg-white">
       <li>
         <button
@@ -11,7 +13,7 @@
             'hover:bg-gray-100': !isInFirstPage,
           }"
         >
-          <font-awesome-icon icon="angle-double-left" class="text-sm"/>
+          <font-awesome-icon icon="angle-double-left" class="text-sm" />
         </button>
       </li>
 
@@ -27,7 +29,7 @@
             'hover:bg-gray-100': !isInFirstPage,
           }"
         >
-          <font-awesome-icon icon="angle-left" class="text-sm"/>
+          <font-awesome-icon icon="angle-left" class="text-sm" />
         </button>
       </li>
 
@@ -56,7 +58,7 @@
             'hover:bg-gray-100': !isInLastPage,
           }"
         >
-          <font-awesome-icon icon="angle-right" class="text-sm"/>
+          <font-awesome-icon icon="angle-right" class="text-sm" />
         </button>
       </li>
 
@@ -70,7 +72,7 @@
             'hover:bg-gray-100': !isInLastPage,
           }"
         >
-          <font-awesome-icon icon="angle-double-right" class="text-sm"/>
+          <font-awesome-icon icon="angle-double-right" class="text-sm" />
         </button>
       </li>
     </ul>
@@ -155,10 +157,9 @@ export default {
       return this.currentPage === this.totalPages;
     },
     startShowing() {
-      if (this.totalRows != 0)
-        return 1;
+      if (this.totalRows != 0) return 1;
       return 0;
-    }
+    },
   },
 
   methods: {

@@ -17,7 +17,9 @@
               Finish Date
             </th>
             <th class="px-2 py-3 text-left font-medium text-gray-1">Time</th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">Total Rows</th>
+            <th class="px-2 py-3 text-left font-medium text-gray-1">
+              Total Rows
+            </th>
             <th class="px-2 py-3 text-left font-medium text-gray-1">Status</th>
             <th class="px-2 py-3 text-left font-medium text-gray-1"></th>
           </tr>
@@ -177,7 +179,10 @@
               </p>
             </div>
             <ul class="list-disc ml-14">
-              <li v-for="(item, index) in modalBody.result.messages" :key="index">
+              <li
+                v-for="(item, index) in modalBody.result.messages"
+                :key="index"
+              >
                 {{ item.slice(0, item.indexOf(":")) }}
                 <span class="text-gray-2">
                   {{ item.slice(item.indexOf(":")) }}
@@ -202,7 +207,6 @@ export default {
     Pagination,
     Modal,
   },
-  props: ['host'],
   data() {
     return {
       logs: [],
@@ -227,7 +231,7 @@ export default {
     getLogs() {
       let params = { page: this.currentPage };
       axios.get(`${this.host}/api/logs_upload`, { params }).then((response) => {
-        if (response.data.status == 'success') {
+        if (response.data.status == "success") {
           this.logs = response.data.data.logs;
           this.totalRows = response.data.data.total_rows;
           this.totalPages = Math.ceil(this.totalRows / this.perPage);
@@ -247,9 +251,6 @@ export default {
       this.showModal = true;
       this.modalBody = body;
     },
-    upperFirst(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-    }
   },
 };
 </script>

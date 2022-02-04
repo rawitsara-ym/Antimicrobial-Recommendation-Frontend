@@ -31,14 +31,16 @@
             :disabled="disableVersion"
             v-model="version"
             class="border border-solid border-gray-300 rounded px-2"
-            :class="{ 'opacity-50 bg-gray-300 cursor-not-allowed': disableVersion }"
+            :class="{
+              'opacity-50 bg-gray-300 cursor-not-allowed': disableVersion,
+            }"
           >
             <option
               v-for="(item, index) in version_options"
               :key="index"
               :value="item"
             >
-              {{ item }}
+              {{ item == 0 ? "Current" : item }}
             </option>
           </select>
         </div>
@@ -58,7 +60,9 @@
             :disabled="disableAntimicrobial"
             v-model="antimicrobial"
             class="border border-solid border-gray-300 rounded px-2"
-            :class="{ 'opacity-50 bg-gray-300 cursor-not-allowed': disableAntimicrobial }"
+            :class="{
+              'opacity-50 bg-gray-300 cursor-not-allowed': disableAntimicrobial,
+            }"
           >
             <option
               v-for="(item, index) in antimicrobial_options"
@@ -100,9 +104,6 @@
       </template>
     </modal>
   </div>
-  <div class="h-3/6 flex justify-center items-center">
-    <h3 v-if="noDashboard">No Dashboard</h3>
-  </div>
 </template>
 
 <script>
@@ -110,47 +111,46 @@ import axios from "axios";
 import Modal from "./Modal.vue";
 
 export default {
-  name: 'SelectDashboard',
+  name: "SelectDashboard",
   components: {
     Modal,
   },
-  props: ['host'],
-  emits: ['EmitForm'],
+  emits: ["EmitForm"],
   data() {
     return {
-      dashboard_type: 'version',
+      dashboard_type: "version",
       vitek_id: 1,
-      version: 'Current',
+      version: 0,
       antimicrobial: null,
       vitek_id_options: [],
       version_options: [],
       antimicrobial_options: [],
       files: [],
       showModal: false,
-      modalBody: '',
-      form: {}
+      modalBody: "",
+      form: {},
     };
   },
   created() {
     this.getVitekId();
     this.getVersion();
     this.getAntimicrobial();
-    this.emitForm()
+    this.emitForm();
   },
   methods: {
     getVitekId() {
       this.vitek_id_options = [
-        { id: 1, name: 'gn' },
-        { id: 2, name: 'gp' },
+        { id: 1, name: "gn" },
+        { id: 2, name: "gp" },
       ];
       axios.get(`${this.host}/api/vitek_id`).then((response) => {
-        if (response.data.status == 'success') {
+        if (response.data.status == "success") {
           this.vitek_id_options = response.data.data.vitek_id;
         }
       });
     },
     getVersion() {
-      this.version_options = ['Current', 1, 2, 3, 4, 5];
+      this.version_options = [0, 1, 2, 3, 4, 5];
     },
     getAntimicrobial() {
       this.antimicrobial_options = [
@@ -165,19 +165,19 @@ export default {
       axios
         .get(`${this.host}/api/view_filename`, { params })
         .then((response) => {
-          if (response.data.status == 'success') {
+          if (response.data.status == "success") {
             this.files = response.data.data.files;
             this.openModal(this.files);
           }
         });
     },
     emitForm() {
-        this.form = {
-            vitek_id: this.vitek_id,
-            version: this.version,
-            antimicrobial: this.antimicrobial
-        }
-        this.$emit('EmitForm', this.form);
+      this.form = {
+        vitek_id: this.vitek_id,
+        version: this.version,
+        antimicrobial: this.antimicrobial,
+      };
+      this.$emit("EmitForm", this.form);
     },
     closeModal() {
       this.showModal = false;
@@ -190,29 +190,28 @@ export default {
   computed: {
     disableViewFiles() {
       return (
-        this.dashboard_type === 'antimicrobial' ||
-        this.version === 'Current' ||
+        this.dashboard_type === "antimicrobial" ||
+        this.version === 0 ||
         !this.version
       );
     },
     disableAntimicrobial() {
-      return this.dashboard_type === 'version';
+      return this.dashboard_type === "version";
     },
     disableVersion() {
-      return this.dashboard_type === 'antimicrobial';
-    },
-    noDashboard() {
-      return !this.version && !this.antimicrobial;
+      return this.dashboard_type === "antimicrobial";
     },
   },
   watch: {
     vitek_id() {
       this.antimicrobial = null;
       this.version = null;
+      this.emitForm();
     },
     dashboard_type() {
       this.antimicrobial = null;
       this.version = null;
+      this.emitForm();
     },
   },
 };

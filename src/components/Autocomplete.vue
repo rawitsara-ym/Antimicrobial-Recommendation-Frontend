@@ -4,7 +4,7 @@
       class="w-full h-full border border-solid border-gray-300 rounded px-2"
       v-model="input"
       @input="handleInput"
-      @click="show_list=true"
+      @click="show_list = true"
     />
     <div
       class="w-full absolute border bg-white rounded-lg shadow-2xl"
@@ -17,7 +17,7 @@
           @click="setInput(item)"
           class="px-2 hover:bg-blue-500 hover:text-white"
         >
-          {{ item.name }}
+          {{ item }}
         </li>
       </ul>
     </div>
@@ -49,22 +49,22 @@ export default {
   methods: {
     handleInput() {
       this.show_list = true;
-      this.$emit('inputValue', this.input);
+      this.$emit("inputValue", this.input);
     },
     setInput(value) {
-      this.input = value.name;
+      this.input = value;
       this.show_list = false;
-      this.$emit('inputValue', value.name);
+      this.$emit("inputValue", value);
     },
     clearInput() {
       this.input = null;
-    }
+    },
   },
   computed: {
     filteredList() {
       if (this.input) {
         return this.list.filter((e) =>
-          e.name.toLowerCase().startsWith(this.input.toLowerCase())
+          e.toLowerCase().startsWith(this.input.toLowerCase())
         );
       } else {
         return this.list;
