@@ -6,18 +6,21 @@
     <div v-else class="flex justify-center items-center my-8">
       <h3>No Dashboard</h3>
     </div>
+    <dataset-dashboard v-if="showDashboard && version"/>
   </div>
 </template>
 
 <script>
 import SelectDashboard from "../components/SelectDashboard.vue";
 import PerformanceChart from "../components/PerformanceChart.vue";
+import DatasetDashboard from "../components/DatasetDashboard.vue";
 
 export default {
   name: "DashboardPage",
   components: {
     SelectDashboard,
     PerformanceChart,
+    DatasetDashboard,
   },
   data() {
     return {

@@ -94,6 +94,10 @@ export default {
         chart: {
           id: "test_by_case",
         },
+        yaxis: {
+          min: 0,
+          max: 1,
+        },
         theme: {
           palette: "palette3", // upto palette10
         },
@@ -237,7 +241,7 @@ export default {
         },
       ];
       this.performance_options.xaxis.categories = res.map(
-        ({ antimicrobial }) => antimicrobial
+        ({ antimicrobial }) => this.upperFirst(antimicrobial)
       );
 
       // test by case (bar chart)
@@ -261,7 +265,7 @@ export default {
         },
       ];
       this.version_options.xaxis.categories = res.map(
-        ({ antimicrobial }) => antimicrobial
+        ({ antimicrobial }) => this.upperFirst(antimicrobial)
       );
     },
 
