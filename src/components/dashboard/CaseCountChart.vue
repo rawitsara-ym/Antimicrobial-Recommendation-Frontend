@@ -24,7 +24,7 @@ export default {
           size: 5,
         },
         title: {
-          text: "จำนวน Case ในแต่ละปี",
+          text: "จำนวนรายงานผลตรวจ",
           align: "center",
           style: {
             fontSize: "16px",
@@ -61,11 +61,11 @@ export default {
       ];
       this.options.xaxis.categories = res.map(({ date }) => date);
       this.series = [
-          {
-              name: 'Case',
-              data: res.map(({ count }) => count)
-          }
-      ]
+        {
+          name: "Case",
+          data: res.map(({ count }) => count),
+        },
+      ];
     },
   },
 };

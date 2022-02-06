@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div class="flex items-end ml-8">
+    <div class="flex items-end justify-between w-full ml-8">
       <button
         @click="viewFiles(item.model_group_id)"
         :disabled="disableViewFiles"
@@ -84,6 +84,34 @@
       >
         View Files
       </button>
+      <div v-show="version != null || antimicrobial" class="flex">
+        <div>
+          <button
+            @click="showPerformance"
+            :class="{
+              'bg-gray-400 text-white': mode === 1,
+              'bg-white text-gray-500': mode === 2,
+            }"
+            class="text-sm font-semibold py-1 px-4 border-2 border-gray-400 rounded-l"
+          >
+            Performance
+          </button>
+        </div>
+        <div>
+          <button
+            @click="showDataset"
+            :disabled="disableViewFiles"
+            :class="{
+              'opacity-50 cursor-not-allowed': disableViewFiles,
+              'bg-gray-400 text-white': mode === 2,
+              'bg-white text-gray-500': mode === 1,
+            }"
+            class="text-sm font-semibold py-1 px-4 border-b-2 border-t-2 border-r-2 border-gray-400 rounded-r"
+          >
+            Dataset
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- View File Modal -->
@@ -115,7 +143,7 @@ export default {
   components: {
     Modal,
   },
-  emits: ["EmitForm"],
+  emits: ["EmitForm", "ShowMode"],
   data() {
     return {
       dashboard_type: "version",
@@ -129,6 +157,7 @@ export default {
       showModal: false,
       modalBody: "",
       form: {},
+      mode: 1,
     };
   },
   created() {
@@ -150,7 +179,7 @@ export default {
       });
     },
     getVersion() {
-      this.version_options = [...Array(this.lastest_version+1).keys()];
+      this.version_options = [...Array(this.lastest_version + 1).keys()];
     },
     getAntimicrobial() {
       this.antimicrobial_options = [
@@ -186,6 +215,14 @@ export default {
       this.showModal = true;
       this.modalBody = body;
     },
+    showPerformance() {
+      this.mode = 1;
+      this.$emit("ShowMode", 1);
+    },
+    showDataset() {
+      this.mode = 2;
+      this.$emit("ShowMode", 2);
+    },
   },
   computed: {
     disableViewFiles() {
@@ -206,13 +243,20 @@ export default {
     vitek_id() {
       this.antimicrobial = null;
       this.version = null;
+      this.mode = 1;
       this.emitForm();
     },
     dashboard_type() {
       this.antimicrobial = null;
       this.version = null;
+      this.mode = 1;
       this.emitForm();
     },
+    version(value) {
+      if (value === 0) {
+        this.showPerformance();
+      }
+    }
   },
 };
 </script>

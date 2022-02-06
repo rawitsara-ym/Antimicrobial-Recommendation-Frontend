@@ -1,12 +1,18 @@
 <template>
   <div class="flex flex-col mb-8">
     <h1 class="text-center text-2xl font-semibold my-6">Model Dashboard</h1>
-    <select-dashboard @EmitForm="getForm" />
-    <performance-chart v-if="showDashboard" :version="version" :antimicrobial="antimicrobial"/>
+    <select-dashboard @EmitForm="getForm" @ShowMode="setMode" />
+    <div v-if="showDashboard">
+      <performance-chart
+        v-if="mode === 1"
+        :version="version"
+        :antimicrobial="antimicrobial"
+      />
+      <dataset-dashboard v-if="mode === 2" />
+    </div>
     <div v-else class="flex justify-center items-center my-8">
       <h3>No Dashboard</h3>
     </div>
-    <dataset-dashboard v-if="showDashboard && version"/>
   </div>
 </template>
 
@@ -27,6 +33,7 @@ export default {
       vitek_id: null,
       version: null,
       antimicrobial: null,
+      mode: 1,
     };
   },
   methods: {
@@ -35,6 +42,9 @@ export default {
       this.version = form.version;
       this.antimicrobial = form.antimicrobial;
       console.log(form);
+    },
+    setMode(mode) {
+      this.mode = mode;
     },
   },
   computed: {
