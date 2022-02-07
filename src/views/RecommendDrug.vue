@@ -7,7 +7,7 @@
       v-show="show_sir_name"
       @EmitForm="getAntimicrobialForm"
       @EmitSirName="showSirName"
-      :vitekId="body.vitek_id"
+      :vitekId="vitek_id"
     />
     <div class="mt-8 flex gap-x-4">
       <button
@@ -50,10 +50,11 @@ export default {
       body: {
         species: "",
         bact_genus: "",
-        vitek_id: "",
+        vitek_id: "", // name
         submitted_sample: "",
         sir: {},
       },
+      vitek_id: null, // id
       model_result: {},
       recommended: false,
       show_loading: false,
@@ -68,9 +69,11 @@ export default {
       axios
         .post(`${this.host}/api/predict`, this.body)
         .then((response) => {
-          this.model_result = response.data.answer;
-          this.show_loading = false;
-          this.recommended = true;
+          if (response.data.status == "success") {
+            this.model_result = response.data.data.answers;
+            this.show_loading = false;
+            this.recommended = true;
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -80,8 +83,13 @@ export default {
       this.body.species = form.species;
       this.body.bact_genus = form.bact_genus;
       this.body.submitted_sample = form.submitted_sample;
-      this.body.vitek_id = form.vitek_id;
-      // console.log(form);
+      if (form.vitek_id) {
+        this.body.vitek_id = form.vitek_id.name;
+        this.vitek_id = form.vitek_id.id;
+      } else {
+        this.body.vitek_id = null;
+        this.vitek_id = null;
+      }
     },
     getAntimicrobialForm(form) {
       this.body.sir = form;

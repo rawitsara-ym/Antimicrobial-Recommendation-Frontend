@@ -50,7 +50,7 @@
         <option
           v-for="(item, index) in vitek_id_options"
           :key="index"
-          :value="item.id"
+          :value="item"
         >
           {{ item.name.toUpperCase() }}
         </option>

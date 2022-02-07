@@ -57,13 +57,8 @@ export default {
   components: {
     Loader,
   },
-  props: {
-    vitekId: {
-      type: Number,
-      required: false,
-    },
-  },
-  emits: ["EmitForm"],
+  props: ['vitekId'],
+  emits: ["EmitForm", "EmitSirName"],
   data() {
     return {
       show_loading: false,
@@ -98,7 +93,7 @@ export default {
     },
     clearInput() {
       this.sir_result = {};
-      this.sort_object();
+      // this.sort_object();
       this.emitForm();
     },
     find_sir_subtype(sir_id) {
@@ -111,9 +106,9 @@ export default {
     },
   },
   watch: {
-    vitekId(val) {
-      if (val) {
-        this.getSIR(val);
+    vitekId(value) {
+      if (value) {
+        this.getSIR(value);
       }
     },
   },
