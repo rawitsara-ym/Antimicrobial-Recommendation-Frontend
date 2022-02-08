@@ -1,6 +1,11 @@
 <template>
   <div>
-    <apexchart type="pie" :options="options" :series="series"></apexchart>
+    <apexchart
+      ref="chart"
+      type="pie"
+      :options="options"
+      :series="series"
+    ></apexchart>
   </div>
 </template>
 
@@ -37,27 +42,10 @@ export default {
       series: [],
     };
   },
-  created() {
-    this.getSpeciesDb();
-  },
   methods: {
-    getSpeciesDb() {
-      let res = [
-        {
-          species: "cat",
-          count: 822,
-        },
-        {
-          species: "dog",
-          count: 1206,
-        },
-        {
-          species: "other",
-          count: 15,
-        },
-      ];
-      this.options.labels = res.map(({ species }) => species);
-      this.series = res.map(({ count }) => count);
+    updateChart(options, series) {
+      this.$refs.chart.updateOptions(options);
+      this.series = series;
     },
   },
 };

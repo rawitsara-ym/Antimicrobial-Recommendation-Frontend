@@ -168,10 +168,6 @@ export default {
   },
   methods: {
     getVitekId() {
-      this.vitek_id_options = [
-        { id: 1, name: "gn" },
-        { id: 2, name: "gp" },
-      ];
       axios.get(`${this.host}/api/vitek_id`).then((response) => {
         if (response.data.status == "success") {
           this.vitek_id_options = response.data.data.vitek_id;
@@ -179,14 +175,25 @@ export default {
       });
     },
     getVersion() {
-      this.version_options = [...Array(this.lastest_version + 1).keys()];
+      let params = { vitek_id: this.vitek_id };
+      axios
+        .get(`${this.host}/api/lastest_version`, { params })
+        .then((response) => {
+          if (response.data.status == "success") {
+            let lastest_version = response.data.data.lastest_version;
+            this.version_options = [...Array(lastest_version + 1).keys()];
+          }
+        });
     },
     getAntimicrobial() {
-      this.antimicrobial_options = [
-        { id: 1, name: "Amikacin" },
-        { id: 2, name: "Amoxicillin/clavulanic acid" },
-        { id: 3, name: "Cefalexin" },
-      ];
+      let params = { vitek_id: this.vitek_id };
+      axios
+        .get(`${this.host}/api/antimicrobial_model`, { params })
+        .then((response) => {
+          if (response.data.status == "success") {
+            this.antimicrobial_options = response.data.data.antimicrobial;
+          }
+        });
     },
     viewFiles(modelGroupId) {
       this.openModal(this.files);
@@ -243,20 +250,20 @@ export default {
     vitek_id() {
       this.antimicrobial = null;
       this.version = null;
-      this.mode = 1;
+      this.showPerformance();
       this.emitForm();
     },
     dashboard_type() {
       this.antimicrobial = null;
       this.version = null;
-      this.mode = 1;
+      this.showPerformance();
       this.emitForm();
     },
     version(value) {
       if (value === 0) {
         this.showPerformance();
       }
-    }
+    },
   },
 };
 </script>

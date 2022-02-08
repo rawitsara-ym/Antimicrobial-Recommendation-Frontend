@@ -8,7 +8,11 @@
         :version="version"
         :antimicrobial="antimicrobial"
       />
-      <dataset-dashboard v-if="mode === 2" />
+      <dataset-dashboard
+        v-if="mode === 2"
+        :vitekId="vitek_id"
+        :version="version"
+      />
     </div>
     <div v-else class="flex justify-center items-center my-8">
       <h3>No Dashboard</h3>
@@ -41,7 +45,7 @@ export default {
       this.vitek_id = form.vitek_id;
       this.version = form.version;
       this.antimicrobial = form.antimicrobial;
-      console.log(form);
+      // console.log(form);
     },
     setMode(mode) {
       this.mode = mode;

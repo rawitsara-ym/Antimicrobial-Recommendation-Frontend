@@ -1,6 +1,11 @@
 <template>
   <div>
-    <apexchart type="line" :options="options" :series="series"></apexchart>
+    <apexchart
+      ref="chart"
+      type="line"
+      :options="options"
+      :series="series"
+    ></apexchart>
   </div>
 </template>
 
@@ -19,6 +24,18 @@ export default {
         xaxis: {
           categories: [],
           type: "datetime",
+          labels: {
+            datetimeFormatter: {
+              year: "yyyy",
+              month: "MMM 'yy",
+            },
+            // format: "yyyy-MM",
+          },
+        },
+        tooltip: {
+          x: {
+            format: "MMM 'yy",
+          },
         },
         markers: {
           size: 5,
@@ -40,32 +57,10 @@ export default {
       series: [],
     };
   },
-  created() {
-    this.getCaseCount();
-  },
   methods: {
-    getCaseCount() {
-      let res = [
-        {
-          date: "2018-01-31",
-          count: 86,
-        },
-        {
-          date: "2018-02-28",
-          count: 66,
-        },
-        {
-          date: "2018-03-31",
-          count: 76,
-        },
-      ];
-      this.options.xaxis.categories = res.map(({ date }) => date);
-      this.series = [
-        {
-          name: "Case",
-          data: res.map(({ count }) => count),
-        },
-      ];
+    updateChart(options, series) {
+      this.$refs.chart.updateOptions(options);
+      this.series = series;
     },
   },
 };

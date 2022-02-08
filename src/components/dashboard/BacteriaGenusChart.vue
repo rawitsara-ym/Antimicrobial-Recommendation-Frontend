@@ -1,6 +1,11 @@
 <template>
   <div>
-    <apexchart type="bar" :options="options" :series="series"></apexchart>
+    <apexchart
+      ref="chart"
+      type="bar"
+      :options="options"
+      :series="series"
+    ></apexchart>
   </div>
 </template>
 
@@ -19,12 +24,27 @@ export default {
         xaxis: {
           categories: [],
         },
-        theme: {
-          palette: "palette2",
+        colors: [
+          "#3F51B5",
+          "#03A9F4",
+          "#4CAF50",
+          "#F9CE1D",
+          "#FF9800",
+          "#33B2DF",
+          "#546E7A",
+          "#D4526E",
+          "#13D8AA",
+          "#A5978B",
+        ],
+        // theme: {
+        //   palette: "palette2",
+        // },
+        dataLabels: {
+          enabled: false,
         },
         plotOptions: {
           bar: {
-            horizontal: true,
+            // horizontal: true,
             distributed: true,
           },
         },
@@ -39,48 +59,16 @@ export default {
           },
         },
         legend: {
-            position: 'right',
-        }
+          position: "right",
+        },
       },
       series: [],
     };
   },
-  created() {
-    this.getBacteriaGenusDb()
-  },
   methods: {
-    getBacteriaGenusDb() {
-      let res = [
-        {
-          name: "achromobacter",
-          count: 1206,
-        },
-        {
-          name: "bordetella",
-          count: 1000,
-        },
-        {
-          name: "corynebacterium",
-          count: 845,
-        },
-        {
-          name: "rhizobium",
-          count: 798,
-        },
-        {
-          name: "stenotrophomonas",
-          count: 598,
-        },
-      ];
-      this.series = [
-        {
-          name: "Bacteria Genus",
-          data: res.map(({ count }) => count),
-        },
-      ];
-      this.options.xaxis.categories = res.map(({ name }) =>
-        this.upperFirst(name)
-      );
+    updateChart(options, series) {
+      this.$refs.chart.updateOptions(options);
+      this.series = series;
     },
   },
 };

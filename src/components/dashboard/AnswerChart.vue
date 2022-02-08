@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart type="bar" :options="options" :series="series"></apexchart>
+    <apexchart ref=chart type="bar" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -15,16 +15,36 @@ export default {
           toolbar: {
             show: true,
           },
-          stacked: true
         },
         xaxis: {
           categories: [],
         },
-        theme: {
-          palette: "palette4",
+        colors: [
+          "#4ECDC4",
+          "#C7F464",
+          "#81D4FA",
+          "#546E7A",
+          "#FD6A6A",
+          "#2B908F",
+          "#F9A3A4",
+          "#90EE7E",
+          "#FA4443",
+          "#69D2E7",
+          "#008FFB",
+          "#00E396",
+          "#FEB019",
+          "#FF4560",
+          "#775DD0",
+        ],
+        // theme: {
+        //   palette: "palette4",
+        // },
+        dataLabels: {
+          enabled: false,
         },
         plotOptions: {
           bar: {
+            horizontal: true,
             distributed: true,
           },
         },
@@ -43,7 +63,7 @@ export default {
         },
         grid: {
           padding: {
-            // left: 40,
+            // left: 80,
             // right: 20,
             bottom: 10,
           },
@@ -52,46 +72,10 @@ export default {
       series: [],
     };
   },
-  created() {
-    this.getSirDb()
-  },
   methods: {
-    getSirDb() {
-      let res = [
-        {
-          name: "Amikacin",
-          count: 1000
-        },
-        {
-          name: "Doxycycline",
-          count: 900
-        },
-        {
-          name: "Enrofloxacin",
-          count: 800
-        },
-        {
-          name: "Enrofloxacin",
-          count: 700
-        },
-        {
-          name: "Nitrofurantoin",
-          count: 600
-        },
-        {
-          name: "Trimethoprim/sulfamethoxazole",
-          count: 500
-        },
-      ];
-      this.series = [
-        {
-          name: "Antimicrobial",
-          data: res.map(({ count }) => count),
-        },
-      ];
-      this.options.xaxis.categories = res.map(({ name }) =>
-        this.upperFirst(name)
-      );
+    updateChart(options, series) {
+      this.$refs.chart.updateOptions(options);
+      this.series = series;
     },
   },
 };

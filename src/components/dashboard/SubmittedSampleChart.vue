@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart type="bar" :options="options" :series="series"></apexchart>
+    <apexchart ref=chart type="bar" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -19,12 +19,27 @@ export default {
         xaxis: {
           categories: [],
         },
-        theme: {
-          palette: "palette3",
+        colors: [
+          "#449DD1",
+          "#F86624",
+          "#EA3546",
+          "#662E9B",
+          "#C5D86D",
+          "#D7263D",
+          "#1B998B",
+          "#2E294E",
+          "#F46036",
+          "#E2C044",
+        ],
+        // theme: {
+        //   palette: "palette3",
+        // },
+        dataLabels: {
+          enabled: false,
         },
         plotOptions: {
           bar: {
-            horizontal: true,
+            // horizontal: true,
             distributed: true,
           },
         },
@@ -45,42 +60,10 @@ export default {
       series: [],
     };
   },
-  created() {
-    this.getSubmittedSampleDb()
-  },
   methods: {
-    getSubmittedSampleDb() {
-      let res = [
-        {
-          name: "abdomen",
-          count: 1206,
-        },
-        {
-          name: "blood",
-          count: 1000,
-        },
-        {
-          name: "crust from skin",
-          count: 845,
-        },
-        {
-          name: "ear wound",
-          count: 798,
-        },
-        {
-          name: "saliva",
-          count: 598,
-        },
-      ];
-      this.series = [
-        {
-          name: "Submitted Sample",
-          data: res.map(({ count }) => count),
-        },
-      ];
-      this.options.xaxis.categories = res.map(({ name }) =>
-        this.upperFirst(name)
-      );
+    updateChart(options, series) {
+      this.$refs.chart.updateOptions(options);
+      this.series = series;
     },
   },
 };
