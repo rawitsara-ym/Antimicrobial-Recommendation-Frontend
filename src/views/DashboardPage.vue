@@ -2,11 +2,12 @@
   <div class="flex flex-col mb-8">
     <h1 class="text-center text-2xl font-semibold my-6">Model Dashboard</h1>
     <select-dashboard @EmitForm="getForm" @ShowMode="setMode" />
-    <div v-if="showDashboard">
-      <performance-chart
-        v-if="mode === 1"
+    <div v-show="showDashboard">
+      <performance-dashboard
+        v-show="mode === 1"
         :version="version"
         :antimicrobial="antimicrobial"
+        :vitekId="vitek_id"
       />
       <dataset-dashboard
         v-if="mode === 2"
@@ -14,7 +15,7 @@
         :version="version"
       />
     </div>
-    <div v-else class="flex justify-center items-center my-8">
+    <div v-show="!showDashboard" class="flex justify-center items-center my-8">
       <h3>No Dashboard</h3>
     </div>
   </div>
@@ -22,14 +23,14 @@
 
 <script>
 import SelectDashboard from "../components/SelectDashboard.vue";
-import PerformanceChart from "../components/PerformanceChart.vue";
+import PerformanceDashboard from "../components/PerformanceDashboard.vue";
 import DatasetDashboard from "../components/DatasetDashboard.vue";
 
 export default {
   name: "DashboardPage",
   components: {
     SelectDashboard,
-    PerformanceChart,
+    PerformanceDashboard,
     DatasetDashboard,
   },
   data() {

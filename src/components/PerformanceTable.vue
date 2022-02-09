@@ -71,10 +71,10 @@
               />
             </td>
             <td class="px-4 py-2 text-sm">{{ item.version }}</td>
-            <td class="px-4 py-2 text-sm">{{ item.accuracy }}</td>
-            <td class="px-4 py-2 text-sm">{{ item.precision }}</td>
-            <td class="px-4 py-2 text-sm">{{ item.recall }}</td>
-            <td class="px-4 py-2 text-sm">{{ item.f1 }}</td>
+            <td class="px-4 py-2 text-sm">{{ item.accuracy.toFixed(3) }}</td>
+            <td class="px-4 py-2 text-sm">{{ item.precision.toFixed(3) }}</td>
+            <td class="px-4 py-2 text-sm">{{ item.recall.toFixed(3) }}</td>
+            <td class="px-4 py-2 text-sm">{{ item.f1.toFixed(3) }}</td>
             <td v-if="version == 0" class="px-4 py-2 text-sm">
               <button
                 @click="viewFile(item.model_group_id)"

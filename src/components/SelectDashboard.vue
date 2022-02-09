@@ -69,7 +69,7 @@
               :key="index"
               :value="item.id"
             >
-              {{ item.name }}
+              {{ upperFirst(item.name) }}
             </option>
           </select>
         </div>

@@ -191,7 +191,6 @@ export default {
                 ),
               },
             };
-            console.log(options)
             this.$refs.sirChart.updateChart(options, series);
           }
         });
