@@ -23,7 +23,7 @@
           <td class="px-6 py-2">{{ item.timestamp }}</td>
           <td class="px-6 py-2">{{ item.amountRow }}</td>
           <td class="px-6 py-2">
-            <button @click="deleteFile">
+            <button @click="deleteFile(item.id)">
               <font-awesome-icon icon="trash-alt" class="text-red-400" />
             </button>
           </td>
@@ -48,16 +48,43 @@
       @pagechanged="showMore"
     />
   </div>
+
+  <pop-up
+    :type="'confirm'"
+    :showPopUp="show_popup_confirm"
+    @OnConfirm="onConfirm"
+    @OnCancel="onCancel"
+  >
+    <template v-slot:popup-header>
+      <h2 class="font-bold">Confirm</h2>
+    </template>
+    <template v-slot:popup-body>
+      <h4 class="font-semibold text-lg">Are you sure delete this file?</h4>
+      <p class="text-gray-500">
+        If you delete the file you can not recover it.
+      </p>
+    </template>
+  </pop-up>
+
+  <pop-up
+    :type="'success'"
+    :showPopUp="show_popup_success"
+    @OnSuccess="onSuccess"
+  >
+    <p class="text-gray-500">Successfully deleted the file.</p>
+  </pop-up>
 </template>
 
 <script>
 import axios from "axios";
 import Pagination from "./Pagination.vue";
+import PopUp from "./PopUp.vue";
 
 export default {
   name: "FileManagement",
   components: {
     Pagination,
+    PopUp,
   },
   data() {
     return {
@@ -67,6 +94,8 @@ export default {
       perPage: 10,
       currentPage: 1,
       hasMorePages: true,
+      show_popup_confirm: false,
+      show_popup_success: false,
     };
   },
   created() {
@@ -85,8 +114,27 @@ export default {
           }
         });
     },
+    deleteFile() {
+      this.showPopUpConfirm();
+    },
     showMore(page) {
       this.currentPage = page;
+    },
+    showPopUpConfirm() {
+      this.show_popup_confirm = true;
+    },
+    showPopUpSuccess() {
+      this.show_popup_success = true;
+    },
+    onConfirm() {
+      this.show_popup_confirm = false;
+      this.show_popup_success = true;
+    },
+    onCancel() {
+      this.show_popup_confirm = false;
+    },
+    onSuccess() {
+      this.show_popup_success = false;
     },
   },
 };
