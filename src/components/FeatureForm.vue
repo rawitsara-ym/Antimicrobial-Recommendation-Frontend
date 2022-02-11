@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Autocomplete from "./Autocomplete.vue";
 
 export default {
@@ -98,21 +97,21 @@ export default {
       this.emitForm();
     },
     getSpecies() {
-      axios.get(`${this.host}/api/species`).then((response) => {
+      this.axios.get(`${this.host}/api/species`).then((response) => {
         if (response.data.status == "success") {
           this.species_options = response.data.data.species;
         }
       });
     },
     getVitekId() {
-      axios.get(`${this.host}/api/vitek_id`).then((response) => {
+      this.axios.get(`${this.host}/api/vitek_id`).then((response) => {
         if (response.data.status == "success") {
           this.vitek_id_options = response.data.data.vitek_id;
         }
       });
     },
     getBactGenus() {
-      axios.get(`${this.host}/api/bacteria_genus`).then((response) => {
+      this.axios.get(`${this.host}/api/bacteria_genus`).then((response) => {
         if (response.data.status == "success") {
           this.bact_genus_list = this.sortObjectByName(
             response.data.data.bacteria_genus
@@ -121,7 +120,7 @@ export default {
       });
     },
     getSubmittedSample() {
-      axios.get(`${this.host}/api/submitted_sample`).then((response) => {
+      this.axios.get(`${this.host}/api/submitted_sample`).then((response) => {
         if (response.data.status == "success") {
           this.submitted_sample_list = this.sortObjectByName(
             response.data.data.submitted_sample

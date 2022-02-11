@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import ChooseFile from "../components/ChooseFile.vue";
 import FileUploadLog from "../components/FileUploadLog.vue";
 
@@ -44,7 +43,7 @@ export default {
       let params = { vitek_id: this.vitek_id };
       let formData = new FormData();
       formData.append("in_file", this.file);
-      axios
+      this.axios
         .post(`${this.host}/api/upload`, formData, { params })
         .then((response) => {
           if (response.data.status == "success") {

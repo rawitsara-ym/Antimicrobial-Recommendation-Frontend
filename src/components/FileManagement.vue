@@ -76,7 +76,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Pagination from "./Pagination.vue";
 import PopUp from "./PopUp.vue";
 
@@ -104,7 +103,7 @@ export default {
   methods: {
     getFiles() {
       let params = { page: this.currentPage };
-      axios
+      this.axios
         .get(`${this.host}/api/view_all_files`, { params })
         .then((response) => {
           if (response.data.status == "success") {

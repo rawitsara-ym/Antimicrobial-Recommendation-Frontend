@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Loader from "./Loader.vue";
 
 export default {
@@ -71,7 +70,7 @@ export default {
     getSIR(vitekId) {
       this.show_loading = true;
       let params = { v_id: vitekId };
-      axios
+      this.axios
         .get(`${this.host}/api/antimicrobial_sir`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -93,7 +92,6 @@ export default {
     },
     clearInput() {
       this.sir_result = {};
-      // this.sort_object();
       this.emitForm();
     },
     find_sir_subtype(sir_id) {

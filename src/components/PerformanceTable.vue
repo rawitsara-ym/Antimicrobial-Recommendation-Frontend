@@ -126,7 +126,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Modal from "./Modal.vue";
 
 export default {
@@ -156,7 +155,7 @@ export default {
       console.log("test");
       this.openModal(this.files);
       let params = { model_group_id: modelGroupId };
-      axios
+      this.axios
         .get(`${this.host}/api/view_filename`, { params })
         .then((response) => {
           if (response.data.status == "success") {

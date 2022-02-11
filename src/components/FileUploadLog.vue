@@ -197,7 +197,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Pagination from "./Pagination.vue";
 import Modal from "./Modal.vue";
 
@@ -230,7 +229,7 @@ export default {
     },
     getLogs() {
       let params = { page: this.currentPage };
-      axios.get(`${this.host}/api/logs_upload`, { params }).then((response) => {
+      this.axios.get(`${this.host}/api/logs_upload`, { params }).then((response) => {
         if (response.data.status == "success") {
           this.logs = response.data.data.logs;
           this.totalRows = response.data.data.total_rows;

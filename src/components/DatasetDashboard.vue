@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import CaseCountChart from "./dashboard/CaseCountChart.vue";
 import SpeciesChart from "./dashboard/SpeciesChart.vue";
 import BacteriaGenusChart from "./dashboard/BacteriaGenusChart.vue";
@@ -64,7 +63,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_case`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -89,7 +88,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_species`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -107,7 +106,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_bacteria_genus`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -132,7 +131,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_submitted_sample`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -157,7 +156,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_antimicrobial_sir`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -200,7 +199,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_antimicrobial_answer`, { params })
         .then((response) => {
           if (response.data.status == "success") {

@@ -135,7 +135,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Modal from "./Modal.vue";
 
 export default {
@@ -168,7 +167,7 @@ export default {
   },
   methods: {
     getVitekId() {
-      axios.get(`${this.host}/api/vitek_id`).then((response) => {
+      this.axios.get(`${this.host}/api/vitek_id`).then((response) => {
         if (response.data.status == "success") {
           this.vitek_id_options = response.data.data.vitek_id;
         }
@@ -176,7 +175,7 @@ export default {
     },
     getVersion() {
       let params = { vitek_id: this.vitek_id };
-      axios
+      this.axios
         .get(`${this.host}/api/lastest_version`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -187,7 +186,7 @@ export default {
     },
     getAntimicrobial() {
       let params = { vitek_id: this.vitek_id };
-      axios
+      this.axios
         .get(`${this.host}/api/antimicrobial_model`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -198,7 +197,7 @@ export default {
     viewFiles(modelGroupId) {
       this.openModal(this.files);
       let params = { model_group_id: modelGroupId };
-      axios
+      this.axios
         .get(`${this.host}/api/view_filename`, { params })
         .then((response) => {
           if (response.data.status == "success") {

@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Loader from "../components/Loader.vue";
 import FeatureForm from "../components/FeatureForm.vue";
 import AntimicrobialForm from "../components/AntimicrobialForm.vue";
@@ -66,7 +65,7 @@ export default {
       this.show_loading = true;
       this.recommended = false;
       this.body.sir = this.filterObjectByValue(this.body.sir, null);
-      axios
+      this.axios
         .post(`${this.host}/api/predict`, this.body)
         .then((response) => {
           if (response.data.status == "success") {

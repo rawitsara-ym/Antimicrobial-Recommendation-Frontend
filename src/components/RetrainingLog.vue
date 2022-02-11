@@ -137,7 +137,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Pagination from "./Pagination.vue";
 import Modal from "./Modal.vue";
 
@@ -166,7 +165,7 @@ export default {
   methods: {
     getLogs() {
       let params = { page: this.currentPage };
-      axios
+      this.axios
         .get(`${this.host}/api/logs_retraining`, { params })
         .then((response) => {
           if (response.data.status == "success") {
@@ -179,7 +178,7 @@ export default {
     viewFiles(modelGroupId) {
       this.openModal(this.files);
       let params = { model_group_id: modelGroupId };
-      axios
+      this.axios
         .get(`${this.host}/api/view_filename`, { params })
         .then((response) => {
           if (response.data.status == "success") {

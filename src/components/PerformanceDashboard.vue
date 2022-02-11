@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import PerformanceTable from "./PerformanceTable.vue";
 import PerformanceByAntimicrobialChart from "./dashboard/PerformanceByAntimicrobialChart.vue";
 import PerformanceByVersionChart from "./dashboard/PerformanceByVersionChart.vue";
@@ -64,7 +63,7 @@ export default {
         vitek_id: this.vitekId,
         version: this.version,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_performance_by_version`, {
           params,
         })
@@ -84,7 +83,7 @@ export default {
       let params = {
         antimicrobial_id: this.antimicrobial,
       };
-      axios
+      this.axios
         .get(`${this.host}/api/dashboard_performance_by_antimicrobial`, {
           params,
         })

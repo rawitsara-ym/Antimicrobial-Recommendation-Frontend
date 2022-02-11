@@ -89,7 +89,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Modal from "./Modal.vue";
 export default {
   name: "ChooseFile",
@@ -113,7 +112,7 @@ export default {
       this.$emit("AddFile", e.target.files[0]);
     },
     getVitekId() {
-      axios.get(`${this.host}/api/vitek_id`).then((response) => {
+      this.axios.get(`${this.host}/api/vitek_id`).then((response) => {
         if (response.data.status == "success") {
           this.vitek_id_options = response.data.data.vitek_id;
         }
