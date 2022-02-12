@@ -1,6 +1,6 @@
 <template>
   <nav-bar/>
-  <div class="px-24 pt-nav">
+  <div class="px-6 md:px-8 lg:px-20 pt-nav">
     <router-view/>
   </div>
 </template>
@@ -25,10 +25,10 @@ export default {
   color: #2c3e50;
 } */
 .h-full-screen {
-  height: calc(100vh - 72px);
+  height: calc(100vh - 80px);
 }
 .pt-nav {
-  padding-top: 72px;
+  padding-top: 80px;
 }
 .bg-blue-1 {
   background-color: #24305E;

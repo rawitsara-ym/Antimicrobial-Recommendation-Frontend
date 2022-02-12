@@ -1,13 +1,17 @@
 <template>
   <div class="bg-style" :style="`background-image: url(${background});`"></div>
-  <div class="flex flex-col justify-center h-full-screen pb-32">
-    <p class="text-6xl font-semibold text-gray-1">Antimicrobial</p>
-    <p class="text-6xl font-semibold text-gray-1">Recommendation in Pet</p>
+  <div class="flex flex-col lg:justify-center h-full-screen pb-32 md:space-y-12">
+    <div
+      class="text-3xl md:text-5xl font-semibold text-gray-1 md:space-y-2 mt-20 "
+    >
+      <p>Antimicrobial</p>
+      <p>Recommendation in Pet</p>
+    </div>
     <ul class="list-disc ml-6 my-8">
-      <li class="text-2xl font-semibold text-gray-2">
+      <li class="text-md md:text-2xl font-semibold text-gray-2">
         Recommend antibiotic in pet with ML models
       </li>
-      <li class="text-2xl font-semibold text-gray-2">
+      <li class="text-md md:text-2xl font-semibold text-gray-2">
         Upload files to retrain models automatically
       </li>
     </ul>
