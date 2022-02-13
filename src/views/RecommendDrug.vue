@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
+    <h1 class="text-xl md:text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
     <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
     <antimicrobial-form
       ref="antimicrobialForm"

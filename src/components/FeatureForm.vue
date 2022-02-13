@@ -1,8 +1,8 @@
 <template>
-  <div class="grid grid-cols-2 gap-6 col-gap">
+  <div class="grid grid-cols-2 gap-4 gap-x-4 lg:gap-x-12">
     <div class="grid grid-col-2">
-      <label for="species" class="text-right mr-8"
-        >Species<span class="text-red-1"> *</span></label
+      <label for="species" class="md:text-right mr-2 lg:mr-8"
+        >Species<span class="text-red-500"> *</span></label
       >
       <select
         @change="emitForm"
@@ -19,8 +19,8 @@
       </select>
     </div>
     <div class="grid grid-col-2">
-      <label for="bact_genus" class="text-right mr-8"
-        >Bacteria Genus<span class="text-red-1"> *</span></label
+      <label for="bact_genus" class="md:text-right mr-2 lg:mr-8"
+        >Bacteria Genus<span class="text-red-500"> *</span></label
       >
       <autocomplete
         ref="bactGenusInput"
@@ -29,8 +29,8 @@
       />
     </div>
     <div class="grid grid-col-2">
-      <label for="submitted_sample" class="text-right mr-8"
-        >Submitted Sample<span class="text-red-1"> *</span></label
+      <label for="submitted_sample" class="md:text-right mr-2 lg:mr-8"
+        >Submitted Sample<span class="text-red-500"> *</span></label
       >
       <autocomplete
         ref="submittedSampleInput"
@@ -39,8 +39,8 @@
       />
     </div>
     <div class="grid grid-col-2">
-      <label for="vitek_id" class="text-right mr-8"
-        >Vitek ID Card<span class="text-red-1"> *</span></label
+      <label for="vitek_id" class="md:text-right mr-2 lg:mr-8"
+        >Vitek ID Card<span class="text-red-500"> *</span></label
       >
       <select
         @change="emitForm"
@@ -152,9 +152,12 @@ export default {
 
 <style scoped>
 .grid-col-2 {
-  grid-template-columns: 1fr 1.5fr;
+  grid-template-columns: 1fr;
 }
-.col-gap {
-  column-gap: 60px;
+
+@media (min-width: 768px) {
+  .grid-col-2 {
+    grid-template-columns: 1fr 1.25fr;
+  }
 }
 </style>

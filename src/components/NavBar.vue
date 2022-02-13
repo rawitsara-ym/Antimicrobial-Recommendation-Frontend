@@ -7,7 +7,7 @@
         <font-awesome-icon icon="bars" size="lg" class="text-gray-200"/>
       </div>
     </div>
-    <ul v-if="show_menu" class="block lg:flex py-6 lg:py-0 font-medium text-white-1 gap-x-2">
+    <ul ref="menuBar" class="hidden lg:flex py-6 lg:py-0 font-medium text-white-1 gap-x-2">
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/recommend-drug">Recommend Drug</router-link></li>
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/upload-file">Upload File</router-link></li>
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/files-retraining">Files & Retraining</router-link></li>
@@ -23,33 +23,39 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      show_menu: true,
-      screen_width: window.innerWidth,
     }
   },
   mounted() {
     window.addEventListener("resize", this.resizeEvent);
-    if (window.innerWidth < 1024) {
-      this.show_menu = false;
-    }
   },
   unmounted() {
     window.removeEventListener("resize", this.resizeEvent);
   },
   methods: {
-    goHome() {
-      if (this.show_menu == true) {
-        this.show_menu = false;
-      }
-    },
     toggleMenu() {
       if (window.innerWidth < 1024) {
-        this.show_menu = !this.show_menu;
+        if (this.$refs.menuBar.style.display == "block") {
+          this.$refs.menuBar.style.display = "none";
+        } else {
+          this.$refs.menuBar.style.display = "block";
+        }
+      }
+    },
+    goHome() {
+      if (window.innerWidth < 1024) {
+        this.$refs.menuBar.style.display = "none";
       }
     },
     resizeEvent() {
       if (window.innerWidth >= 1024) {
-        this.show_menu = true;
+        this.$refs.menuBar.style.display = "flex";
+      } 
+      else {
+        if ( this.$refs.menuBar.style.display == "block") {
+          this.$refs.menuBar.style.display = "block";
+        } else {
+          this.$refs.menuBar.style.display = "none";
+        }
       }
     },
   },
