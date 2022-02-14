@@ -1,43 +1,45 @@
 <template>
   <div class="flex flex-col w-full">
-    <table class="border-l border-r border-b">
-      <thead class="bg-gray-3">
-        <tr>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">#</th>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">Filename</th>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">Vitek ID</th>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">
-            Uploaded Date
-          </th>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">
-            Total Rows
-          </th>
-          <th class="px-6 py-3 text-left font-medium text-gray-1">Delete</th>
-        </tr>
-      </thead>
-      <tbody class="text-gray-900">
-        <tr v-for="(item, index) in files" :key="index" class="bg-white">
-          <td class="px-6 py-2">{{ index + 1 }}</td>
-          <td class="px-6 py-2">{{ item.filename }}</td>
-          <td class="px-6 py-2">{{ item.vitek_id }}</td>
-          <td class="px-6 py-2">{{ item.timestamp }}</td>
-          <td class="px-6 py-2">{{ item.amountRow }}</td>
-          <td class="px-6 py-2">
-            <button @click="deleteFile(item.id)">
-              <font-awesome-icon icon="trash-alt" class="text-red-400" />
-            </button>
-          </td>
-        </tr>
-        <tr v-if="files.length == 0">
-          <td
-            colspan="6"
-            class="text-center text-sm font-medium text-gray-1 p-4"
-          >
-            No File
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-x-auto">
+      <table class="border-l border-r border-b w-full">
+        <thead class="bg-gray-3 text-left text-gray-800 whitespace-nowrap">
+          <tr>
+            <th class="px-6 py-3 font-medium">#</th>
+            <th class="px-6 py-3 font-medium">Filename</th>
+            <th class="px-6 py-3 font-medium">Vitek ID</th>
+            <th class="px-6 py-3 font-medium">
+              Uploaded Date
+            </th>
+            <th class="px-6 py-3 font-medium">
+              Total Rows
+            </th>
+            <th class="px-6 py-3 font-medium">Delete</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-800">
+          <tr v-for="(item, index) in files" :key="index" class="bg-white">
+            <td class="px-6 py-2">{{ index + 1 }}</td>
+            <td class="px-6 py-2">{{ item.filename }}</td>
+            <td class="px-6 py-2">{{ item.vitek_id }}</td>
+            <td class="px-6 py-2">{{ item.timestamp }}</td>
+            <td class="px-6 py-2">{{ item.amountRow }}</td>
+            <td class="px-6 py-2">
+              <button @click="deleteFile(item.id)">
+                <font-awesome-icon icon="trash-alt" class="text-red-400" />
+              </button>
+            </td>
+          </tr>
+          <tr v-if="files.length == 0">
+            <td
+              colspan="6"
+              class="text-center  font-medium p-4"
+            >
+              No File
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <pagination
       :row-on-page="files.length"
       :total-pages="totalPages"

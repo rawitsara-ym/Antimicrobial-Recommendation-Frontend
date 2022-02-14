@@ -1,13 +1,13 @@
 <template>
   <div class="flex justify-between py-2 my-2">
-    <p class="text-gray-1 text-sm">
+    <p class="text-gray-800 text-xs sm:text-sm">
       Showing {{ startShowing }} to {{ rowOnPage }} of {{ totalRows }} entries
     </p>
-    <ul class="flex pagination bg-white">
+    <ul class="flex bg-white gap-x-1">
       <li>
         <button
           @click="onClickFirstPage"
-          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
+          class="border border-gray-200 px-2 sm:px-3 h-7 sm:h-8 text-gray-600 no-underline rounded"
           :class="{
             'opacity-50': isInFirstPage,
             'hover:bg-gray-100': !isInFirstPage,
@@ -23,7 +23,7 @@
           @click="onClickPreviousPage"
           :disabled="isInFirstPage"
           aria-label="Go to previous page"
-          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline text-sm rounded"
+          class="border border-gray-200 px-2 sm:px-3 h-7 sm:h-8 text-gray-600 no-underline text-sm rounded"
           :class="{
             'opacity-50': isInFirstPage,
             'hover:bg-gray-100': !isInFirstPage,
@@ -35,7 +35,7 @@
 
       <li v-for="page in pages" :key="page.name">
         <button
-          class="mx-1 text-sm border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
+          class="text-xs sm:text-sm border border-gray-200 px-2 sm:px-3 h-7 sm:h-8 text-gray-600 no-underline rounded"
           @click="onClickPage(page.name)"
           :class="{
             'bg-blue-100': isPageActive(page.name),
@@ -52,7 +52,7 @@
           @click="onClickNextPage"
           :disabled="isInLastPage"
           aria-label="Go to next page"
-          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline text-sm rounded"
+          class="border border-gray-200 px-2 sm:px-3 h-7 sm:h-8 text-gray-600 no-underline text-sm rounded"
           :class="{
             'opacity-50': isInLastPage,
             'hover:bg-gray-100': !isInLastPage,
@@ -64,7 +64,7 @@
 
       <li>
         <button
-          class="mx-1 border border-gray-100 px-3 h-8 text-gray-600 no-underline rounded"
+          class="border border-gray-200 px-2 sm:px-3 h-7 sm:h-8 text-gray-600 no-underline rounded"
           @click="onClickLastPage"
           :disabled="isInLastPage"
           :class="{

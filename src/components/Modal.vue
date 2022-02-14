@@ -1,9 +1,9 @@
 <template>
   <div
     v-if="showModal"
-    class="fixed right-0 left-0 top-4 z-50 flex justify-center items-center md:inset-0 sm:h-full"
+    class="fixed right-0 left-0 top-0 z-50 flex justify-center items-center h-full"
   >
-    <div class="relative px-4 w-full max-w-4xl h-full md:h-auto z-40">
+    <div class="relative px-4 w-full max-w-4xl h-auto z-40">
       <!-- Modal content -->
       <div class="relative bg-white rounded-lg shadow">
         <!-- Modal header -->

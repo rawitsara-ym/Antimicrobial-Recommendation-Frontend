@@ -1,6 +1,12 @@
 <template>
-  <div>
-    <apexchart ref=chart type="bar" :options="options" :series="series"></apexchart>
+  <div class="h-full p-2 sm:p-4">
+    <apexchart
+      ref="chart"
+      type="bar"
+      height="100%"
+      :options="options"
+      :series="series"
+    ></apexchart>
   </div>
 </template>
 
@@ -59,7 +65,7 @@ export default {
           },
         },
         legend: {
-            position: 'right',
+          position: "right",
         },
         grid: {
           padding: {
@@ -68,6 +74,83 @@ export default {
             bottom: 10,
           },
         },
+        responsive: [
+          {
+            breakpoint: 10000,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              legend: {
+                position: "right",
+                fontSize: "12px",
+              },
+              title: {
+                text: "ยาต้านจุลชีพที่มีการแนะนำ (Antimicrobial Recommendation)",
+                style: {
+                  fontSize: "16px",
+                },
+              },
+            },
+          },
+          {
+            breakpoint: 768,
+            options: {
+              legend: {
+                position: "bottom",
+                fontSize: "12px",
+                itemMargin: {
+                  horizontal: 5,
+                  vertical: 3,
+                },
+              },
+            },
+          },
+          {
+            breakpoint: 640,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              yaxis: {
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              legend: {
+                position: "bottom",
+                fontSize: "8px",
+                itemMargin: {
+                  horizontal: 5,
+                  vertical: 3,
+                },
+              },
+              title: {
+                text: ["ยาต้านจุลชีพที่มีการแนะนำ", "(Antimicrobial Recommendation)"],
+                style: {
+                  fontSize: "12px",
+                },
+              },
+            },
+          },
+        ],
       },
       series: [],
     };

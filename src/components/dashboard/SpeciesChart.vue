@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="h-full p-2 sm:p-4">
     <apexchart
       ref="chart"
       type="pie"
+      height="100%"
       :options="options"
       :series="series"
     ></apexchart>
@@ -35,9 +36,37 @@ export default {
             color: "#263238",
           },
         },
-        // legend: {
-        //     position: 'bottom',
-        // }
+        legend: {
+            position: 'bottom',
+        },
+        responsive: [
+          {
+            breakpoint: 10000,
+            options: {
+              title: {
+                style: {
+                  fontSize: "16px",
+                },
+              },
+              legend: {
+                fontSize: "12px",
+              },
+            },
+          },
+          {
+            breakpoint: 640,
+            options: {
+              title: {
+                style: {
+                  fontSize: "12px",
+                },
+              },
+              legend: {
+                fontSize: "10px",
+              },
+            },
+          },
+        ],
       },
       series: [],
     };

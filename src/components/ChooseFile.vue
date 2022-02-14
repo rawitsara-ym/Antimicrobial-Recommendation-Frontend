@@ -4,20 +4,20 @@
       @dragover.prevent
       @drop.prevent
       @drop="dragFile"
-      class="flex flex-col items-center w-3/6 border-dashed border-2 rounded p-4"
+      class="flex flex-col items-center w-5/6 md:w-4/6 lg:w-3/6 border-dashed border-2 rounded p-4"
     >
       <font-awesome-icon icon="copy" size="5x" class="text-blue-200" />
       <div class="flex items-center mt-4">
-        <p class="text-gray-1 text-center">Drag and Drop a File here</p>
+        <p class="text-gray-800 text-center">Drag and Drop a File here</p>
         <font-awesome-icon
           @click="openModal"
           icon="info-circle"
-          class="text-gray-2 ml-2 cursor-pointer"
+          class="text-gray-400 ml-2 cursor-pointer"
         />
       </div>
       <label class="flex flex-col items-center my-4">
         <span
-          class="bg-yellow-1 text-gray-1 font-semibold py-2 px-6 cursor-pointer rounded"
+          class="bg-yellow-1 text-gray-700 font-semibold py-2 px-6 cursor-pointer rounded"
           >Choose a File</span
         >
         <input
@@ -28,7 +28,7 @@
         />
       </label>
       <div class="h-4">
-        <p v-if="file" class="text-gray-2 text-sm">{{ file.name }}</p>
+        <p v-if="file" class="text-gray-400 text-sm">{{ file.name }}</p>
       </div>
     </div>
     <div class="flex m-4">
@@ -54,7 +54,7 @@
           <font-awesome-icon
             icon="info-circle"
             size="lg"
-            class="text-gray-2 mr-2"
+            class="text-gray-400 mr-2"
           />
           <p>
             The uploaded file must be valid according to the specified
@@ -62,24 +62,24 @@
           </p>
         </div>
         <ul class="list-disc ml-14">
-          <li>File format: <span class="text-gray-2">CSV File</span></li>
+          <li>File format: <span class="text-gray-400">CSV File</span></li>
           <li>
-            The number of rows in the file:<span class="text-gray-2">
+            The number of rows in the file:<span class="text-gray-400">
               Minimum 500 rows.</span
             >
           </li>
           <li>
             The columns must be named as follows:
-            <span class="text-gray-2"
+            <span class="text-gray-400"
               >hn, date_of_submission, report_issued_date, species,
               bacteria_species, submitted_sample, S/I/R_{antimicrobial},
               ans_{antimicrobial}</span
             >
           </li>
-          <li>Date format: <span class="text-gray-2">yyyy-mm-dd</span></li>
+          <li>Date format: <span class="text-gray-400">yyyy-mm-dd</span></li>
           <li>
             The Column "ans_{antimicrobial}" must contain:
-            <span class="text-gray-2">True, False</span>
+            <span class="text-gray-400">True, False</span>
           </li>
           <li>The file must not contain duplicate rows.</li>
         </ul>

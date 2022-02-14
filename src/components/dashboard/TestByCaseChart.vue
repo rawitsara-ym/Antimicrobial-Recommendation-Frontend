@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="h-full p-2 sm:p-4">
     <apexchart
       ref="chart"
       type="bar"
+      height="100%"
       :options="options"
       :series="series"
     ></apexchart>
@@ -43,9 +44,76 @@ export default {
         xaxis: {
           categories: [],
         },
-        // dataLabels: {
-        //   enabled: false,
-        // }
+        responsive: [
+          {
+            breakpoint: 10000,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              legend: {
+                fontSize: "12px",
+              },
+              title: {
+                style: {
+                  fontSize: "16px",
+                },
+              },
+              dataLabels: {
+                style: {
+                  fontSize: "14px"
+                }
+              }
+            },
+          },
+          {
+            breakpoint: 640,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              legend: {
+                fontSize: "8px",
+              },
+              title: {
+                style: {
+                  fontSize: "12px",
+                },
+              },
+              dataLabels: {
+                style: {
+                  fontSize: "10px"
+                }
+              }
+            },
+          },
+        ],
       },
       series: [],
     };

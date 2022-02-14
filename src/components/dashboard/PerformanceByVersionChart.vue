@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="h-full p-2 sm:p-4">
     <apexchart
       ref="chart"
       type="bar"
+      height="100%"
       :options="options"
       :series="series"
     ></apexchart>
@@ -44,6 +45,70 @@ export default {
             vertical: 15,
           },
         },
+        responsive: [
+          {
+            breakpoint: 10000,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              legend: {
+                fontSize: "12px",
+              },
+              title: {
+                style: {
+                  fontSize: "16px",
+                },
+              },
+            },
+          },
+          {
+            breakpoint: 640,
+            options: {
+              xaxis: {
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              legend: {
+                fontSize: "8px",
+                itemMargin: {
+                  horizontal: 5,
+                  vertical: 0,
+                },
+              },
+              title: {
+                style: {
+                  fontSize: "12px",
+                },
+              },
+            },
+          },
+        ],
       },
       series: [],
     };

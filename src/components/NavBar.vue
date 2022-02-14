@@ -7,7 +7,7 @@
         <font-awesome-icon icon="bars" size="lg" class="text-gray-200"/>
       </div>
     </div>
-    <ul ref="menuBar" class="hidden lg:flex py-6 lg:py-0 font-medium text-white-1 gap-x-2">
+    <ul ref="menuBar" class="hidden lg:flex py-6 lg:py-0 font-medium text-white-1 gap-x-3">
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/recommend-drug">Recommend Drug</router-link></li>
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/upload-file">Upload File</router-link></li>
       <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/files-retraining">Files & Retraining</router-link></li>

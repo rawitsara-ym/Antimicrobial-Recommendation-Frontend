@@ -1,25 +1,36 @@
 <template>
   <div
-    class="flex flex-col mt-8 p-4 border border-solid border-gray-300 rounded-lg"
+    class="flex flex-col mt-4 p-6 border border-solid border-gray-300 rounded-lg"
   >
-    <h4 class="text-lg font-semibold">Model Performance</h4>
-    <div v-show="antimicrobial" class="flex justify-center mt-8">
-      <div class="w-1/2 border border-solid pt-2 pr-2">
+    <h4 class="text-lg font-semibold mb-8">Model Performance</h4>
+    <div v-show="antimicrobial" class="flex justify-center">
+      <div
+        class="chart-res-1 w-full md:w-5/6 xl:w-9/12 border border-solid pt-2 pr-2"
+      >
         <performance-by-antimicrobial-chart
           ref="performanceByAntimicrobialChart"
         />
       </div>
     </div>
-    <div v-show="version != null" class="flex flex-col items-center">
-      <div class="flex justify-between my-8 w-full gap-x-4">
-        <div class="w-4/6 border border-solid pt-2">
+    <div v-show="version != null" class="flex flex-col items-center gap-y-8">
+      <div
+        class="flex flex-col items-center xl:items-stretch xl:flex-row justify-between w-full gap-x-4 gap-y-8"
+      >
+        <div
+          class="chart-res-1 w-full md:w-5/6 lg:w-9/12 xl:w-4/6 border border-solid pt-2"
+        >
           <performance-by-version-chart ref="performanceByVersionChart" />
         </div>
-        <div class="w-7/12 border border-solid pt-2">
+        <div
+          class="chart-res-2 w-full md:w-5/6 lg:w-9/12 xl:w-7/12 border border-solid pt-2"
+        >
           <test-by-case-chart ref="testByCaseChart" />
         </div>
       </div>
-      <div v-if="version == 0" class="w-1/2 border border-solid pt-2 mb-6">
+      <div
+        v-if="version == 0"
+        class="chart-res-3 w-full md:w-5/6 lg:w-9/12 xl:w-1/2 border border-solid"
+      >
         <version-chart ref="versionChart" />
       </div>
     </div>
@@ -50,8 +61,8 @@ export default {
   props: ["version", "antimicrobial", "vitekId"],
   data() {
     return {
-      performance: []
-    }
+      performance: [],
+    };
   },
   // created() {
   //   this.getPerformance();
@@ -201,3 +212,26 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.chart-res-1 {
+  height: 325px;
+}
+.chart-res-2 {
+  height: 250px;
+}
+.chart-res-3 {
+  height: 350px;
+}
+@media (min-width: 640px) {
+  .chart-res-1 {
+    height: 450px;
+  }
+  .chart-res-2 {
+    height: 450px;
+  }
+  .chart-res-3 {
+    height: 450px;
+  }
+}
+</style>

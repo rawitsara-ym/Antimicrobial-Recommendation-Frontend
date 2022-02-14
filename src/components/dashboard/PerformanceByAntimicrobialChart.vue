@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="h-full p-2 sm:p-4">
     <apexchart
       ref="chart"
       type="line"
+      height="100%"
       :options="options"
       :series="series"
     ></apexchart>
@@ -24,11 +25,6 @@ export default {
         yaxis: {
           min: 0,
           max: 1,
-        //   labels: {
-        //     formatter: function (val) {
-        //       return val.toFixed(2);
-        //     },
-        //   },
         },
         markers: {
           size: 5,
@@ -39,7 +35,6 @@ export default {
         title: {
           text: "ประสิทธิภาพของโมเดลในแต่ละ Version",
           align: "center",
-          // margin: 50,
           style: {
             fontSize: "16px",
             fontWeight: "bold",
@@ -54,6 +49,63 @@ export default {
             bottom: 10,
           },
         },
+        responsive: [
+          {
+            breakpoint: 10000,
+            options: {
+              legend: {
+                fontSize: "12px",
+                itemMargin: {
+                  horizontal: 5,
+                  vertical: 0,
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "12px",
+                  },
+                },
+              },
+              title: {
+                style: {
+                  fontSize: "16px",
+                },
+                margin: 0,
+              },
+            },
+          },
+          {
+            breakpoint: 640,
+            options: {
+              legend: {
+                fontSize: "8px",
+                itemMargin: {
+                  horizontal: 5,
+                  vertical: 0,
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 1,
+                labels: {
+                  style: {
+                    fontSize: "8px",
+                  },
+                },
+              },
+              title: {
+                style: {
+                  fontSize: "12px",
+                },
+                offsetY: 20,
+                margin: 20,
+              },
+            },
+          },
+        ],
       },
       series: [],
     };

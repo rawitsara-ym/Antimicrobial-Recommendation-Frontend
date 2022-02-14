@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="showPopUp"
-    class="fixed right-0 left-0 top-4 z-50 flex justify-center items-center md:inset-0 sm:h-full"
+    class="fixed right-0 left-0 top-0 z-50 flex justify-center items-center h-full"
   >
     <!-- CONFIRM TYPE -->
     <div
       v-if="type == 'confirm'"
-      class="relative px-4 w-full max-w-xl h-full md:h-auto z-40"
+      class="relative px-4 w-full max-w-xl h-auto z-40"
     >
       <!-- PopUp content -->
       <div class="relative bg-white rounded-lg shadow">

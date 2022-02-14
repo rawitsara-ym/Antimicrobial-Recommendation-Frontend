@@ -1,103 +1,105 @@
 <template>
   <div class="w-full">
-    <p class="text-left text-2xl font-semibold my-8">File Upload Log</p>
+    <p class="text-left text-xl md:text-2xl font-semibold my-8">File Upload Log</p>
     <div class="flex flex-col">
-      <table class="border-l border-r border-b">
-        <thead class="bg-gray-3">
-          <tr>
-            <th class="px-2 py-3 text-left font-medium text-gray-1"></th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">#</th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">
-              Filename
-            </th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">
-              Start Date
-            </th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">
-              Finish Date
-            </th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">Time</th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">
-              Total Rows
-            </th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1">Status</th>
-            <th class="px-2 py-3 text-left font-medium text-gray-1"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(item, index) in logs" :key="index">
-            <td class="px-2 py-2 text-center">
-              <font-awesome-icon
-                v-if="success(item)"
-                icon="check-circle"
-                size="lg"
-                class="text-green-500"
-              />
-              <font-awesome-icon
-                v-else-if="fail(item)"
-                icon="exclamation-circle"
-                size="lg"
-                class="text-red-500"
-              />
-              <font-awesome-icon
-                v-else
-                icon="spinner"
-                size="lg"
-                class="text-blue-500"
-                spin
-              />
-            </td>
-            <td class="px-2 py-2">{{ index + 1 }}</td>
-            <td class="px-2 py-2">{{ item.filename }}</td>
-            <td class="px-2 py-2">{{ item.start_date }}</td>
-            <td class="px-2 py-2">{{ item.finish_date }}</td>
-            <td class="px-2 py-2">{{ item.time }}</td>
-            <td class="px-2 py-2">{{ item.amount_row }}</td>
-            <td class="px-2 py-2">
-              <font-awesome-icon
-                v-if="success(item)"
-                icon="circle"
-                size="xs"
-                class="text-green-500"
-              />
-              <font-awesome-icon
-                v-else-if="fail(item)"
-                icon="circle"
-                size="xs"
-                class="text-red-500"
-              />
-              <font-awesome-icon
-                v-else
-                icon="circle"
-                size="xs"
-                class="text-blue-500"
-              />
-              {{ upperFirst(item.result.status) }}
-            </td>
-            <td>
-              <button
-                @click="openModal(item)"
-                :disabled="!success(item) && !fail(item)"
-                :class="{
-                  'opacity-50 cursor-not-allowed':
-                    !success(item) && !fail(item),
-                }"
-                class="bg-yellow-1 text-gray-1 text-sm font-semibold py-1 px-4 m-2 rounded"
+      <div class="overflow-x-auto">
+        <table class="border-l border-r border-b w-full">
+          <thead class="bg-gray-3 text-left text-gray-800 whitespace-nowrap">
+            <tr>
+              <th class="px-2 py-3 font-medium"></th>
+              <th class="px-2 py-3 font-medium">#</th>
+              <th class="px-2 py-3 font-medium">
+                Filename
+              </th>
+              <th class="px-2 py-3 font-medium">
+                Start Date
+              </th>
+              <th class="px-2 py-3 font-medium">
+                Finish Date
+              </th>
+              <th class="px-2 py-3 font-medium">Time</th>
+              <th class="px-2 py-3 font-medium">
+                Total Rows
+              </th>
+              <th class="px-2 py-3 font-medium">Status</th>
+              <th class="px-2 py-3 font-medium"></th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-800">
+            <tr v-for="(item, index) in logs" :key="index">
+              <td class="px-2 py-2 text-center">
+                <font-awesome-icon
+                  v-if="success(item)"
+                  icon="check-circle"
+                  size="lg"
+                  class="text-green-500"
+                />
+                <font-awesome-icon
+                  v-else-if="fail(item)"
+                  icon="exclamation-circle"
+                  size="lg"
+                  class="text-red-500"
+                />
+                <font-awesome-icon
+                  v-else
+                  icon="spinner"
+                  size="lg"
+                  class="text-blue-500"
+                  spin
+                />
+              </td>
+              <td class="px-2 py-2">{{ index + 1 }}</td>
+              <td class="px-2 py-2">{{ item.filename }}</td>
+              <td class="px-2 py-2">{{ item.start_date }}</td>
+              <td class="px-2 py-2">{{ item.finish_date }}</td>
+              <td class="px-2 py-2">{{ item.time }}</td>
+              <td class="px-2 py-2">{{ item.amount_row }}</td>
+              <td class="px-2 py-2">
+                <font-awesome-icon
+                  v-if="success(item)"
+                  icon="circle"
+                  size="xs"
+                  class="text-green-500"
+                />
+                <font-awesome-icon
+                  v-else-if="fail(item)"
+                  icon="circle"
+                  size="xs"
+                  class="text-red-500"
+                />
+                <font-awesome-icon
+                  v-else
+                  icon="circle"
+                  size="xs"
+                  class="text-blue-500"
+                />
+                {{ upperFirst(item.result.status) }}
+              </td>
+              <td>
+                <button
+                  @click="openModal(item)"
+                  :disabled="!success(item) && !fail(item)"
+                  :class="{
+                    'opacity-50 cursor-not-allowed':
+                      !success(item) && !fail(item),
+                  }"
+                  class="bg-yellow-1 text-sm font-semibold py-1 px-4 m-2 rounded"
+                >
+                  Result
+                </button>
+              </td>
+            </tr>
+            <tr v-if="logs.length == 0">
+              <td
+                colspan="9"
+                class="text-center text-sm font-medium p-4"
               >
-                Result
-              </button>
-            </td>
-          </tr>
-          <tr v-if="logs.length == 0">
-            <td
-              colspan="9"
-              class="text-center text-sm font-medium text-gray-1 p-4"
-            >
-              No Data
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                No Data
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <pagination
         :row-on-page="logs.length"
         :total-pages="totalPages"
