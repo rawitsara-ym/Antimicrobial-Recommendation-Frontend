@@ -64,10 +64,6 @@ export default {
       performance: [],
     };
   },
-  // created() {
-  //   this.getPerformance();
-  //   this.getPerfAntimicrobial();
-  // },
   methods: {
     getPerformance() {
       let params = {

@@ -7,13 +7,13 @@
         <font-awesome-icon icon="bars" size="lg" class="text-gray-200"/>
       </div>
     </div>
-    <ul ref="menuBar" class="hidden lg:flex py-6 lg:py-0 font-medium text-white-1 gap-x-3">
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/recommend-drug">Recommend Drug</router-link></li>
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/upload-file">Upload File</router-link></li>
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/files-retraining">Files & Retraining</router-link></li>
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/retraining-log">Retraining Log</router-link></li>
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/dashboard">Dashboard</router-link></li>
-      <li class="px-2 hover-yellow py-4" @click="toggleMenu"><router-link active-class="active" to="/configuration">Configuration</router-link></li>
+    <ul ref="menuBar" class="hidden lg:flex lg:justify-end py-6 lg:py-0 font-medium text-white-1 w-full lg:w-max">
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/recommend-drug">Recommend Drug</router-link></li>
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/upload-file">Upload File</router-link></li>
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/files-retraining">Files & Retraining</router-link></li>
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/retraining-log">Retraining Log</router-link></li>
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/dashboard">Dashboard</router-link></li>
+      <li><router-link @click="toggleMenu" class="w-full inline-block px-3 py-4 hover-yellow" active-class="active" to="/configuration">Configuration</router-link></li>
     </ul>
   </nav>
 </template>

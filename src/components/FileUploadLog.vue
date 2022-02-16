@@ -186,7 +186,7 @@
                 :key="index"
               >
                 {{ item.slice(0, item.indexOf(":")) }}
-                <span class="text-gray-2">
+                <span class="text-gray-600">
                   {{ item.slice(item.indexOf(":")) }}
                 </span>
               </li>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-xl sm:text-2xl font-semibold my-6">Files & Retraining</h1>
+    <h1 class="text-gray-900 text-xl sm:text-2xl font-semibold my-6">Files & Retraining</h1>
     <file-management />
     <button
       @click="retraining"

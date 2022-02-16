@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-xl md:text-2xl font-semibold my-6">Upload File</h1>
+    <h1 class="text-gray-900 text-xl md:text-2xl font-semibold my-6">Upload File</h1>
     <choose-file @VitekId="getVitekId" @AddFile="getFile" />
     <button
       @click="uploadFile"

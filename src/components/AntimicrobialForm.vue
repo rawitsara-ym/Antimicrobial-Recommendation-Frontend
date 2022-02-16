@@ -1,22 +1,22 @@
 <template>
   <loader v-if="show_loading" />
-  <div v-else class="grid">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 lg:gap-x-12">
+  <div v-else class="grid text-gray-800">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-12">
       <div class="grid grid-col-2">
-        <p class="text-center bg-blue-3 lg:px-20 py-2 rounded mr-4 lg:mr-8">
+        <p class="text-center font-semibold bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
           Antimicrobial
         </p>
-        <p class="text-center bg-blue-3 py-2 rounded">S/I/R</p>
+        <p class="text-center font-semibold bg-blue-3 py-2 rounded">S/I/R</p>
       </div>
       <div class="md:grid grid-col-2 hidden">
-        <p class="text-center bg-blue-3 lg:px-20 py-2 rounded mr-4 lg:mr-8">
+        <p class="text-center font-semibold bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
           Antimicrobial
         </p>
-        <p class="text-center bg-blue-3 py-2 rounded">S/I/R</p>
+        <p class="text-center font-semibold bg-blue-3 py-2 rounded">S/I/R</p>
       </div>
     </div>
     <div
-      class="grid grid-cols-1 md:grid-cols-2 md:grid-flow-col gap-x-4 lg:gap-x-12"
+      class="grid grid-cols-1 md:grid-cols-2 md:grid-flow-col gap-x-6 lg:gap-x-12"
       :style="{
         'grid-template-rows': `repeat(${Math.ceil(sir_name.length / 2)}, 1fr)`,
       }"
@@ -26,7 +26,7 @@
         :key="index"
         class="grid grid-col-2 mt-2"
       >
-        <label for="sir" class="mr-4 lg:mr-8">{{
+        <label for="sir" class="mr-3 lg:mr-8">{{
           sir.name == "esbl" ? sir.name.toUpperCase() : upperFirst(sir.name)
         }}</label>
         <select
@@ -115,6 +115,6 @@ export default {
 
 <style scoped>
 .grid-col-2 {
-  grid-template-columns:  2.75fr 1fr;
+  grid-template-columns: 3.25fr 1fr;
 }
 </style>

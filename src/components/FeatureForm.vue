@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-2 gap-4 gap-x-4 lg:gap-x-12">
+  <div class="grid grid-cols-2 gap-4 gap-x-4 md:gap-x-6 lg:gap-x-12 text-gray-800">
     <div class="grid grid-col-2">
       <label for="species" class="md:text-right mr-2 lg:mr-8"
         >Species<span class="text-red-500"> *</span></label
@@ -157,7 +157,7 @@ export default {
 
 @media (min-width: 768px) {
   .grid-col-2 {
-    grid-template-columns: 1fr 1.25fr;
+    grid-template-columns: 1fr 1.2fr;
   }
 }
 </style>

@@ -140,7 +140,7 @@ export default {
   },
   props: {
     version: {
-      type: Number,
+      type: [Number, null],
       required: true,
     },
     performances: {

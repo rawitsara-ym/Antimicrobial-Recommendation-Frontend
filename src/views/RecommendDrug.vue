@@ -1,14 +1,16 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-xl md:text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
-    <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
-    <antimicrobial-form
-      ref="antimicrobialForm"
-      v-show="show_sir_name"
-      @EmitForm="getAntimicrobialForm"
-      @EmitSirName="showSirName"
-      :vitekId="vitek_id"
-    />
+    <h1 class="text-gray-900 text-xl md:text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
+    <div>
+      <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
+      <antimicrobial-form
+        ref="antimicrobialForm"
+        v-show="show_sir_name"
+        @EmitForm="getAntimicrobialForm"
+        @EmitSirName="showSirName"
+        :vitekId="vitek_id"
+      />
+    </div>
     <div class="mt-8 flex gap-x-4">
       <button
         @click="getRecommend()"
@@ -20,7 +22,7 @@
       </button>
       <button
         @click="clearInput()"
-        class="bg-yellow-1 text-gray-1 font-semibold py-2 px-6 rounded"
+        class="bg-yellow-1 text-gray-800 font-semibold py-2 px-6 rounded"
       >
         Clear
       </button>

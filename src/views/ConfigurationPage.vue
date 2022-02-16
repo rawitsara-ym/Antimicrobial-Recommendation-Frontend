@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center mb-8 w-full">
-    <h1 class="text-2xl font-semibold my-6">Model Configuration</h1>
+    <h1 class="text-gray-900 text-2xl font-semibold my-6">Model Configuration</h1>
     <div class="max-w-full">
-      <div class="grid grid-cols-2 gap-y-4 gap-x-8 text-gray-900">
+      <div class="grid grid-cols-2 gap-y-4 gap-x-8 text-gray-800">
         <p class="font-semibold">Classification Alogorithm</p>
         <div class="text-gray-600">
           <p>XGBoost</p>
@@ -21,7 +21,7 @@
           <li>ผลตรวจความไวต่อยาต้านจุลชีพ (S/I/R)</li>
         </ul>
       </div>
-      <p class="font-semibold my-4">SMOTE Algorithms</p>
+      <p class="font-semibold my-4 text-gray-800">SMOTE Algorithms</p>
       <div
         class="flex flex-col lg:flex-row justify-between items-center gap-x-8 gap-y-4 max-w-full"
       >

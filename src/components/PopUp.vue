@@ -12,11 +12,11 @@
       <div class="relative bg-white rounded-lg shadow">
         <!-- PopUp header -->
         <div class="flex justify-between items-center px-5 py-4 rounded-t">
-          <div class="text-xl font-medium text-gray-900">
+          <div class="text-xl font-medium text-gray-800">
             <slot name="popup-header"></slot>
           </div>
           <button
-            class="text-gray-400 bg-transparent hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+            class="text-gray-400 bg-transparent hover:text-gray-800 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
             @click="onCancel"
           >
             <font-awesome-icon icon="times" size="lg" />
