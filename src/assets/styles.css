@@ -1,0 +1,97 @@
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto/Roboto-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto/Roboto-Regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto/Roboto-Medium.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto/Roboto-Bold.ttf) format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url(./fonts/Sarabun/Sarabun-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url(./fonts/Sarabun/Sarabun-Regular.ttf) format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url(./fonts/Sarabun/Sarabun-Medium.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Sarabun";
+  src: url(./fonts/Sarabun/Sarabun-SemiBold.ttf) format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+.font-sarabun {
+  font-family: "Sarabun", sans-serif;
+}
+
+.h-full-screen {
+  height: calc(100vh - 80px);
+}
+.pt-nav {
+  padding-top: 80px;
+}
+
+/* color */
+.bg-blue-1 {
+  background-color: #24305e;
+}
+.bg-blue-2 {
+  background-color: #374785;
+}
+.bg-blue-3 {
+  background-color: #a8d0e6;
+}
+.bg-blue-4 {
+  background-color: #2f80ed;
+}
+.bg-yellow-1 {
+  background-color: #fce181;
+}
+.bg-gray-3 {
+  background-color: #d1d7e0;
+}
+.text-white-1 {
+  color: #eeeeee;
+}
+.text-gray-1 {
+  color: #333333;
+}
+.text-gray-2 {
+  color: #9b9999;
+}
+.text-red-1 {
+  color: #eb5757;
+}
+.text-green-1 {
+  color: #27ae60;
+}
+.hover-yellow:hover {
+  color: #fce181;
+}

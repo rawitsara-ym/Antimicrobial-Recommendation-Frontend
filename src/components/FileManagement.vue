@@ -32,7 +32,7 @@
           <tr v-if="files.length == 0">
             <td
               colspan="6"
-              class="text-center  font-medium p-4"
+              class="text-center text-sm font-medium p-4"
             >
               No File
             </td>

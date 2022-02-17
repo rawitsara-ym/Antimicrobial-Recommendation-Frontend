@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col mb-8">
-    <h1 class="text-gray-900 text-center text-xl sm:text-2xl font-semibold my-6">Model Dashboard</h1>
+    <h1 class="text-gray-800 text-center text-xl sm:text-2xl font-semibold my-6">Model Dashboard</h1>
     <select-dashboard @EmitForm="getForm" @ShowMode="setMode" />
     <div v-show="showDashboard">
       <performance-dashboard

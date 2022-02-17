@@ -1,32 +1,38 @@
 <template>
   <div
-    class="flex flex-col mt-4 p-6 border border-solid border-gray-300 rounded-lg gap-y-8"
+    class="flex flex-col mt-4 p-2 sm:p-6 border border-solid border-gray-300 rounded-lg"
   >
-    <h4 class="text-lg font-semi  bold">Dataset</h4>
-    <div
-      class="flex flex-col xl:flex-row justify-between w-full gap-x-4 gap-y-8"
-    >
-      <div class="chart-res w-full xl:w-3/5 border border-solid pt-2">
-        <case-count-chart ref="caseCountChart" />
+    <h4 class="text-lg font-medium mb-4 sm:mb-8">Dataset</h4>
+    <div class="flex flex-col gap-y-8">
+      <div
+        class="flex flex-col xl:flex-row justify-between w-full gap-x-4 gap-y-8"
+      >
+        <div class="chart-res w-full xl:w-3/5 border border-solid pt-2">
+          <case-count-chart ref="caseCountChart" />
+        </div>
+        <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
+          <species-chart ref="speciesChart" />
+        </div>
       </div>
-      <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
-        <species-chart ref="speciesChart" />
+      <div
+        class="flex flex-col xl:flex-row justify-between w-full gap-x-4 gap-y-8"
+      >
+        <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
+          <bacteria-genus-chart ref="bacteriaGenusChart" />
+        </div>
+        <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
+          <submitted-sample-chart ref="submittedSampleChart" />
+        </div>
       </div>
-    </div>
-    <div class="flex flex-col xl:flex-row justify-between w-full gap-x-4 gap-y-8">
-      <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
-        <bacteria-genus-chart ref="bacteriaGenusChart" />
-      </div>
-      <div class="chart-res w-full xl:w-1/2 border border-solid pt-2">
-        <submitted-sample-chart ref="submittedSampleChart" />
-      </div>
-    </div>
-    <div class="flex flex-col 2xl:flex-row justify-between w-full gap-x-4 gap-y-8">
-      <div class="chart-res w-full 2xl:w-1/2 border border-solid pt-2">
-        <sir-chart ref="sirChart" />
-      </div>
-      <div class="chart-res w-full 2xl:w-1/2 border border-solid pt-2">
-        <answer-chart ref="answerChart" />
+      <div
+        class="flex flex-col 2xl:flex-row justify-between w-full gap-x-4 gap-y-8"
+      >
+        <div class="chart-res w-full 2xl:w-1/2 border border-solid pt-2">
+          <sir-chart ref="sirChart" />
+        </div>
+        <div class="chart-res w-full 2xl:w-1/2 border border-solid pt-2">
+          <answer-chart ref="answerChart" />
+        </div>
       </div>
     </div>
   </div>

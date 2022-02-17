@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-2 sm:p-4">
+  <div class="h-full pb-2 sm:p-4">
     <apexchart
       ref="chart"
       type="line"
@@ -40,8 +40,8 @@ export default {
           align: "center",
           style: {
             fontSize: "16px",
-            fontWeight: "bold",
-            fontFamily: undefined,
+            fontWeight: 600,
+            fontFamily: "Sarabun, sans-serif",
             color: "#263238",
           },
         },
@@ -49,7 +49,7 @@ export default {
           padding: {
             left: 40,
             right: 20,
-            bottom: 10,
+            bottom: 15,
           },
         },
         responsive: [
@@ -78,6 +78,13 @@ export default {
                   fontSize: "16px",
                 },
                 margin: 0,
+              },
+              grid: {
+                padding: {
+                  left: 40,
+                  right: 20,
+                  bottom: 15,
+                },
               },
             },
           },
@@ -110,7 +117,7 @@ export default {
               },
               grid: {
                 padding: {
-                  left: 25,
+                  left: 30,
                   right: 10,
                   bottom: 0,
                 },

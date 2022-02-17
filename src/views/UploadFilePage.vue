@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-gray-900 text-xl md:text-2xl font-semibold my-6">Upload File</h1>
+    <h1 class="text-gray-800 text-xl md:text-2xl font-semibold my-6">Upload File</h1>
     <choose-file @VitekId="getVitekId" @AddFile="getFile" />
     <button
       @click="uploadFile"
       :disabled="!file || !vitek_id"
       :class="{ 'opacity-50 cursor-not-allowed': !file || !vitek_id }"
-      class="bg-blue-2 text-white-1 font-semibold py-2 px-6 rounded"
+      class="bg-blue-2 text-white-1 font-medium py-2 px-6 rounded"
     >
       Upload
     </button>

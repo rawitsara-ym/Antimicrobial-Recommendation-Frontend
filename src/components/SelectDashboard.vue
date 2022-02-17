@@ -1,7 +1,7 @@
 <template>
   <div class="w-full flex flex-col items-center md:items-start">
-    <div class="flex flex-col md:items-end md:flex-row gap-x-6 gap-y-6">
-      <div class="grid grid-rows-2 gap-y-2 ml-7 md:ml-0">
+    <div class="flex flex-col md:items-end md:flex-row gap-x-6 gap-y-6 text-gray-800">
+      <div class="grid grid-rows-2 gap-y-2 ml-7 md:ml-0 font-medium">
         <label for="vitek_id">Vitek ID</label>
         <select
           @change="emitForm"
@@ -17,7 +17,7 @@
           </option>
         </select>
       </div>
-      <div class="flex flex-col md:flex-row gap-x-6 gap-y-4">
+      <div class="flex flex-col md:flex-row gap-x-6 gap-y-4 font-medium">
         <div class="flex">
           <input
             type="radio"
@@ -82,7 +82,7 @@
           @click="viewFiles(item.model_group_id)"
           :disabled="disableViewFiles"
           :class="{ 'opacity-50 cursor-not-allowed': disableViewFiles }"
-          class="bg-blue-3 text-gray-800 text-sm font-semibold py-1 px-6 rounded"
+          class="bg-blue-3 text-gray-800 text-sm font-medium py-1 px-6 rounded"
         >
           View Files
         </button>
@@ -97,7 +97,7 @@
             'bg-gray-400 text-white': mode === 1,
             'bg-white text-gray-500': mode === 2,
           }"
-          class="text-sm font-semibold py-1 px-4 border-2 border-gray-400 rounded-l w-full"
+          class="text-sm font-medium py-1 px-4 border-2 border-gray-400 rounded-l w-full"
         >
           Performance
         </button>
@@ -111,7 +111,7 @@
             'bg-gray-400 text-white': mode === 2,
             'bg-white text-gray-500': mode === 1,
           }"
-          class="text-sm font-semibold py-1 px-4 border-b-2 border-t-2 border-r-2 border-gray-400 rounded-r w-full"
+          class="text-sm font-medium py-1 px-4 border-b-2 border-t-2 border-r-2 border-gray-400 rounded-r w-full"
         >
           Dataset
         </button>

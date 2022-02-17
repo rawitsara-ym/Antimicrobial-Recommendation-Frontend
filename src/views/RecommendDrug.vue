@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center mb-8">
-    <h1 class="text-gray-900 text-xl md:text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
+    <h1 class="text-gray-800 text-xl md:text-2xl font-semibold my-6">Antimicrobial Recommedation</h1>
     <div>
       <feature-form ref="featureForm" @EmitForm="getFeatureForm" class="mb-8" />
       <antimicrobial-form
@@ -16,13 +16,13 @@
         @click="getRecommend()"
         :disabled="disableRecommend"
         :class="{ 'opacity-50 cursor-not-allowed': disableRecommend }"
-        class="bg-blue-2 text-white-1 font-semibold py-2 px-6 rounded"
+        class="bg-blue-2 text-white-1 font-medium py-2 px-6 rounded"
       >
         Recommend
       </button>
       <button
         @click="clearInput()"
-        class="bg-yellow-1 text-gray-800 font-semibold py-2 px-6 rounded"
+        class="bg-yellow-1 text-gray-700 font-medium py-2 px-6 rounded"
       >
         Clear
       </button>

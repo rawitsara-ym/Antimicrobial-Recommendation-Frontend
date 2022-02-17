@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-2 sm:p-4">
+  <div class="h-full pb-2 sm:p-4">
     <apexchart
       ref="chart"
       type="bar"
@@ -43,8 +43,8 @@ export default {
           align: "center",
           style: {
             fontSize: "16px",
-            fontWeight: "bold",
-            fontFamily: undefined,
+            fontWeight: 600,
+            fontFamily: "Sarabun, sans-serif",
             color: "#263238",
           },
         },

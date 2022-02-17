@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <p class="text-left text-xl md:text-2xl font-semibold my-8">File Upload Log</p>
+    <p class="text-left text-xl md:text-2xl font-semibold text-gray-800 my-8">File Upload Log</p>
     <div class="flex flex-col">
       <div class="overflow-x-auto">
         <table class="border-l border-r border-b w-full">

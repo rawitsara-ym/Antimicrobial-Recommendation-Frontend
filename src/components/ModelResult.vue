@@ -1,6 +1,6 @@
 <template>
   <div class="my-8 flex flex-col items-center max-w-full">
-    <p class="font-semibold mb-4">Results</p>
+    <p class="font-medium mb-4 text-gray-800">Results</p>
     <div class="overflow-x-auto max-w-full">
       <table class="border-l border-r border-b">
         <thead class="bg-gray-3 text-left text-sm text-gray-800">

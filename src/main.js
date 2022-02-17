@@ -8,6 +8,7 @@ import router from "./router";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import "./assets/tailwind.css";
+import "./assets/styles.css";
 import mixin from "./mixin";
 
 library.add(fas);

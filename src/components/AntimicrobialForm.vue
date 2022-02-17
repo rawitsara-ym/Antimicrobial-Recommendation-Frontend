@@ -3,16 +3,16 @@
   <div v-else class="grid text-gray-800">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 lg:gap-x-12">
       <div class="grid grid-col-2">
-        <p class="text-center font-semibold bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
+        <p class="text-center font-medium bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
           Antimicrobial
         </p>
-        <p class="text-center font-semibold bg-blue-3 py-2 rounded">S/I/R</p>
+        <p class="text-center font-medium bg-blue-3 py-2 rounded">S/I/R</p>
       </div>
       <div class="md:grid grid-col-2 hidden">
-        <p class="text-center font-semibold bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
+        <p class="text-center font-medium bg-blue-3 lg:px-20 py-2 rounded mr-3 lg:mr-8">
           Antimicrobial
         </p>
-        <p class="text-center font-semibold bg-blue-3 py-2 rounded">S/I/R</p>
+        <p class="text-center font-medium bg-blue-3 py-2 rounded">S/I/R</p>
       </div>
     </div>
     <div

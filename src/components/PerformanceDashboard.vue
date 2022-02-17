@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex flex-col mt-4 p-6 border border-solid border-gray-300 rounded-lg"
+    class="flex flex-col mt-4 p-2 sm:p-6 border border-solid border-gray-300 rounded-lg text-gray-800"
   >
-    <h4 class="text-lg font-semibold mb-8">Model Performance</h4>
+    <h4 class="text-lg font-medium mb-4 sm:mb-8">Model Performance</h4>
     <div v-show="antimicrobial" class="flex justify-center">
       <div
         class="chart-res-1 w-full md:w-5/6 xl:w-9/12 border border-solid pt-2 pr-2"

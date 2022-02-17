@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center max-w-full mt-8">
     <div class="max-w-full">
-      <h5 class="text-sm sm:text-base text-center font-semibold mb-2">
+      <h5 class="text-sm sm:text-base text-center font-semibold font-sarabun mb-2">
         ตารางแสดงประสิทธิภาพของแต่ละโมเดล
       </h5>
       <div class="overflow-x-auto max-w-full">
@@ -41,7 +41,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="text-xs sm:text-sm">
+          <tbody class="text-xs sm:text-sm font-normal">
             <tr
               v-for="(item, index) in performances"
               :key="index"
@@ -79,7 +79,7 @@
               <td v-if="version == 0" class="px-4 py-2">
                 <button
                   @click="viewFile(item.model_group_id)"
-                  class="bg-blue-3 text-xs font-semibold py-1 px-4 rounded"
+                  class="bg-blue-3 text-xs text-gray-700 font-medium py-1 px-4 rounded"
                 >
                   View
                 </button>
@@ -89,7 +89,7 @@
         </table>
       </div>
       
-      <div v-if="version != 0" class="flex mt-2 text-xs sm:text-sm">
+      <div v-if="version != 0" class="flex mt-2 text-xs sm:text-sm font-sarabun">
         <p class="mr-2 whitespace-nowrap">*** หมายเหตุ</p>
         <div class="whitespace-nowrap">
           <font-awesome-icon

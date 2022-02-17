@@ -1,27 +1,27 @@
 <template>
   <div class="flex flex-col items-center mb-8 w-full">
-    <h1 class="text-gray-900 text-2xl font-semibold my-6">Model Configuration</h1>
+    <h1 class="text-gray-800 text-2xl font-semibold my-6">Model Configuration</h1>
     <div class="max-w-full">
       <div class="grid grid-cols-2 gap-y-4 gap-x-8 text-gray-800">
-        <p class="font-semibold">Classification Alogorithm</p>
+        <p class="font-medium">Classification Alogorithm</p>
         <div class="text-gray-600">
           <p>XGBoost</p>
           <p>Parameter : { n_estimators =1000, learning_rate = 0.1 }</p>
         </div>
-        <p class="font-semibold">Train : Test</p>
+        <p class="font-medium">Train : Test</p>
         <p class="text-gray-600">80 : 20</p>
-        <p class="font-semibold">Test By Case</p>
+        <p class="font-medium">Test By Case</p>
         <p class="text-gray-600">10%</p>
-        <p class="font-semibold">Feature</p>
+        <p class="font-medium">Feature</p>
         <ul class="text-gray-600 list-disc ml-5">
-          <li>ชนิดสัตว์เลี้ยง (Species)</li>
-          <li>สกุลแบคทีเรีย (Bactearia Genus)</li>
-          <li>ชนิดของการ์ดที่ใช้ตรวจด้วยเครื่อง Vitek (Vitek ID Card)</li>
-          <li>ตัวอย่างที่ส่งตรวจ (Submitted Sample)</li>
-          <li>ผลตรวจความไวต่อยาต้านจุลชีพ (S/I/R)</li>
+          <li><span class="font-sarabun">ชนิดสัตว์เลี้ยง</span> (Species)</li>
+          <li><span class="font-sarabun">สกุลแบคทีเรีย</span> (Bactearia Genus)</li>
+          <li><span class="font-sarabun">ชนิดของการ์ดที่ใช้ตรวจด้วยเครื่อง</span> Vitek (Vitek ID Card)</li>
+          <li><span class="font-sarabun">ตัวอย่างที่ส่งตรวจ</span> (Submitted Sample)</li>
+          <li><span class="font-sarabun">ผลตรวจความไวต่อยาต้านจุลชีพ</span> (S/I/R/POS/NEG)</li>
         </ul>
       </div>
-      <p class="font-semibold my-4 text-gray-800">SMOTE Algorithms</p>
+      <p class="font-medium my-4 text-gray-800">SMOTE Algorithms</p>
       <div
         class="flex flex-col lg:flex-row justify-between items-center gap-x-8 gap-y-4 max-w-full"
       >
@@ -36,7 +36,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="text-sm">
+            <tbody class="text-sm text-gray-800">
               <tr
                 v-for="(item, index) in gn_anti"
                 :key="index"
@@ -65,7 +65,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody class="text-sm">
+            <tbody class="text-sm text-gray-800">
               <tr
                 v-for="(item, index) in gp_anti"
                 :key="index"
@@ -102,9 +102,9 @@ export default {
         { antimicrobial: "cefovecin", smote: "SMOTE" },
         { antimicrobial: "doxycycline", smote: "Borderline-SMOTE" },
         { antimicrobial: "enrofloxacin", smote: "R-SMOTE" },
-        { antimicrobial: "gentamicin", smote: "R-SVM-SMOTE" },
+        { antimicrobial: "gentamicin", smote: "SVM-SMOTE" },
         { antimicrobial: "imipenem", smote: "R-SMOTE" },
-        { antimicrobial: "marbofloxacin", smote: "R-SVM-SMOTE" },
+        { antimicrobial: "marbofloxacin", smote: "SVM-SMOTE" },
         { antimicrobial: "nitrofurantoin", smote: "R-SMOTE" },
         { antimicrobial: "trimethoprim/sulfamethoxazole", smote: "R-SMOTE" },
       ],
@@ -118,9 +118,9 @@ export default {
         { antimicrobial: "cefovecin", smote: "SMOTE" },
         { antimicrobial: "doxycycline", smote: "Borderline-SMOTE" },
         { antimicrobial: "enrofloxacin", smote: "R-SMOTE" },
-        { antimicrobial: "gentamicin", smote: "R-SVM-SMOTE" },
+        { antimicrobial: "gentamicin", smote: "SVM-SMOTE" },
         { antimicrobial: "imipenem", smote: "R-SMOTE" },
-        { antimicrobial: "marbofloxacin", smote: "R-SVM-SMOTE" },
+        { antimicrobial: "marbofloxacin", smote: "SVM-SMOTE" },
         { antimicrobial: "nitrofurantoin", smote: "R-SMOTE" },
         { antimicrobial: "trimethoprim/sulfamethoxazole", smote: "R-SMOTE" },
       ],

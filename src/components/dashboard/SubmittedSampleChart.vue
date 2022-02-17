@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full p-2 sm:p-4">
+  <div class="h-full pb-2 sm:p-4">
     <apexchart
       ref="chart"
       type="bar"
@@ -50,12 +50,12 @@ export default {
           },
         },
         title: {
-          text: "Top 10 ตัวอย่างที่ส่งตรวจ (ฺSubmitted Sample)",
+          text: "Top 10 ตัวอย่างที่ส่งตรวจ (Submitted Sample)",
           align: "center",
           style: {
             fontSize: "16px",
-            fontWeight: "bold",
-            fontFamily: undefined,
+            fontWeight: 600,
+            fontFamily: "Sarabun, sans-serif",
             color: "#263238",
           },
         },
@@ -85,6 +85,7 @@ export default {
                 fontSize: "12px",
               },
               title: {
+                text: "Top 10 ตัวอย่างที่ส่งตรวจ (Submitted Sample)",
                 style: {
                   fontSize: "16px",
                 },
@@ -117,6 +118,7 @@ export default {
                 },
               },
               title: {
+                text: ["Top 10 ตัวอย่างที่ส่งตรวจ", "(Submitted Sample)"],
                 style: {
                   fontSize: "12px",
                 },

@@ -17,7 +17,7 @@
       </div>
       <label class="flex flex-col items-center my-4">
         <span
-          class="bg-yellow-1 text-gray-700 font-semibold py-2 px-6 cursor-pointer rounded"
+          class="bg-yellow-1 text-gray-700 font-medium py-2 px-6 cursor-pointer rounded"
           >Choose a File</span
         >
         <input
