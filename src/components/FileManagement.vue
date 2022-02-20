@@ -7,33 +7,30 @@
             <th class="px-6 py-3 font-medium">#</th>
             <th class="px-6 py-3 font-medium">Filename</th>
             <th class="px-6 py-3 font-medium">Vitek ID</th>
-            <th class="px-6 py-3 font-medium">
-              Uploaded Date
-            </th>
-            <th class="px-6 py-3 font-medium">
-              Total Rows
-            </th>
+            <th class="px-6 py-3 font-medium">Upload Date</th>
+            <th class="px-6 py-3 font-medium">Total Rows</th>
             <th class="px-6 py-3 font-medium">Delete</th>
           </tr>
         </thead>
         <tbody class="text-gray-800">
           <tr v-for="(item, index) in files" :key="index" class="bg-white">
             <td class="px-6 py-2">{{ index + 1 }}</td>
-            <td class="px-6 py-2">{{ item.filename }}</td>
+            <td class="px-6 py-2">{{ item.name }}</td>
             <td class="px-6 py-2">{{ item.vitek_id }}</td>
-            <td class="px-6 py-2">{{ item.timestamp }}</td>
-            <td class="px-6 py-2">{{ item.amountRow }}</td>
+            <td class="px-6 py-2">{{ item.upload_at }}</td>
+            <td class="px-6 py-2">{{ item.amount_row }}</td>
             <td class="px-6 py-2">
-              <button @click="deleteFile(item.id)">
+              <button
+                @click="deleteFile(item)"
+                :disabled="!item.can_delete"
+                :class="{ 'opacity-50 cursor-not-allowed': !item.can_delete }"
+              >
                 <font-awesome-icon icon="trash-alt" class="text-red-400" />
               </button>
             </td>
           </tr>
           <tr v-if="files.length == 0">
-            <td
-              colspan="6"
-              class="text-center text-sm font-medium p-4"
-            >
+            <td colspan="6" class="text-center text-sm font-medium p-4">
               No File
             </td>
           </tr>
@@ -58,13 +55,13 @@
     @OnCancel="onCancel"
   >
     <template v-slot:popup-header>
-      <h2 class="font-bold">Confirm</h2>
+      <h2 class="font-bold">Confirm File Deletion</h2>
     </template>
     <template v-slot:popup-body>
-      <h4 class="font-semibold text-lg">Are you sure delete this file?</h4>
-      <p class="text-gray-500">
+      <h4 class="font-sarabun">คุณต้องการลบไฟล์ "{{ filename }}" ใช่หรือไม่?</h4>
+      <!-- <p class="text-gray-500">
         If you delete the file you can not recover it.
-      </p>
+      </p> -->
     </template>
   </pop-up>
 
@@ -73,7 +70,7 @@
     :showPopUp="show_popup_success"
     @OnSuccess="onSuccess"
   >
-    <p class="text-gray-500">Successfully deleted the file.</p>
+    <p class="font-sarabun text-gray-500">ลบไฟล์สำเร็จ</p>
   </pop-up>
 </template>
 
@@ -97,6 +94,7 @@ export default {
       hasMorePages: true,
       show_popup_confirm: false,
       show_popup_success: false,
+      filename: null,
     };
   },
   created() {
@@ -110,19 +108,20 @@ export default {
         .then((response) => {
           if (response.data.status == "success") {
             this.files = response.data.data.files;
-            this.totalRows = response.data.data.total_rows;
+            this.totalRows = response.data.data.total_row;
             this.totalPages = Math.ceil(this.totalRows / this.perPage);
           }
         });
     },
-    deleteFile() {
-      this.showPopUpConfirm();
+    deleteFile(file) {
+      this.showPopUpConfirm(file.name);
     },
     showMore(page) {
       this.currentPage = page;
     },
-    showPopUpConfirm() {
+    showPopUpConfirm(filename) {
       this.show_popup_confirm = true;
+      this.filename = filename;
     },
     showPopUpSuccess() {
       this.show_popup_success = true;

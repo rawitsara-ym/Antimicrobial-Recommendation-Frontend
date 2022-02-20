@@ -113,16 +113,16 @@
     <!-- View File Modal -->
     <modal :showModal="showModal" @OnClose="closeModal">
       <template v-slot:modal-header>
-        <h3>Files for training the model</h3>
+        <h3 class="font-sarabun font-bold">Files For Training The Model</h3>
       </template>
       <template v-slot:modal-body>
-        <ul class="list-decimal ml-8">
+        <ul class="list-decimal ml-8 font-sarabun">
           <li v-for="(item, index) in modalBody" :key="index">
-            {{ item.filename }}
-            <span class="text-blue-500"> {{ item.timestamp }}</span> ({{
-              item.amountRow
+            {{ item.name }}
+            <span class="text-blue-500"> {{ item.timestamp }}</span> (จำนวน {{
+              item.amount_row
             }}
-            rows)
+            แถว)
           </li>
         </ul>
       </template>
@@ -157,8 +157,6 @@ export default {
   },
   methods: {
     viewFile(modelGroupId) {
-      console.log("test");
-      this.openModal(this.files);
       let params = { model_group_id: modelGroupId };
       this.axios
         .get(`${this.host}/api/view_filename`, { params })

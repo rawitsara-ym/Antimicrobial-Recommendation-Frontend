@@ -59,6 +59,7 @@ export default {
     VersionChart,
   },
   props: ["version", "antimicrobial", "vitekId"],
+  emits: ["ModelGroupId"],
   data() {
     return {
       performance: [],
@@ -79,9 +80,12 @@ export default {
             let res = response.data.data.performances;
             let test_by_case = res.pop();
             this.performance = response.data.data.performances;
+            this.$emit("ModelGroupId", this.performance[0].model_group_id)
             this.updatePerfByVersionChart(res);
             this.updateTestByCaseChart(test_by_case);
-            this.updateVersionChart(res);
+            if (this.version === 0) {
+              this.updateVersionChart(res);
+            }
           }
         });
     },

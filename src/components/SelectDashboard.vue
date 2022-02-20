@@ -1,6 +1,8 @@
 <template>
   <div class="w-full flex flex-col items-center md:items-start">
-    <div class="flex flex-col md:items-end md:flex-row gap-x-6 gap-y-6 text-gray-800">
+    <div
+      class="flex flex-col md:items-end md:flex-row gap-x-6 gap-y-6 text-gray-800"
+    >
       <div class="grid grid-rows-2 gap-y-2 ml-7 md:ml-0 font-medium">
         <label for="vitek_id">Vitek ID</label>
         <select
@@ -79,7 +81,7 @@
       </div>
       <div class="flex items-end justify-center ml-7 md:ml-0">
         <button
-          @click="viewFiles(item.model_group_id)"
+          @click="viewFiles()"
           :disabled="disableViewFiles"
           :class="{ 'opacity-50 cursor-not-allowed': disableViewFiles }"
           class="bg-blue-3 text-gray-800 text-sm font-medium py-1 px-6 rounded"
@@ -89,7 +91,10 @@
       </div>
     </div>
 
-    <div v-show="version != null || antimicrobial" class="flex justify-end mt-8 w-full">
+    <div
+      v-show="version != null || antimicrobial"
+      class="flex justify-end mt-8 w-full"
+    >
       <div class="w-full md:w-36">
         <button
           @click="showPerformance"
@@ -121,16 +126,16 @@
     <!-- View File Modal -->
     <modal :showModal="showModal" @OnClose="closeModal">
       <template v-slot:modal-header>
-        <h3>Files for training the model</h3>
+        <h3 class="font-sarabun font-bold">Files For Training The Model</h3>
       </template>
       <template v-slot:modal-body>
-        <ul class="list-decimal">
+        <ul class="list-decimal ml-6 font-sarabun">
           <li v-for="(item, index) in modalBody" :key="index">
-            {{ item.filename }}
-            <span class="text-blue-500"> {{ item.timestamp }}</span> ({{
-              item.amountRow
+            {{ item.name }}
+            <span class="text-blue-500"> {{ item.timestamp }}</span> (จำนวน {{
+              item.amount_row
             }}
-            rows)
+            แถว)
           </li>
         </ul>
       </template>
@@ -146,6 +151,7 @@ export default {
   components: {
     Modal,
   },
+  props: ["modelVitekId", "modelVersion", "modelGroupId"],
   emits: ["EmitForm", "ShowMode"],
   data() {
     return {
@@ -167,6 +173,10 @@ export default {
     this.getVitekId();
     this.getVersion();
     this.getAntimicrobial();
+    if (this.modelVitekId && this.modelVersion) {
+      this.vitek_id = parseInt(this.modelVitekId);
+      this.version = parseInt(this.modelVersion);
+    }
     this.emitForm();
   },
   methods: {
@@ -198,9 +208,8 @@ export default {
           }
         });
     },
-    viewFiles(modelGroupId) {
-      this.openModal(this.files);
-      let params = { model_group_id: modelGroupId };
+    viewFiles() {
+      let params = { model_group_id: this.modelGroupId };
       this.axios
         .get(`${this.host}/api/view_filename`, { params })
         .then((response) => {

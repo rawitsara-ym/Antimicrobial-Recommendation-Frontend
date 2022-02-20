@@ -43,6 +43,7 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: DashboardPage,
+    props: true,
   },
 
 ]

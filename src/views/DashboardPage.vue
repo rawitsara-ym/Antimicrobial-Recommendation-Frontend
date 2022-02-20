@@ -1,13 +1,25 @@
 <template>
   <div class="flex flex-col mb-8">
-    <h1 class="text-gray-800 text-center text-xl sm:text-2xl font-semibold my-6">Model Dashboard</h1>
-    <select-dashboard @EmitForm="getForm" @ShowMode="setMode" />
+    <h1
+      class="text-gray-800 text-center text-xl sm:text-2xl font-semibold my-6"
+    >
+      Model Dashboard
+    </h1>
+    <select-dashboard
+      ref="selectDashboard"
+      :modelVitekId="modelVitekId"
+      :modelVersion="modelVersion"
+      @EmitForm="getForm"
+      @ShowMode="setMode"
+      :modelGroupId="model_group_id"
+    />
     <div v-show="showDashboard">
       <performance-dashboard
         v-show="mode === 1"
         :version="version"
         :antimicrobial="antimicrobial"
         :vitekId="vitek_id"
+        @ModelGroupId="getModelGroupId"
       />
       <dataset-dashboard
         v-if="mode === 2"
@@ -33,11 +45,13 @@ export default {
     PerformanceDashboard,
     DatasetDashboard,
   },
+  props: ["modelVitekId", "modelVersion"],
   data() {
     return {
       vitek_id: null,
       version: null,
       antimicrobial: null,
+      model_group_id: null,
       mode: 1,
     };
   },
@@ -47,6 +61,9 @@ export default {
       this.version = form.version;
       this.antimicrobial = form.antimicrobial;
       // console.log(form);
+    },
+    getModelGroupId(modelGroupId) {
+      this.model_group_id = modelGroupId;
     },
     setMode(mode) {
       this.mode = mode;

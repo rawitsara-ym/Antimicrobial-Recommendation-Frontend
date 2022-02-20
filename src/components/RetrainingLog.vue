@@ -189,6 +189,9 @@ export default {
           }
         });
     },
+    openDashboard() {
+      this.$router.push({name: "Dashboard", params: { modelVitekId: 2, modelVersion: 1 }})
+    },
     showMore(page) {
       this.currentPage = page;
     },

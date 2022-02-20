@@ -28,7 +28,8 @@
         />
       </label>
       <div class="h-4">
-        <p v-if="file" class="text-gray-400 text-sm">{{ file.name }}</p>
+        <p v-if="file" class="text-gray-400 text-sm hidden sm:block">{{ truncate(file.name, 40)}}</p>
+        <p v-if="file" class="text-gray-400 text-sm sm:hidden">{{ truncate(file.name, 20)}}</p>
       </div>
     </div>
     <div class="flex m-4">
@@ -47,41 +48,40 @@
     <!-- File Format Modal -->
     <modal :showModal="show_modal" @OnClose="closeModal">
       <template v-slot:modal-header>
-        <h3>File Format</h3>
+        <h3 class="font-sarabun font-bold">File Format</h3>
       </template>
       <template v-slot:modal-body>
-        <div class="flex items-center">
+        <div class="flex items-center font-sarabun">
           <font-awesome-icon
             icon="info-circle"
             size="lg"
             class="text-gray-400 mr-2"
           />
           <p>
-            The uploaded file must be valid according to the specified
-            conditions.
+            ไฟล์ที่อัปโหลดจะต้องตรงตามเงื่อนไข ดังนี้
           </p>
         </div>
-        <ul class="list-disc ml-14">
-          <li>File format: <span class="text-gray-400">CSV File</span></li>
+        <ul class="list-disc ml-14 font-sarabun">
+          <li>รูปแบบไฟล์: <span class="text-gray-400">CSV File</span></li>
           <li>
-            The number of rows in the file:<span class="text-gray-400">
-              Minimum 500 rows.</span
+            จำนวนแถวของไฟล์:<span class="text-gray-400">
+              อย่างน้อย 300 แถว</span
             >
           </li>
           <li>
-            The columns must be named as follows:
+            ต้องประกอบไปด้วยคอลัมน์ ดังนี้:
             <span class="text-gray-400"
               >hn, date_of_submission, report_issued_date, species,
-              bacteria_species, submitted_sample, S/I/R_{antimicrobial},
-              ans_{antimicrobial}</span
+              bacteria_species, submitted_sample, S/I/R_ชื่อยาต้านจุลชีพ,
+              ans_ชื่อยาต้านจุลชีพ</span
             >
           </li>
-          <li>Date format: <span class="text-gray-400">yyyy-mm-dd</span></li>
+          <li>รูปแบบวันที่: <span class="text-gray-400">yyyy-mm-dd</span></li>
           <li>
-            The Column "ans_{antimicrobial}" must contain:
-            <span class="text-gray-400">True, False</span>
+            คอลัมน์ "ans_ชื่อยาต้านจุลชีพ" จะต้องมีค่า:
+            <span class="text-gray-400">True หรือ False</span>
           </li>
-          <li>The file must not contain duplicate rows.</li>
+          <li>ต้องไม่มีแถวซ้ำกันในไฟล์และในฐานข้อมูล</li>
         </ul>
       </template>
     </modal>
@@ -122,7 +122,6 @@ export default {
       this.file = e.dataTransfer.files[0];
       this.$emit("AddFile", e.target.files[0]);
     },
-
     emitVitekId() {
       this.$emit("VitekId", this.vitek_id);
     },
@@ -131,6 +130,12 @@ export default {
     },
     openModal() {
       this.show_modal = true;
+    },
+    truncate(str, limit) {
+      if (str.length <= limit + 10) {
+        return str;
+      }
+      return str.slice(0, limit) + "..." + str.slice(-7);
     },
   },
 };

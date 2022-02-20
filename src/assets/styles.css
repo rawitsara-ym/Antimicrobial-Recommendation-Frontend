@@ -46,6 +46,12 @@
   font-weight: 600;
   font-style: normal;
 }
+@font-face {
+  font-family: "Sarabun";
+  src: url(./fonts/Sarabun/Sarabun-Bold.ttf) format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
 
 .font-sarabun {
   font-family: "Sarabun", sans-serif;

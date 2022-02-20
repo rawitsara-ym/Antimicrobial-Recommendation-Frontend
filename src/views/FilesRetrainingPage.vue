@@ -15,11 +15,11 @@
     @OnCancel="onCancel"
   >
     <template v-slot:popup-header>
-      <h2 class="font-bold">Confirm</h2>
+      <h2 class="font-sarabun font-bold">Confirm Model Retraining</h2>
     </template>
     <template v-slot:popup-body>
-      <h4 class="font-semibold text-lg">Are you sure training the model?</h4>
-      <p>If you confirm, the system will train the model immediately.</p>
+      <h4 class="font-sarabun">คุณต้องการที่จะเทรนโมเดลใหม่ใช่หรือไม่?</h4>
+      <p class="font-sarabun">ถ้าคุณคลิกปุ่ม Confirm ระบบจะทำการเทรนโมเดลใหม่โดยทันที</p>
     </template>
   </pop-up>
 
