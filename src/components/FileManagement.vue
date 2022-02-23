@@ -17,7 +17,7 @@
             <td class="px-6 py-2">{{ index + 1 }}</td>
             <td class="px-6 py-2">{{ item.name }}</td>
             <td class="px-6 py-2">{{ item.vitek_id }}</td>
-            <td class="px-6 py-2">{{ item.upload_at }}</td>
+            <td class="px-6 py-2 whitespace-nowrap">{{ item.upload_at }}</td>
             <td class="px-6 py-2">{{ item.amount_row }}</td>
             <td class="px-6 py-2">
               <button

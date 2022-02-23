@@ -11,6 +11,7 @@
               <th class="px-2 py-3 font-medium"></th>
               <th class="px-2 py-3 font-medium">#</th>
               <th class="px-2 py-3 font-medium">Filename</th>
+              <th class="px-2 py-3 font-medium">Vitek ID</th>
               <th class="px-2 py-3 font-medium">Start Date</th>
               <th class="px-2 py-3 font-medium">Finish Date</th>
               <th class="px-2 py-3 font-medium">Time</th>
@@ -44,10 +45,11 @@
               </td>
               <td class="px-2 py-2">{{ index + 1 + currentPage * 10 - 10}}</td>
               <td class="px-2 py-2">{{ item.filename }}</td>
-              <td class="px-2 py-2">
+              <td class="px-2 py-2">{{ item.vitek_id }}</td>
+              <td class="px-2 py-2 whitespace-nowrap">
                 {{ item.start_date }}
               </td>
-              <td class="px-2 py-2">
+              <td class="px-2 py-2 whitespace-nowrap">
                 {{ item.finish_date }}
               </td>
               <td class="px-2 py-2">

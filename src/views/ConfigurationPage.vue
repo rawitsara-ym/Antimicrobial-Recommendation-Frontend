@@ -75,7 +75,7 @@
               <td class="px-4 py-2">
                 {{ upperFirst(item.antimicrobial) }}
               </td>
-              <td class="px-4 py-2">
+              <td class="px-4 py-2 whitespace-nowrap">
                 {{ item.params }}
               </td>
             </tr>
@@ -108,7 +108,7 @@
                 <td class="px-4 py-2">
                   {{ upperFirst(item.antimicrobial) }}
                 </td>
-                <td class="px-4 py-2">
+                <td class="px-4 py-2 whitespace-nowrap">
                   {{ item.smote }}
                 </td>
               </tr>
