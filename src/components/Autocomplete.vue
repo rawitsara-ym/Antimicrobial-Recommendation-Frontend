@@ -5,6 +5,9 @@
       v-model="input"
       @input="handleInput"
       @click="show_list = true"
+      @keydown.down="onArrowDown"
+      @keydown.up="onArrowUp"
+      @keydown.enter="onEnter"
     />
     <div
       class="w-full absolute border bg-white rounded-lg shadow-2xl"
@@ -15,7 +18,9 @@
           v-for="(item, i) in filteredList"
           :key="i"
           @click="setInput(item)"
-          class="px-2 hover:bg-blue-500 hover:text-white"
+          @mouseover="arrowCounter = i; arrowKey = false"
+          class="px-2"
+          :class="{ 'bg-blue-500 text-white': i === arrowCounter, 'hover:bg-blue-500 hover:text-white': arrowKey == false}"
         >
           {{ item }}
         </li>
@@ -33,18 +38,21 @@ export default {
       requred: true,
     },
   },
-  created() {
-    window.addEventListener("click", (e) => {
-      if (!this.$el.contains(e.target)) {
-        this.show_list = false;
-      }
-    });
-  },
   data() {
     return {
       input: null,
       show_list: false,
+      arrowCounter: -1,
+      arrowKey: false,
     };
+  },
+  created() {
+    window.addEventListener("click", (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.show_list = false;
+        this.arrowCounter = -1;
+      }
+    });
   },
   methods: {
     handleInput() {
@@ -59,6 +67,25 @@ export default {
     clearInput() {
       this.input = null;
     },
+    onArrowDown() {
+      if (this.arrowCounter < this.list.length) {
+        this.arrowCounter = this.arrowCounter + 1;
+      }
+      this.arrowKey = true;
+    },
+    onArrowUp() {
+      if (this.arrowCounter > 0) {
+        this.arrowCounter = this.arrowCounter - 1;
+      }
+      this.arrowKey = true;
+    },
+    onEnter() {
+      this.input = this.list[this.arrowCounter];
+      this.arrowCounter = -1;
+      this.show_list = false;
+      this.$emit("inputValue", this.input);
+      this.arrowKey = true;
+    }
   },
   computed: {
     filteredList() {
