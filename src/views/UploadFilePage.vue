@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center mb-8">
     <h1 class="text-gray-800 text-xl md:text-2xl font-semibold my-6">Upload File</h1>
-    <choose-file @VitekId="getVitekId" @AddFile="getFile" />
+    <choose-file ref="chooseFile" @VitekId="getVitekId" @AddFile="getFile" />
     <button
       @click="showPopUpConfirm"
       :disabled="!file || !vitek_id"
@@ -64,7 +64,8 @@ export default {
         .post(`${this.host}/api/upload`, formData, { params })
         .then((response) => {
           if (response.data.status == "success") {
-            console.log(response.data.data);
+            // console.log(response.data.data);
+            this.$refs.chooseFile.clearFile();
             this.$refs.fileUploadLog.getLogs();
           }
         });

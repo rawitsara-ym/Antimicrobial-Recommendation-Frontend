@@ -137,6 +137,9 @@ export default {
       }
       return str.slice(0, limit) + "..." + str.slice(-7);
     },
+    clearFile() {
+      this.file = null;
+    }
   },
 };
 </script>

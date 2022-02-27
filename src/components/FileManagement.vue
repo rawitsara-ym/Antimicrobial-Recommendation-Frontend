@@ -21,7 +21,7 @@
             <td class="px-6 py-2">{{ item.amount_row }}</td>
             <td class="px-6 py-2">
               <button
-                @click="deleteFile(item)"
+                @click="showPopUpConfirm(item)"
                 :disabled="!item.can_delete"
                 :class="{ 'opacity-50 cursor-not-allowed': !item.can_delete }"
               >
@@ -59,7 +59,9 @@
       <h2 class="font-bold">Confirm File Deletion</h2>
     </template>
     <template v-slot:popup-body>
-      <h4 class="font-sarabun">คุณต้องการลบไฟล์ "{{ filename }}" ใช่หรือไม่?</h4>
+      <h4 class="font-sarabun">
+        คุณต้องการลบไฟล์ "{{ filename }}" ใช่หรือไม่?
+      </h4>
       <!-- <p class="text-gray-500">
         If you delete the file you can not recover it.
       </p> -->
@@ -96,6 +98,7 @@ export default {
       show_popup_confirm: false,
       show_popup_success: false,
       filename: null,
+      file_id: null,
     };
   },
   created() {
@@ -114,28 +117,41 @@ export default {
           }
         });
     },
-    deleteFile(file) {
-      this.showPopUpConfirm(file.name);
+    deleteFile() {
+      let params = { file_id: this.file_id };
+      this.axios
+        .delete(`${this.host}/api/delete_file`, { params })
+        .then((response) => {
+          console.log(response);
+          if (response.data.status == "success") {
+            this.showPopUpSuccess();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     showMore(page) {
       this.currentPage = page;
     },
-    showPopUpConfirm(filename) {
+    showPopUpConfirm(file) {
       this.show_popup_confirm = true;
-      this.filename = filename;
+      this.filename = file.name;
+      this.file_id = file.id;
     },
     showPopUpSuccess() {
       this.show_popup_success = true;
     },
     onConfirm() {
+      this.deleteFile();
       this.show_popup_confirm = false;
-      this.show_popup_success = true;
     },
     onCancel() {
       this.show_popup_confirm = false;
     },
     onSuccess() {
       this.show_popup_success = false;
+      this.getFiles();
     },
   },
 };
