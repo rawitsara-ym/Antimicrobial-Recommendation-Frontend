@@ -262,6 +262,8 @@ export default {
     vitek_id() {
       this.antimicrobial = null;
       this.version = null;
+      this.getVersion();
+      this.getAntimicrobial();
       this.showPerformance();
       this.emitForm();
     },

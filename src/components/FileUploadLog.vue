@@ -100,6 +100,7 @@
         </table>
       </div>
       <pagination
+        v-show="totalPages != 0"
         :row-on-page="logs.length"
         :total-pages="totalPages"
         :total-rows="totalRows"
@@ -225,7 +226,7 @@ export default {
         .get(`${this.host}/api/upload_logs/`, { params })
         .then((response) => {
           if (response.data.status == "success") {
-            console.log(response.data.data.logs);
+            // console.log(response.data.data.logs);
             this.logs = response.data.data.logs;
             this.totalRows = response.data.data.total;
             this.totalPages = Math.ceil(this.totalRows / this.perPage);
@@ -244,9 +245,6 @@ export default {
     openModal(body) {
       this.showModal = true;
       this.modalBody = body;
-    },
-    convertTime(seconds) {
-      return new Date(seconds * 1000).toISOString().substr(11, 8);
     },
   },
   watch: {

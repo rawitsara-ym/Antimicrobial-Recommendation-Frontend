@@ -38,6 +38,7 @@
       </table>
     </div>
     <pagination
+      v-show="totalPages != 0"
       :row-on-page="files.length"
       :total-pages="totalPages"
       :total-rows="totalRows"
