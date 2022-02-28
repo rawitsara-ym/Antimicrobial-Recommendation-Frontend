@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-between py-2 my-2">
     <p class="text-gray-800 text-xs sm:text-sm">
-      Showing {{ startShowing }} to {{ startShowing + rowOnPage - 1  }} of {{ totalRows }} entries
+      Showing {{ startShowing }} to {{ startShowing == 0 ? 0 : startShowing + rowOnPage - 1  }} of {{ totalRows }} entries
     </p>
     <ul class="flex bg-white gap-x-1">
       <li>

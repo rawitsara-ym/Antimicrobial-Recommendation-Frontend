@@ -21,6 +21,7 @@
           >Choose a File</span
         >
         <input
+          ref="inputFile"
           type="file"
           accept=".csv"
           @change="handleFileChange"
@@ -139,6 +140,10 @@ export default {
     },
     clearFile() {
       this.file = null;
+      this.vitek_id = null;
+      this.$refs.inputFile.value = null;
+      this.$emit("VitekId", this.vitek_id);
+      this.$emit("AddFile", null);
     }
   },
 };

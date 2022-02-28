@@ -43,7 +43,7 @@
                   spin
                 />
               </td>
-              <td class="px-2 py-2">{{ index + 1 + currentPage * 10 - 10}}</td>
+              <td class="px-2 py-2">{{ index + 1 + currentPage * 10 - 10 }}</td>
               <td class="px-2 py-2">{{ item.filename }}</td>
               <td class="px-2 py-2">{{ item.vitek_id }}</td>
               <td class="px-2 py-2 whitespace-nowrap">
@@ -93,7 +93,8 @@
             </tr>
             <tr v-if="logs.length == 0">
               <td colspan="9" class="text-center text-sm font-medium p-4">
-                No Data
+                <loader v-if="show_loading" />
+                <p v-else>No Data</p>
               </td>
             </tr>
           </tbody>
@@ -124,7 +125,6 @@
       </template>
       <template v-slot:modal-body>
         <div v-if="modalBody.status == 'success'">
-          <!-- <p>Your file is valid according to the specified conditions.</p> -->
           <div class="flex items-center mt-2 font-sarabun">
             <font-awesome-icon
               icon="check-circle"
@@ -149,12 +149,6 @@
           </div>
         </div>
         <div v-else class="font-sarabun">
-          <!-- <p>
-            Your file is
-            <span class="text-red-500">invalid</span> according to the specified
-            conditions.
-          </p> -->
-
           <div>
             <div class="flex items-center mt-2">
               <font-awesome-icon
@@ -169,10 +163,6 @@
             <ul class="list-disc ml-14">
               <li v-for="(item, index) in modalBody.result.detail" :key="index">
                 {{ item }}
-                <!-- {{ item.slice(0, item.indexOf(":")) }}
-                <span class="text-gray-600">
-                  {{ item.slice(item.indexOf(":")) }}
-                </span> -->
               </li>
             </ul>
           </div>
@@ -185,18 +175,19 @@
 <script>
 import Pagination from "./Pagination.vue";
 import Modal from "./Modal.vue";
+import Loader from "./Loader.vue";
 
 export default {
   name: "FileUploadLog",
   components: {
     Pagination,
     Modal,
+    Loader,
   },
   data() {
     return {
       logs: [],
       showModal: false,
-      // page: 1,
       totalPages: 1,
       totalRows: 0,
       perPage: 10,
@@ -204,9 +195,11 @@ export default {
       hasMorePages: true,
       modalBody: {},
       timer: null,
+      show_loading: false,
     };
   },
   created() {
+    this.show_loading = true;
     this.getLogs();
     this.timer = setInterval(() => {
       this.getLogs();
@@ -229,8 +222,18 @@ export default {
             // console.log(response.data.data.logs);
             this.logs = response.data.data.logs;
             this.totalRows = response.data.data.total;
-            this.totalPages = Math.ceil(this.totalRows / this.perPage);
+            this.totalPages =
+              this.totalRows == 0
+                ? 1
+                : Math.ceil(this.totalRows / this.perPage);
+            this.show_loading = false;
+          } else {
+            this.show_loading = false;
           }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.show_loading = false;
         });
     },
     success(log) {

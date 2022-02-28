@@ -15,7 +15,7 @@
     />
     <div v-show="showDashboard">
       <performance-dashboard
-        v-show="mode === 1"
+        v-if="mode === 1"
         :version="version"
         :antimicrobial="antimicrobial"
         :vitekId="vitek_id"

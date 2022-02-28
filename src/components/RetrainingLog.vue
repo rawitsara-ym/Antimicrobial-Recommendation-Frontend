@@ -110,7 +110,8 @@
           </tr>
           <tr v-if="logs.length == 0">
             <td colspan="9" class="text-center text-sm font-medium p-4">
-              No Data
+              <loader v-if="show_loading" />
+              <p v-else>No Data</p>
             </td>
           </tr>
         </tbody>
@@ -166,6 +167,7 @@
 import Pagination from "./Pagination.vue";
 import Modal from "./Modal.vue";
 import PopUp from "./PopUp.vue"
+import Loader from "./Loader.vue"
 
 export default {
   name: "RetrainingLog",
@@ -173,6 +175,7 @@ export default {
     Pagination,
     Modal,
     PopUp,
+    Loader,
   },
   data() {
     return {
@@ -186,9 +189,11 @@ export default {
       showModal: false,
       modalBody: {},
       show_popup_confirm: false,
+      show_loading: false,
     };
   },
   created() {
+    this.show_loading = true;
     this.getLogs();
     this.timer = setInterval(() => {
       this.getLogs();
@@ -206,8 +211,15 @@ export default {
           if (response.data.status == "success") {
             this.logs = response.data.data.logs;
             this.totalRows = response.data.data.total;
-            this.totalPages = Math.ceil(this.totalRows / this.perPage);
+            this.totalPages = this.totalRows == 0 ? 1 : Math.ceil(this.totalRows / this.perPage);
+            this.show_loading = false;
+          } else {
+            this.show_loading = false;
           }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.show_loading = false;
         });
     },
     viewFiles(retrainingLogId) {

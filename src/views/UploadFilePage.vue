@@ -3,6 +3,7 @@
     <h1 class="text-gray-800 text-xl md:text-2xl font-semibold my-6">Upload File</h1>
     <choose-file ref="chooseFile" @VitekId="getVitekId" @AddFile="getFile" />
     <button
+      ref="uploadButton"
       @click="showPopUpConfirm"
       :disabled="!file || !vitek_id"
       :class="{ 'opacity-50 cursor-not-allowed': !file || !vitek_id }"
@@ -68,6 +69,9 @@ export default {
             this.$refs.chooseFile.clearFile();
             this.$refs.fileUploadLog.getLogs();
           }
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
     showPopUpConfirm() {
@@ -76,10 +80,15 @@ export default {
     onConfirm() {
       this.show_popup_confirm = false;
       this.uploadFile();
+      // this.gotoLog();
     },
     onCancel() {
       this.show_popup_confirm = false;
     },
+    gotoLog() {
+      let top = this.$refs.uploadButton.offsetTop;
+      window.scrollTo(0, top-20);
+    }
   },
 };
 </script>

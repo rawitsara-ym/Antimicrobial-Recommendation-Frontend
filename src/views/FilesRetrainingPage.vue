@@ -45,6 +45,15 @@
     <p class="font-sarabun">{{ message }}</p>
   </pop-up>
 
+  <!-- ERROR -->
+  <pop-up
+    :type="'fail'"
+    :showPopUp="show_popup_error"
+    @OnFail="onError"
+  >
+    <p class="font-sarabun">ไม่สามารถเทรนโมเดลได้ในขณะนี้</p>
+  </pop-up>
+
   <!-- Loader -->
   <div
     v-if="show_loading"
@@ -70,6 +79,7 @@ export default {
       show_popup_confirm: false,
       show_popup_success: false,
       show_popup_fail: false,
+      show_popup_error: false,
       show_loading: false,
       message: "",
     };
@@ -88,10 +98,15 @@ export default {
             } else {
               this.showPopUpFail();
             }
+          } else {
+            this.show_loading = false;
+            this.show_popup_error = true;
           }
         })
         .catch((error) => {
           console.log(error);
+          this.show_loading = false;
+          this.show_popup_error = true;
         });
     },
     showPopUpConfirm() {
@@ -116,6 +131,9 @@ export default {
     },
     onFail() {
       this.show_popup_fail = false;
+    },
+    onError() {
+      this.show_popup_error = false;
     },
   },
 };

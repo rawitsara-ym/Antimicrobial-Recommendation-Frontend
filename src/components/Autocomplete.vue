@@ -13,8 +13,9 @@
       class="w-full absolute border bg-white rounded-lg shadow-2xl"
       v-if="show_list && filteredList.length"
     >
-      <ul class="cursor-pointer overflow-y-auto max-h-48 rounded-lg">
+      <ul ref="scrollContainer" class="cursor-pointer overflow-y-auto max-h-48 rounded-lg">
         <li
+          ref="options"
           v-for="(item, i) in filteredList"
           :key="i"
           @click="setInput(item)"
@@ -67,25 +68,34 @@ export default {
     clearInput() {
       this.input = null;
     },
-    onArrowDown() {
-      if (this.arrowCounter < this.list.length) {
+    onArrowDown(ev) {
+      ev.preventDefault()
+      if (this.arrowCounter < this.filteredList.length-1) {
         this.arrowCounter = this.arrowCounter + 1;
+        this.fixScrolling();
       }
       this.arrowKey = true;
     },
-    onArrowUp() {
+    onArrowUp(ev) {
+      ev.preventDefault()
       if (this.arrowCounter > 0) {
         this.arrowCounter = this.arrowCounter - 1;
+        this.fixScrolling();
       }
       this.arrowKey = true;
     },
     onEnter() {
-      this.input = this.list[this.arrowCounter];
+      this.input = this.filteredList[this.arrowCounter];
       this.arrowCounter = -1;
       this.show_list = false;
       this.$emit("inputValue", this.input);
       this.arrowKey = true;
-    }
+    },
+    fixScrolling()  {
+      const liH = this.$refs.options[this.arrowCounter].clientHeight;
+      console.log(liH, liH * this.arrowCounter, this.arrowCounter)
+      this.$refs.scrollContainer.scrollTop = liH * (this.arrowCounter);
+    },
   },
   computed: {
     filteredList() {

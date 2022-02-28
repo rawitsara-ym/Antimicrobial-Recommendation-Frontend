@@ -57,7 +57,7 @@ export default {
     AnswerChart,
   },
   props: ["vitekId", "version"],
-  created() {
+  mounted() {
     this.getCaseCountDb();
     this.getSpeciesDb();
     this.getBacteriaGenusDb();
@@ -226,6 +226,18 @@ export default {
             this.$refs.answerChart.updateChart(options, series);
           }
         });
+    },
+  },
+  watch: {
+    version(value) {
+      if (value != null) {
+        this.getCaseCountDb();
+        this.getSpeciesDb();
+        this.getBacteriaGenusDb();
+        this.getSubmittedSampleDb();
+        this.getSirDb();
+        this.getAnswerDb();
+      }
     },
   },
 };

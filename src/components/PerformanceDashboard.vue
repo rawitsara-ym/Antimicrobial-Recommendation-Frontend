@@ -65,6 +65,9 @@ export default {
       performance: [],
     };
   },
+  mounted() {
+    this.getPerformance();
+  },
   methods: {
     getPerformance() {
       let params = {
