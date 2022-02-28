@@ -31,6 +31,13 @@
                 class="text-red-500"
               />
               <font-awesome-icon
+                v-else-if="item.status == 'pending'"
+                icon="spinner"
+                size="lg"
+                class="text-gray-500"
+                spin
+              />
+              <font-awesome-icon
                 v-else
                 icon="spinner"
                 size="lg"
@@ -57,6 +64,12 @@
                 icon="circle"
                 size="xs"
                 class="text-red-500"
+              />
+              <font-awesome-icon
+                v-else-if="item.status == 'pending'"
+                icon="circle"
+                size="xs"
+                class="text-gray-500"
               />
               <font-awesome-icon
                 v-else
