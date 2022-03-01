@@ -45,6 +45,7 @@ export default {
       show_list: false,
       arrowCounter: -1,
       arrowKey: false,
+      scroll_size: 0,
     };
   },
   created() {
@@ -92,9 +93,18 @@ export default {
       this.arrowKey = true;
     },
     fixScrolling()  {
-      const liH = this.$refs.options[this.arrowCounter].clientHeight;
-      console.log(liH, liH * this.arrowCounter, this.arrowCounter)
-      this.$refs.scrollContainer.scrollTop = liH * (this.arrowCounter);
+      const liH_fix = this.$refs.options[0].getBoundingClientRect().height;
+      const liH = this.$refs.options[this.arrowCounter].getBoundingClientRect().height;
+      const posCurrent = this.$refs.options[this.arrowCounter].getBoundingClientRect().top;
+      const posT = this.$refs.scrollContainer.getBoundingClientRect().top
+      if (posCurrent >= posT+(liH_fix*7+1)) {
+        this.scroll_size += liH
+        this.$refs.scrollContainer.scrollTop = this.scroll_size;
+      }
+      if (posCurrent < posT) {
+        this.scroll_size -= liH
+        this.$refs.scrollContainer.scrollTop = this.scroll_size;
+      }
     },
   },
   computed: {
