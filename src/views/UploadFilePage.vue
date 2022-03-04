@@ -68,6 +68,7 @@ export default {
             // console.log(response.data.data);
             this.$refs.chooseFile.clearFile();
             this.$refs.fileUploadLog.getLogs();
+            this.$refs.fileUploadLog.currentPage = 1;
           }
         })
         .catch((error) => {
