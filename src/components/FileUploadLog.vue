@@ -133,7 +133,7 @@
             />
             <p>อัปโหลดไฟล์สำเร็จ {{ modalBody.amount_row }} แถว</p>
           </div>
-          <div class="flex flex-col mt-4 font-sarabun">
+          <div v-show="modalBody.result.detail.length != 0" class="flex flex-col mt-4 font-sarabun">
             <div class="flex items-center">
               <font-awesome-icon
                 icon="exclamation-triangle"
