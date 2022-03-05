@@ -19,7 +19,13 @@
           <tr v-for="(item, index) in logs" :key="index">
             <td class="px-2 py-2 text-center">
               <font-awesome-icon
-                v-if="success(item)"
+                v-if="item.cancel == true"
+                icon="times-circle"
+                size="lg"
+                class="text-gray-500"
+              />
+              <font-awesome-icon
+                v-else-if="success(item)"
                 icon="check-circle"
                 size="lg"
                 class="text-green-500"
@@ -34,7 +40,7 @@
                 v-else-if="item.status == 'pending'"
                 icon="spinner"
                 size="lg"
-                class="text-gray-500"
+                class="text-blue-500"
                 spin
               />
               <font-awesome-icon
@@ -54,7 +60,13 @@
             </td>
             <td class="px-2 py-2">
               <font-awesome-icon
-                v-if="success(item)"
+                v-if="item.cancel == true"
+                icon="circle"
+                size="xs"
+                class="text-gray-500"
+              />
+              <font-awesome-icon
+                v-else-if="success(item)"
                 icon="circle"
                 size="xs"
                 class="text-green-500"
@@ -69,7 +81,7 @@
                 v-else-if="item.status == 'pending'"
                 icon="circle"
                 size="xs"
-                class="text-gray-500"
+                class="text-blue-500"
               />
               <font-awesome-icon
                 v-else
@@ -77,7 +89,11 @@
                 size="xs"
                 class="text-blue-500"
               />
-              {{ upperFirst(item.status) }}
+              <span v-if="item.status == 'cancel'">{{
+                " " + upperFirst(item.status)
+              }}</span>
+              <span v-else-if="item.cancel == true"> Canceling</span>
+              <span v-else>{{ " " + upperFirst(item.status) }}</span>
             </td>
             <td>
               <button
@@ -89,7 +105,7 @@
             </td>
             <td>
               <button
-                v-if="success(item) || fail(item)"
+                v-if="success(item) || fail(item) || item.cancel == true"
                 @click="goToModelDashboard(item)"
                 :disabled="!success(item)"
                 :class="{
@@ -101,7 +117,7 @@
               </button>
               <button
                 v-else
-                @click="showPopUpConfirm"
+                @click="showPopUpConfirm(item.id)"
                 class="bg-red-300 text-sm text-gray-700 font-medium py-1 px-4 m-2 w-28 rounded"
               >
                 Cancel
@@ -137,9 +153,8 @@
         <ul class="list-decimal ml-6 font-sarabun">
           <li v-for="(item, index) in modalBody" :key="index">
             {{ item.name }}
-            <span class="text-blue-500"> {{ item.timestamp }}</span> (จำนวน {{
-              item.amount_row
-            }}
+            <span class="text-blue-500"> {{ item.timestamp }}</span> (จำนวน
+            {{ item.amount_row }}
             แถว)
           </li>
         </ul>
@@ -148,26 +163,39 @@
 
     <!-- Cancel Pop-Up -->
     <pop-up
-    :type="'confirm'"
-    :showPopUp="show_popup_confirm"
-    @OnConfirm="onConfirm"
-    @OnCancel="onCancel"
-  >
-    <template v-slot:popup-header>
-      <h2 class="font-bold">Confirm to cancel the model training</h2>
-    </template>
-    <template v-slot:popup-body>
-      <h4 class="font-sarabun">คุณต้องการยกเลิกการเทรนโมเดลใช่หรือไม่?</h4>
-    </template>
-  </pop-up>
+      :type="'confirm'"
+      :showPopUp="show_popup_confirm"
+      @OnConfirm="onConfirm"
+      @OnCancel="onCancel"
+    >
+      <template v-slot:popup-header>
+        <h2 class="font-bold">Confirm to cancel the model training</h2>
+      </template>
+      <template v-slot:popup-body>
+        <h4 class="font-sarabun">คุณต้องการยกเลิกการเทรนโมเดลใช่หรือไม่?</h4>
+      </template>
+    </pop-up>
+
+    <!-- Error Pop-up -->
+    <pop-up :type="'fail'" :showPopUp="show_popup_error" @OnFail="onError">
+      <p class="font-sarabun">ยกเลิกการเทรนโมเดลไม่สำเร็จ</p>
+    </pop-up>
+
+    <!-- Loader -->
+    <div
+      v-if="show_cancel_loading"
+      class="fixed right-0 left-0 top-0 z-50 flex justify-center items-center h-full opacity-25 bg-black"
+    >
+      <loader />
+    </div>
   </div>
 </template>
 
 <script>
 import Pagination from "./Pagination.vue";
 import Modal from "./Modal.vue";
-import PopUp from "./PopUp.vue"
-import Loader from "./Loader.vue"
+import PopUp from "./PopUp.vue";
+import Loader from "./Loader.vue";
 
 export default {
   name: "RetrainingLog",
@@ -189,7 +217,10 @@ export default {
       showModal: false,
       modalBody: {},
       show_popup_confirm: false,
+      show_popup_error: false,
       show_loading: false,
+      show_cancel_loading: false,
+      cancel_id: null,
     };
   },
   created() {
@@ -211,7 +242,10 @@ export default {
           if (response.data.status == "success") {
             this.logs = response.data.data.logs;
             this.totalRows = response.data.data.total;
-            this.totalPages = this.totalRows == 0 ? 1 : Math.ceil(this.totalRows / this.perPage);
+            this.totalPages =
+              this.totalRows == 0
+                ? 1
+                : Math.ceil(this.totalRows / this.perPage);
             this.show_loading = false;
           } else {
             this.show_loading = false;
@@ -232,6 +266,25 @@ export default {
             this.files = response.data.data.files;
             this.openModal(this.files);
           }
+        });
+    },
+    cancelRetraining() {
+      this.show_cancel_loading = true;
+      let params = { retraining_id: this.cancel_id };
+      this.axios
+        .get(`${this.host}/api/cancel_retraining`, { params })
+        .then((response) => {
+          this.show_cancel_loading = false;
+          if (response.data.status == "success") {
+            this.getLogs();
+          } else {
+            this.show_popup_error = true;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          this.show_cancel_loading = false;
+          this.show_popup_error = true;
         });
     },
     goToModelDashboard(log) {
@@ -259,18 +312,19 @@ export default {
       this.showModal = true;
       this.modalBody = body;
     },
-    cancelRetraining() {
-      console.log("Cancel Retraining!");
-    },
-    showPopUpConfirm() {
+    showPopUpConfirm(id) {
       this.show_popup_confirm = true;
+      this.cancel_id = id;
     },
     onConfirm() {
       this.show_popup_confirm = false;
-      this.cancelRetraining()
+      this.cancelRetraining();
     },
     onCancel() {
       this.show_popup_confirm = false;
+    },
+    onError() {
+      this.show_popup_error = false;
     },
   },
   watch: {

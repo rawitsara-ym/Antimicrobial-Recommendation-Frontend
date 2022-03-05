@@ -216,7 +216,7 @@ export default {
     getLogs() {
       let params = { page: this.currentPage };
       this.axios
-        .get(`${this.host}/api/upload_logs/`, { params })
+        .get(`${this.host}/api/upload_logs`, { params })
         .then((response) => {
           if (response.data.status == "success") {
             // console.log(response.data.data.logs);
