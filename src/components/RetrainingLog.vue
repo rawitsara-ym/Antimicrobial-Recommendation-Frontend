@@ -53,12 +53,12 @@
             </td>
             <td class="px-2 py-2">{{ index + 1 }}</td>
             <td class="px-2 py-2">{{ item.vitek_name }}</td>
-            <td class="px-2 py-2">{{ item.start_date }}</td>
-            <td class="px-2 py-2">{{ item.finish_date }}</td>
-            <td class="px-2 py-2">
+            <td class="px-2 py-2 whitespace-nowrap">{{ item.start_date }}</td>
+            <td class="px-2 py-2 whitespace-nowrap">{{ item.finish_date }}</td>
+            <td class="px-2 py-2 whitespace-nowrap">
               {{ item.time == "-" ? "-" : convertTime(item.time) }}
             </td>
-            <td class="px-2 py-2">
+            <td class="px-2 py-2 whitespace-nowrap">
               <font-awesome-icon
                 v-if="item.cancel == true"
                 icon="circle"
@@ -257,7 +257,6 @@ export default {
         });
     },
     viewFiles(retrainingLogId) {
-      this.openModal(this.files);
       let params = { retraining_log_id: retrainingLogId };
       this.axios
         .get(`${this.host}/api/view_file_retraining_log`, { params })
