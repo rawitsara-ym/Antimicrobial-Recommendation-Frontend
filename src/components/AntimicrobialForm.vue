@@ -85,7 +85,7 @@ export default {
     },
     emitForm() {
       this.$emit("EmitForm", this.sir_result);
-      console.log(this.sir_result);
+      // console.log(this.sir_result);
     },
     emitSirName() {
       this.$emit("EmitSirName");
