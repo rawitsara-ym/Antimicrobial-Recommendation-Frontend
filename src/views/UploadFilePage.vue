@@ -27,12 +27,21 @@
       <p class="font-sarabun">คุณต้องการจะอัปโหลดไฟล์ "{{ file.name }}" ใช่หรือไม่?</p>
     </template>
   </pop-up>
+
+  <!-- Loader -->
+  <div
+    v-if="show_loading"
+    class="fixed right-0 left-0 top-0 z-50 flex justify-center items-center h-full opacity-25 bg-black"
+  >
+    <loader />
+  </div>
 </template>
 
 <script>
 import ChooseFile from "../components/ChooseFile.vue";
 import FileUploadLog from "../components/FileUploadLog.vue";
 import PopUp from "../components/PopUp.vue"
+import Loader from "../components/Loader.vue";
 
 export default {
   name: "UploadFilePage",
@@ -40,12 +49,14 @@ export default {
     ChooseFile,
     FileUploadLog,
     PopUp,
+    Loader,
   },
   data() {
     return {
       file: null,
       vitek_id: null,
-      show_popup_confirm: false
+      show_popup_confirm: false,
+      show_loading: false,
     };
   },
   methods: {
@@ -58,6 +69,7 @@ export default {
       // console.log(this.file)
     },
     uploadFile() {
+      this.show_loading = true;
       let params = { vitek_id: this.vitek_id };
       let formData = new FormData();
       formData.append("in_file", this.file);
@@ -69,10 +81,14 @@ export default {
             this.$refs.chooseFile.clearFile();
             this.$refs.fileUploadLog.getLogs();
             this.$refs.fileUploadLog.currentPage = 1;
+            this.show_loading = false;
+          } else {
+            this.show_loading = false;
           }
         })
         .catch((error) => {
           console.log(error);
+          this.show_loading = false;
         });
     },
     showPopUpConfirm() {
