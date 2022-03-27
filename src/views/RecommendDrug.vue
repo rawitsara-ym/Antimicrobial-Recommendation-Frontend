@@ -13,6 +13,7 @@
     </div>
     <div class="mt-8 flex gap-x-4">
       <button
+        ref="recommendButton"
         @click="getRecommend()"
         :disabled="disableRecommend"
         :class="{ 'opacity-50 cursor-not-allowed': disableRecommend }"
@@ -66,6 +67,7 @@ export default {
     getRecommend() {
       this.show_loading = true;
       this.recommended = false;
+      this.gotoResult();
       this.body.sir = this.filterObjectByValue(this.body.sir, null);
       this.axios
         .post(`${this.host}/api/predict`, this.body)
@@ -78,6 +80,8 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        }).finally(() => {
+          this.gotoResult();
         });
     },
     getFeatureForm(form) {
@@ -104,6 +108,10 @@ export default {
       this.$refs.antimicrobialForm.clearInput();
       this.show_sir_name = false;
       this.recommended = false;
+    },
+    gotoResult() {
+      let top = this.$refs.recommendButton.offsetTop;
+      window.scrollTo(0, top);
     },
     filterObjectByValue(obj, value) {
       const array = Object.entries(obj);
