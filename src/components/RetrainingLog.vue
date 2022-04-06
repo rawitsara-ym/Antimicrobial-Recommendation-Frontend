@@ -19,13 +19,7 @@
           <tr v-for="(item, index) in logs" :key="index">
             <td class="px-2 py-2 text-center">
               <font-awesome-icon
-                v-if="item.cancel == true"
-                icon="times-circle"
-                size="lg"
-                class="text-gray-500"
-              />
-              <font-awesome-icon
-                v-else-if="success(item)"
+                v-if="success(item)"
                 icon="check-circle"
                 size="lg"
                 class="text-green-500"
@@ -44,6 +38,19 @@
                 spin
               />
               <font-awesome-icon
+                v-else-if="item.status == 'canceling'"
+                icon="spinner"
+                size="lg"
+                class="text-gray-400"
+                spin
+              />
+              <font-awesome-icon
+                v-else-if="item.status == 'cancel'"
+                icon="times-circle"
+                size="lg"
+                class="text-gray-500"
+              />
+              <font-awesome-icon
                 v-else
                 icon="spinner"
                 size="lg"
@@ -60,13 +67,7 @@
             </td>
             <td class="px-2 py-2 whitespace-nowrap">
               <font-awesome-icon
-                v-if="item.cancel == true"
-                icon="circle"
-                size="xs"
-                class="text-gray-500"
-              />
-              <font-awesome-icon
-                v-else-if="success(item)"
+                v-if="success(item)"
                 icon="circle"
                 size="xs"
                 class="text-green-500"
@@ -84,16 +85,28 @@
                 class="text-blue-500"
               />
               <font-awesome-icon
+                v-else-if="item.status == 'canceling'"
+                icon="circle"
+                size="xs"
+                class="text-gray-400"
+              />
+              <font-awesome-icon
+                v-else-if="item.status == 'cancel'"
+                icon="circle"
+                size="xs"
+                class="text-gray-500"
+              />
+              <font-awesome-icon
                 v-else
                 icon="circle"
                 size="xs"
                 class="text-blue-500"
               />
-              <span v-if="item.status == 'cancel'">{{
+              <!-- <span v-if="item.status == 'cancel'">{{
                 " " + upperFirst(item.status)
               }}</span>
-              <span v-else-if="item.cancel == true"> Canceling</span>
-              <span v-else>{{ " " + upperFirst(item.status) }}</span>
+              <span v-else-if="item.cancel == true"> Canceling</span> -->
+              <span>{{ " " + upperFirst(item.status) }}</span>
             </td>
             <td>
               <button
@@ -105,7 +118,7 @@
             </td>
             <td>
               <button
-                v-if="success(item) || fail(item) || item.cancel == true"
+                v-if="item.status != 'training' && item.status != 'pending'"
                 @click="goToModelDashboard(item)"
                 :disabled="!success(item)"
                 :class="{
@@ -118,6 +131,10 @@
               <button
                 v-else
                 @click="showPopUpConfirm(item.id)"
+                :disabled="item.cancel == false"
+                :class="{
+                  'opacity-50 cursor-not-allowed': item.cancel == false,
+                }"
                 class="bg-red-300 text-sm text-gray-700 font-medium py-1 px-4 m-2 w-28 rounded"
               >
                 Cancel

@@ -73,7 +73,7 @@
             ต้องประกอบไปด้วยคอลัมน์ ดังนี้:
             <span class="text-gray-400"
               >hn, date_of_submission, report_issued_date, species,
-              bacteria_species, submitted_sample, vitek_id, S/I/R_ชื่อยาต้านจุลชีพ,
+              bacteria_genus, submitted_sample, vitek_id, S/I/R_ชื่อยาต้านจุลชีพ,
               ans_ชื่อยาต้านจุลชีพ</span
             >
           </li>
