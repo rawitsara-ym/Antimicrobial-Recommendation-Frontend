@@ -341,6 +341,7 @@ export default {
     },
     onError() {
       this.show_popup_error = false;
+      this.getLogs();
     },
   },
   watch: {
