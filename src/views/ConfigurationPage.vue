@@ -138,7 +138,7 @@ export default {
       xgb_params: [],
       smote_algo: [],
       title_params: "Antimicrobial Model (GN)",
-      title_smote: "Antimicrobial Model (GP)",
+      title_smote: "Antimicrobial Model (GN)",
     };
   },
   created() {
