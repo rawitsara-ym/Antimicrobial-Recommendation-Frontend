@@ -34,7 +34,7 @@
                 v-else-if="item.status == 'pending'"
                 icon="spinner"
                 size="lg"
-                class="text-blue-500"
+                class="text-blue-300"
                 spin
               />
               <font-awesome-icon
@@ -82,7 +82,7 @@
                 v-else-if="item.status == 'pending'"
                 icon="circle"
                 size="xs"
-                class="text-blue-500"
+                class="text-blue-300"
               />
               <font-awesome-icon
                 v-else-if="item.status == 'canceling'"
