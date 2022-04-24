@@ -55,7 +55,7 @@ export default {
           },
         },
         title: {
-          text: "ยาต้านจุลชีพที่มีการแนะนำ (Antimicrobial Recommendation)",
+          text: "จำนวนครั้งที่มีการใช้ยาต้านจุลชีพ (Antimicrobial Use)",
           align: "center",
           style: {
             fontSize: "16px",
