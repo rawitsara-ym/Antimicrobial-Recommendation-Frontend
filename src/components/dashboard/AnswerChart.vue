@@ -17,7 +17,7 @@ export default {
     return {
       options: {
         chart: {
-          id: "antimicrobial recommentdation",
+          id: "antimicrobial use",
           toolbar: {
             show: true,
           },
@@ -97,7 +97,7 @@ export default {
                 fontSize: "12px",
               },
               title: {
-                text: "ยาต้านจุลชีพที่มีการแนะนำ (Antimicrobial Recommendation)",
+                text: "จำนวนครั้งที่มีการใช้ยาต้านจุลชีพ (Antimicrobial Use)",
                 style: {
                   fontSize: "16px",
                 },
@@ -143,7 +143,7 @@ export default {
                 },
               },
               title: {
-                text: ["ยาต้านจุลชีพที่มีการแนะนำ", "(Antimicrobial Recommendation)"],
+                text: ["จำนวนครั้งที่มีการใช้ยาต้านจุลชีพ", "(Antimicrobial Use)"],
                 style: {
                   fontSize: "12px",
                 },
